@@ -33,28 +33,20 @@ end filters;
 
 architecture Behavioral of filters is
 
-  constant nframes       : integer := 8;
-  constant xsize         : integer := 128;
-  constant peakhz        : integer := 4;
-  constant aspect        : integer := 1;
-  constant umax          : integer := 20;
-  constant kratio        : real    := 0.25;
-  constant angconv       : real    := 6.4;
-  constant tsd           : real    := 0.22;
-  constant tphase        : real    := 0.1;
-  constant ysize         : integer := xsize;
-  constant deltu         : integer := (2*umax)/xsize;
-  constant thalf         : integer := nframes/2;
-  constant maxrate       : integer := 20;
-  constant wInterval     : real    := maxrate/thalf;
-  signal   esust_re_int  : real    := 0;
-  signal   esust_im_int  : real    := 0;
-  signal   osust_re_int  : real    := 0;
-  signal   osust_im_int  : real    := 0;
-  signal   etrans_re_int : real    := 0;
-  signal   etrans_im_int : real    := 0;
-  signal   otrans_re_int : real    := 0;
-  signal   otrans_im_int : real    := 0;
+  constant nframes   : integer := 8;
+  constant xsize     : integer := 128;
+  constant peakhz    : integer := 4;
+  constant aspect    : integer := 1;
+  constant umax      : integer := 20;
+  constant kratio    : real    := 0.25;
+  constant angconv   : real    := 6.4;
+  constant tsd       : real    := 0.22;
+  constant tphase    : real    := 0.1;
+  constant ysize     : integer := xsize;
+  constant deltu     : integer := (2*umax)/xsize;
+  constant thalf     : integer := nframes/2;
+  constant maxrate   : integer := 20;
+  constant wInterval : real    := maxrate/thalf;
 
 
 
@@ -64,7 +56,7 @@ architecture Behavioral of filters is
   signal scale               : real    := 0;
   signal sigys               : real    := 0;
   signal udash               : real    := 0;
-  signal shilb               : complex := CBASE_1;
+  signal shilb_im            : real    := 1;
   signal hz                  : real    := 0;
   signal stratio             : real    := 0;
   signal udash_pi            : real    := 0;
@@ -86,25 +78,22 @@ architecture Behavioral of filters is
   signal sigys_pi            : real    := 0;
   signal temp1, temp2, temp3 : real    := 0;
   signal temp4               : real    := 0;
-  signal temp5               : complex := CBASE_1;
+  signal temp5_im            : real    := 1;
+  signal temp5_re            : real    := 0;
   signal tphase_S, tphase_C  : real    := 0;
-  
-  
+  signal etsust_re           : real    := 0;
+  signal etrans_im           : real    := 0;
+  signal thilb_im            : real    := 1;
+  signal thilb_re            : re      := 0;
+  signal tempy, tempx        : re      := 0;
+  signal espsust             : real    := 0;
+  signal esptrans            : real    := 0;
   
 
   
 begin  -- Behavioral
 
-
-  esust_im  <= esust_im_int;
-  esust_re  <= esust_re_int;
-  osust_im  <= osust_im_int;
-  osust_re  <= osust_re_int;
-  etrans_re <= etrans_re_int;
-  etrans_im <= etrans_im_int;
-  otrans_im <= otrans_im_int;
-  otrans_re <= otrans_re_int;
-
+  
 
   u0    <= peakhz / mtspeed;
   scale <= mtspeed*(3/peakhz);
@@ -122,15 +111,15 @@ begin  -- Behavioral
 
   p_shilb : if ang = 0 generate
     p_uf_shilb : if uf <= 0 generate
-      shilb <= CBASE_j;
+      shilb_im <= 1;
     else
-      shilb <= -CBASE_j;
+      shilb_im <= -1;
     end generate p_uf_shilb;
   else
     p_vf_shilb : if vf <= grad generate
-      shilb <= CBASE_j;
+      shilb_im <= 1;
     else
-      shilb <= -CBASE_j;
+      shilb_im <= -1;
     end generate p_vf_shilb;
   end generate p_shilb;
 
@@ -174,11 +163,28 @@ begin  -- Behavioral
   temp2    <= temp1 + (r1 * (scale_C*(1-2*g)))**2;
   temp4    <= sigys_pi * (exp(-1 * ((sigys_pi * vdash)**2)));
 
+  tempy <= SQRT(temp4);
+  tempx <= SQRT(temp2);
+
   tphase_C <= cos(w * (2*MATH_PI*tphase));
   tphase_S <= sin(w * (2*MATH_PI*tphase));
 
-  temp3 <= tphase_C * (exp(-0.5*((tsd**2)*(w**2))));
+  -----------------------------------------------------------------------------
+  -- esust temp 1
+  temp3    <= tphase_C * (exp(-0.5*((tsd**2)*(w**2))));
+  -----------------------------------------------------------------------------
+  --esust temp 2
+  temp5_re <= tphase_C * (exp(-0.5*((tsd**2)*(w**2))));
+  temp5_im <= 1;
+  -----------------------------------------------------------------------------
+  
 
-    
+  
+
+  
+
+  espsust  <= tempy * tempx;
+  esptrans <= espsust * stratio;
+  
 
 end Behavioral;
