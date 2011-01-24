@@ -9,10 +9,10 @@ use ieee.math_complex.all;
 entity filters is
 
   port (
-    esust_im : out real;
-    osust    : out real;
-    etrans   : out real;
-    otrans   : out real;
+    esust_im : out real;                -- imaginary part of complex number, real part is 0                                       
+    osust    : out real;                -- real number
+    etrans   : out real;                -- real number
+    otrans   : out real;                -- real number
     uf       : in  real;
     vf       : in  real;
     wf       : in  real;
@@ -42,69 +42,69 @@ architecture Behavioral of filters is
   constant deltu     : integer := (2*umax)/xsize;
   constant thalf     : integer := nframes/2;
   constant maxrate   : integer := 20;
-  constant wInterval : real    := maxrate/thalf;
+  constant wInterval : real    := real(maxrate/thalf);
+  constant con       : real    := MATH_PI / 180.0;
 
 
 
 
-  signal speed               : real    := 0;
-  signal u0                  : real    := 0;
-  signal scale               : real    := 0;
-  signal sigys               : real    := 0;
-  signal udash               : real    := 0;
-  signal shilb_im            : real    := 1;
-  signal hz                  : real    := 0;
-  signal stratio             : real    := 0;
-  signal udash_pi            : real    := 0;
-  signal ang                 : real    := 0;
-  signal ang_S, ang_C, grad  : real    := 0;
-  signal S                   : real    := 0;
-  signal scale_S, scale_C    : real    := 0;
-  signal xc1, xc2, xs1, xs2  : real    := 0;
-  signal r, t                : real    := 0;
-  signal p, q                : real    := 0;
+  signal speed               : real    := 0.0;
+  signal u0                  : real    := 0.0;
+  signal scale               : real    := 0.0;
+  signal sigys               : real    := 0.0;
+  signal udash               : real    := 0.0;
+  signal shilb_im            : real    := 0.0;
+  signal hz                  : real    := 0.0;
+  signal stratio             : real    := 0.0;
+  signal udash_pi            : real    := 0.0;
+  signal ang                 : real    := 0.0;
+  signal ang_S, ang_C, grad  : real    := 0.0;
+  signal S                   : real    := 0.0;
+  signal scale_S, scale_C    : real    := 0.0;
+  signal xc1, xc2, xs1, xs2  : real    := 0.0;
+  signal r, t                : real    := 0.0;
+  signal p, q                : real    := 0.0;
   signal kc1                 : integer := 43;
   signal kc2                 : integer := 41;
   signal ks1                 : integer := 43;
   signal ks2                 : integer := kc2+ks1-kc1;
   signal g                   : real    := 0.25;
-  signal r1, p1              : real    := 0;
-  signal vdash               : real    := 0;
-  signal w                   : real    := 0;
-  signal sigys_pi            : real    := 0;
-  signal temp1, temp2, temp3 : real    := 0;
-  signal temp4               : real    := 0;
-  signal temp5_im            : real    := 1;
-  signal tphase_S, tphase_C  : real    := 0;
-  signal etsust_re           : real    := 0;
-  signal etrans_im           : real    := 0;
-  signal thilb_im            : real    := 1;
-  signal thilb_re            : real    := 0;
-  signal tempy, tempx        : real    := 0;
-  signal espsust             : real    := 0;
-  signal esptrans            : real    := 0;
-  signal ettrans             : real    := 0;
-  signal thilb_im            : real    := 0;
-  signal thilb_ettrans_im    : real    := 0;
-  signal esust_int           : real    := 0;
-  signal shilb_esptrans_im   : real    := 0;
-  signal ehilb_im            : real    := 0;
-  signal emain               : real    := 0;
-  signal omain_im            : real    := 0;
-  signal ohilb_temp          : real    := 0;
-  signal ohilb_im            : real    := 0;
+  signal r1, p1              : real    := 0.0;
+  signal vdash               : real    := 0.0;
+  signal w                   : real    := 0.0;
+  signal sigys_pi            : real    := 0.0;
+  signal temp1, temp2, temp3 : real    := 0.0;
+  signal temp4               : real    := 0.0;
+  signal temp5_im            : real    := 0.0;
+  signal tphase_S, tphase_C  : real    := 0.0;
+  signal etsust_re           : real    := 0.0;
+  signal etrans_im           : real    := 0.0;
+  signal thilb_im            : real    := 0.0;
+  signal thilb_re            : real    := 0.0;
+  signal tempy, tempx        : real    := 0.0;
+  signal espsust             : real    := 0.0;
+  signal esptrans            : real    := 0.0;
+  signal ettrans             : real    := 0.0;
+  signal thilb_ettrans_im    : real    := 0.0;
+  signal esust_int           : real    := 0.0;
+  signal shilb_esptrans_im   : real    := 0.0;
+  signal ehilb_im            : real    := 0.0;
+  signal emain               : real    := 0.0;
+  signal omain_im            : real    := 0.0;
+  signal ohilb_temp          : real    := 0.0;
+  signal ohilb_im            : real    := 0.0;
 
 begin  -- Behavioral
 
   esust_im <= esust_int;
 
-  u0    <= peakhz / mtspeed;
-  scale <= mtspeed*(3/peakhz);
-  sigys <= (1.4*aspect)/u0;
-  speed <= (kratio*u0)/1;
+  u0    <= real(peakhz)/mtspeed;
+  scale <= mtspeed*(3.0/real(peakhz));
+  sigys <= (1.4*real(aspect))/u0;
+  speed <= (real(kratio)*u0)/1.0;
 
   ang   <= theta * con;
-  grad  <= tan(ang * 90*con);
+  grad  <= tan(ang * 90.0*real(con));
   ang_S <= sin(ang);
   ang_C <= cos(ang);
 
