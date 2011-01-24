@@ -79,7 +79,6 @@ architecture Behavioral of filters is
   signal temp1, temp2, temp3 : real    := 0;
   signal temp4               : real    := 0;
   signal temp5_im            : real    := 1;
-  signal temp5_re            : real    := 0;
   signal tphase_S, tphase_C  : real    := 0;
   signal etsust_re           : real    := 0;
   signal etrans_im           : real    := 0;
@@ -88,7 +87,7 @@ architecture Behavioral of filters is
   signal tempy, tempx        : re      := 0;
   signal espsust             : real    := 0;
   signal esptrans            : real    := 0;
-  
+  signal ettrans             : real    := 0;
 
   
 begin  -- Behavioral
@@ -174,17 +173,18 @@ begin  -- Behavioral
   temp3    <= tphase_C * (exp(-0.5*((tsd**2)*(w**2))));
   -----------------------------------------------------------------------------
   --esust temp 2
-  temp5_re <= tphase_C * (exp(-0.5*((tsd**2)*(w**2))));
-  temp5_im <= 1;
+  temp5_im <= tphase_C * (exp(-0.5*((tsd**2)*(w**2))));
+  
   -----------------------------------------------------------------------------
-  
 
-  
-
-  
+  etsust_re <= temp3;
+  etsust_im <= temp5_im;
 
   espsust  <= tempy * tempx;
   esptrans <= espsust * stratio;
-  
+
+  ettrans <= ((w*etsust_re)+(w*etsust_im)) * kratio;
+
+  emain <= ettrans * esptrans;
 
 end Behavioral;
