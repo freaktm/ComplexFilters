@@ -83,16 +83,22 @@ architecture Behavioral of filters is
   signal etsust_re           : real    := 0;
   signal etrans_im           : real    := 0;
   signal thilb_im            : real    := 1;
-  signal thilb_re            : re      := 0;
-  signal tempy, tempx        : re      := 0;
+  signal thilb_re            : real    := 0;
+  signal tempy, tempx        : real    := 0;
   signal espsust             : real    := 0;
   signal esptrans            : real    := 0;
   signal ettrans             : real    := 0;
-
+  signal thilb_im            : real    := 0;
+  signal thilb_ettrans_im    : real    := 0;
+  signal esust_int           : real    := 0;
+  signal shilb_esptrans_im   : real    := 0;
+  signal ehilb_im            : real    := 0;
+  signal emain               : real    := 0;
+  signal omain_im            : real    := 0;
   
 begin  -- Behavioral
 
-  
+  esust <= esust_int;
 
   u0    <= peakhz / mtspeed;
   scale <= mtspeed*(3/peakhz);
@@ -174,7 +180,7 @@ begin  -- Behavioral
   -----------------------------------------------------------------------------
   --esust temp 2
   temp5_im <= tphase_C * (exp(-0.5*((tsd**2)*(w**2))));
-  
+
   -----------------------------------------------------------------------------
 
   etsust_re <= temp3;
@@ -186,5 +192,24 @@ begin  -- Behavioral
   ettrans <= ((w*etsust_re)+(w*etsust_im)) * kratio;
 
   emain <= ettrans * esptrans;
+
+  thilb_im <= SIGN(wf);
+
+  p_thilb : if thilb_im = 0 generate
+    thilb_im <= 1;
+  end generate p_thilb;
+
+  thilb_ettrans_im <= thilb_im * ettrans;
+
+  esust_int <= espsust * etsust_im;
+
+  osust <= esust_int * shilb_im;
+
+  shilb_esptrans_im <= esptrans * shilb_im;
+  ehilb_im          <= thilb_ettrans_im * shilb_esptrans_im;
+
+  etrans <= -1 * ((-1 * emain) + ehilb_im);
+  
+  
 
 end Behavioral;
