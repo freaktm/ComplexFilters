@@ -7,24 +7,20 @@ use ieee.math_complex.all;
 
 
 entity filters is
-  
+
   port (
-    esust_re  : out real;
-    esust_im  : out real;
-    osust_re  : out real;
-    osust_im  : out real;
-    etrans_re : out real;
-    etrans_im : out real;
-    otrans_re : out real;
-    otrans_im : out real;
-    uf        : in  real;
-    vf        : in  real;
-    wf        : in  real;
-    theta     : in  real;
-    oeval     : in  real;
-    stval     : in  real;
-    mtspeed   : in  real;
-    fps       : in  real
+    esust_im : out real;
+    osust    : out real;
+    etrans   : out real;
+    otrans   : out real;
+    uf       : in  real;
+    vf       : in  real;
+    wf       : in  real;
+    theta    : in  real;
+    oeval    : in  real;
+    stval    : in  real;
+    mtspeed  : in  real;
+    fps      : in  real
     );
 
 end filters;
@@ -95,10 +91,12 @@ architecture Behavioral of filters is
   signal ehilb_im            : real    := 0;
   signal emain               : real    := 0;
   signal omain_im            : real    := 0;
-  
+  signal ohilb_temp          : real    := 0;
+  signal ohilb_im            : real    := 0;
+
 begin  -- Behavioral
 
-  esust <= esust_int;
+  esust_im <= esust_int;
 
   u0    <= peakhz / mtspeed;
   scale <= mtspeed*(3/peakhz);
@@ -114,17 +112,17 @@ begin  -- Behavioral
   udash <= (vf*ang_S)+(uf*ang_C);
 
 
-  p_shilb : if ang = 0 generate
+  p_shilb      : if ang = 0 generate
     p_uf_shilb : if uf <= 0 generate
-      shilb_im <= 1;
+      shilb_im         <= 1;
     else
-      shilb_im <= -1;
+      shilb_im         <= -1;
     end generate p_uf_shilb;
   else
     p_vf_shilb : if vf <= grad generate
-      shilb_im <= 1;
+      shilb_im         <= 1;
     else
-      shilb_im <= -1;
+      shilb_im         <= -1;
     end generate p_vf_shilb;
   end generate p_shilb;
 
@@ -206,10 +204,17 @@ begin  -- Behavioral
   osust <= esust_int * shilb_im;
 
   shilb_esptrans_im <= esptrans * shilb_im;
-  ehilb_im          <= thilb_ettrans_im * shilb_esptrans_im;
+  ehilb             <= thilb_ettrans_im * shilb_esptrans_im;
 
-  etrans <= -1 * ((-1 * emain) + ehilb_im);
-  
-  
+  etrans <= -1 * ((-1 * emain) + ehilb);
+
+  omain_im <= shilb_esptrans_im ettrans;
+
+  ohilb_temp <= shilb_esptrans_im * shilb_im;
+
+  ohilb_im <= thilb_ettrans_im * ohilb_temp;
+
+  otrans <= -1 * ((-1 * omain_im)+ ohilb_im);
+
 
 end Behavioral;
