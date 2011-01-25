@@ -30,7 +30,6 @@ entity filters is
 end filters;
 
 
-
 architecture Behavioral of filters is
 
   constant nframes   : integer := 8;
@@ -52,9 +51,6 @@ architecture Behavioral of filters is
   constant kc2       : integer := 41;
   constant ks1       : integer := 43;
   constant ks2       : integer := kc2+ks1-kc1;
-
-
-
 
   signal speed               : real := 0.0;
   signal u0                  : real := 0.0;
@@ -118,7 +114,6 @@ begin  -- Behavioral
   ang_S <= sin(ang);
   ang_C <= cos(ang);
 
-
   udash <= (vf*ang_S)+(uf*ang_C);
 
   p_shilb : process (ang, uf, vf)
@@ -138,8 +133,6 @@ begin  -- Behavioral
     end if;
   end process p_shilb;
 
-
-
   p_hz_check : process (hz)
   begin  -- process p_hz_check
     hz   <= speed * udash;
@@ -147,7 +140,6 @@ begin  -- Behavioral
       hz <= 0.001;
     end if;
   end process p_hz_check;
-
 
   stratio <= (abs(hz)*real(kratio))/1.0;
 
@@ -162,15 +154,10 @@ begin  -- Behavioral
   xs1 <= scale*(15.36/60.0);
   xs2 <= scale*(17.41/60.0);
 
-
-
-
-
   r <= real(kc2) * (exp(-1.0 * ((xs2**2)*udash_pi)));
   t <= real(ks2) * (exp(-1.0 * ((xs2**2)*udash_pi)));
   p <= real(kc1) * (exp(-1.0 * ((xc1**2)*udash_pi)));
   q <= real(ks1) * (exp(-1.0 * ((xs1**2)*udash_pi)));
-
 
   p1 <= p + q;
   r1 <= r - t;
@@ -205,7 +192,6 @@ begin  -- Behavioral
   emain_re <= -1.0 * (ettrans_re * esptrans);
   emain_im <= -1.0 * (ettrans_im * esptrans);
 
-
   p_thilb : process (thilb_im)
   begin  -- process p_thilb
     thilb_im   <= SIGN(wf);
@@ -213,7 +199,6 @@ begin  -- Behavioral
       thilb_im <= 1.0;
     end if;
   end process p_thilb;
-
 
   thilb_ettrans_im <= thilb_im * ettrans_re;
   thilb_ettrans_re <= thilb_im * ettrans_im;
