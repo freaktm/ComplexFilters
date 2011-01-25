@@ -9,7 +9,7 @@ use ieee.math_complex.all;
 entity filters is
 
   port (
-    esust_im : out real;                -- imaginary part of complex number, real part is 0                                       
+    esust_im : out real;  -- imaginary part of complex number, real part is 0                                       
     osust    : out real;                -- real number
     etrans   : out real;                -- real number
     otrans   : out real;                -- real number
@@ -85,7 +85,10 @@ architecture Behavioral of filters is
   signal tempy, tempx        : real := 0.0;
   signal espsust             : real := 0.0;
   signal esptrans            : real := 0.0;
-  signal ettrans             : real := 0.0;
+  signal temp6_re            : real := 0.0;
+  signal temp6_im            : real := 0.0;
+  signal ettrans_im          : real := 0.0;
+  signal ettrans_re          : real := 0.0;
   signal thilb_ettrans_im    : real := 0.0;
   signal esust_int           : real := 0.0;
   signal shilb_esptrans_im   : real := 0.0;
@@ -115,13 +118,13 @@ begin  -- Behavioral
   p_shilb : process (ang, uf, vf)
   begin  -- process p_shilb
     if (ang = 0.0) then
-      if (uf     <= 0.0) then
+      if (uf <= 0.0) then
         shilb_im <= 1.0;
       else
         shilb_im <= -1.0;
       end if;
     else
-      if (vf     <= grad) then
+      if (vf <= grad) then
         shilb_im <= 1.0;
       else
         shilb_im <= -1.0;
@@ -130,34 +133,15 @@ begin  -- Behavioral
   end process p_shilb;
 
 
--- p_shilb : if ang = 0 generate
--- p_uf_shilb : if uf <= 0 generate
--- shilb_im <= 1;
--- else
--- shilb_im <= -1;
--- end generate p_uf_shilb;
--- else
--- p_vf_shilb : if vf <= grad generate
--- shilb_im <= 1;
--- else
--- shilb_im <= -1;
--- end generate p_vf_shilb;
--- end generate p_shilb;
-
-
--- hz <= speed * udash;
 
   p_hz_check : process (hz)
   begin  -- process p_hz_check
-    hz   <= speed * udash;
+    hz <= speed * udash;
     if (hz = 0.0) then
       hz <= 0.001;
     end if;
   end process p_hz_check;
 
--- p_hz_check : if hz = 0.0 generate
--- hz <= 0.001;
--- end generate p_hz_check;
 
   stratio <= (abs(hz)*real(kratio))/1.0;
 
@@ -213,23 +197,24 @@ begin  -- Behavioral
   espsust  <= tempy * tempx;
   esptrans <= espsust * stratio;
 
-  ettrans <= ((w*etsust_re)+(w*etsust_im)) * kratio;
+  temp6_im   <= w*etsust_im;
+  temp6_re   <= w*etsust_re;
+  ettrans_re <= kratio * temp6_im;
+  ettrans_im <= kratio * temp6_re;
+
+
 
   emain <= ettrans * esptrans;
 
--- thilb_im <= SIGN(wf);
 
   p_thilb : process (thilb_im)
   begin  -- process p_thilb
-    thilb_im   <= SIGN(wf);
+    thilb_im <= SIGN(wf);
     if thilb_im = 0.0 then
       thilb_im <= 1.0;
     end if;
   end process p_thilb;
 
--- p_thilb : if thilb_im = 0 generate
--- thilb_im <= 1;
--- end generate p_thilb;
 
   thilb_ettrans_im <= thilb_im * ettrans;
 
