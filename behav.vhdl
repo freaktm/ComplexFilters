@@ -119,13 +119,13 @@ begin  -- Behavioral
   p_shilb : process (ang, uf, vf)
   begin  -- process p_shilb
     if (ang = 0.0) then
-      if (uf     <= 0.0) then
+      if (uf <= 0.0) then
         shilb_im <= 1.0;
       else
         shilb_im <= -1.0;
       end if;
     else
-      if (vf     <= grad) then
+      if (vf <= grad) then
         shilb_im <= 1.0;
       else
         shilb_im <= -1.0;
@@ -135,7 +135,7 @@ begin  -- Behavioral
 
   p_hz_check : process (hz)
   begin  -- process p_hz_check
-    hz   <= speed * udash;
+    hz <= speed * udash;
     if (hz = 0.0) then
       hz <= 0.001;
     end if;
@@ -192,16 +192,19 @@ begin  -- Behavioral
   emain_re <= -1.0 * (ettrans_re * esptrans);
   emain_im <= -1.0 * (ettrans_im * esptrans);
 
+  thilb_im <= SIGN(wf);
+
   p_thilb : process (thilb_im)
   begin  -- process p_thilb
-    thilb_im   <= SIGN(wf);
     if thilb_im = 0.0 then
-      thilb_im <= 1.0;
+      thilb_ettrans_re <= ettrans_re;
+      thilb_ettrans_im <= ettrans_im;
+    else
+      thilb_ettrans_im <= thilb_im * ettrans_re;
+      thilb_ettrans_re <= thilb_im * ettrans_im;
     end if;
   end process p_thilb;
 
-  thilb_ettrans_im <= thilb_im * ettrans_re;
-  thilb_ettrans_re <= thilb_im * ettrans_im;
 
   esust_re_int <= espsust * etsust_re;
   esust_im_int <= espsust * etsust_im;
