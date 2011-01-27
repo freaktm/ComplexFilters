@@ -92,12 +92,15 @@ architecture Behavioral of filters is
   signal esust_im_int        : real := 0.0;
   signal esust_re_int        : real := 0.0;
   signal shilb_esptrans_im   : real := 0.0;
-  signal ehilb               : real := 0.0;
+  signal shilb_esptrans_re   : real := 0.0;
+  signal ehilb_re            : real := 0.0;
+  signal ehilb_im            : real := 0.0;
   signal emain_re            : real := 0.0;
   signal emain_im            : real := 0.0;
   signal omain_im            : real := 0.0;
   signal omain_re            : real := 0.0;
   signal ohilb_im            : real := 0.0;
+  signal ohilb_re            : real := 0.0;
 
 begin  -- Behavioral
 
@@ -215,6 +218,7 @@ begin  -- Behavioral
   osust_im <= esust_re_int * shilb_im;
 
   shilb_esptrans_im <= esptrans * shilb_im;
+  shilb_esptrans_re <= shilb_im * shilb_esptrans_im;
   ehilb_re          <= thilb_ettrans_im * shilb_esptrans_im;
   ehilb_im          <= shilb_esptrans_im * thilb_ettrans_re;
 
@@ -224,10 +228,11 @@ begin  -- Behavioral
   omain_im <= -1.0 * (shilb_esptrans_im * ettrans_re);
   omain_re <= -1.0 * (shilb_esptrans_im * ettrans_im);
 
-  ohilb_im <= thilb_ettrans_im * (shilb_esptrans_im * shilb_im);
+  ohilb_re <= shilb_esptrans_re * thilb_ettrans_re;
+  ohilb_im <= thilb_ettrans_im * shilb_esptrans_re;
 
-  otrans_re <= -1.0 * (ohilb_im * omain_im);
-  otrans_im <= -1.0 * (ohilb_im * omain_re);
+  otrans_re <= -1.0 * ((ohilb_im * omain_im) + (ohilb_re * omain_re));
+  otrans_im <= -1.0 * ((ohilb_im * omain_re) + (ohilb_re * omain_im));
 
 
 end Behavioral;
