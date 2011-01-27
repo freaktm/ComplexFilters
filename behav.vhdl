@@ -194,6 +194,8 @@ begin  -- Behavioral
 
   thilb_im <= SIGN(wf);
 
+
+
   p_thilb : process (thilb_im)
   begin  -- process p_thilb
     if thilb_im = 0.0 then
@@ -213,10 +215,11 @@ begin  -- Behavioral
   osust_im <= esust_re_int * shilb_im;
 
   shilb_esptrans_im <= esptrans * shilb_im;
-  ehilb             <= thilb_ettrans_im * shilb_esptrans_im;
+  ehilb_re          <= thilb_ettrans_im * shilb_esptrans_im;
+  ehilb_im          <= shilb_esptrans_im * thilb_ettrans_re;
 
-  etrans_re <= -1.0 * (emain_re + ehilb);
-  etrans_im <= -1.0 * emain_im;
+  etrans_re <= -1.0 * ((-1.0 * emain_re) + ehilb_re);
+  etrans_im <= -1.0 * ((-1.0 * emain_im) + ehilb_im);
 
   omain_im <= -1.0 * (shilb_esptrans_im * ettrans_re);
   omain_re <= -1.0 * (shilb_esptrans_im * ettrans_im);
