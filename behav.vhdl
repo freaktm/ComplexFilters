@@ -42,7 +42,7 @@ architecture Behavioral of filters is
   constant tsd       : real    := 0.22;
   constant tphase    : real    := 0.1;
   constant ysize     : integer := xsize;
-  constant deltu     : integer := (2*umax)/xsize;
+  constant deltu     : real    := (2.0*real(umax))/real(xsize);
   constant thalf     : integer := nframes/2;
   constant maxrate   : integer := 20;
   constant wInterval : real    := real(maxrate/thalf);
