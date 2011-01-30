@@ -2,29 +2,29 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use ieee.math_real.all;
-use ieee.math_complex.all;
+library floatfixlib;
+use floatfixlib.float_pkg.all;
 
 
 entity filters is
 
   port (
-    esust_im  : out real;
-    esust_re  : out real;
-    osust_re  : out real;
-    osust_im  : out real;
-    etrans_re : out real;
-    etrans_im : out real;
-    otrans_re : out real;
-    otrans_im : out real;
+    clk       : in  std_logic;
+    esust_im  : out float32;
+    esust_re  : out float32;
+    osust_re  : out float32;
+    osust_im  : out float32;
+    etrans_re : out float32;
+    etrans_im : out float32;
+    otrans_re : out float32;
+    otrans_im : out float32;
     uf        : in  real;
     vf        : in  real;
     wf        : in  real;
     theta     : in  real;
     oeval     : in  real;
     stval     : in  real;
-    mtspeed   : in  real;
-    fps       : in  real
+    mtspeed   : in  real
     );
 
 end filters;
@@ -55,7 +55,7 @@ architecture Behavioral of filters is
   signal speed               : real := 0.0;
   signal u0                  : real := 0.0;
   signal scale               : real := 0.0;
-  signal sigys               : real := 0.0;
+  signal sigys               : real ;
   signal udash               : real := 0.0;
   signal shilb_im            : real := 0.0;
   signal hz                  : real := 0.0;
@@ -72,7 +72,7 @@ architecture Behavioral of filters is
   signal r1, p1              : real := 0.0;
   signal vdash               : real := 0.0;
   signal w                   : real := 0.0;
-  signal sigys_pi            : real := 0.0;
+  signal sigys_pi            : real ;
   signal temp1, temp2, temp3 : real := 0.0;
   signal temp4               : real := 0.0;
   signal temp5_im            : real := 0.0;
@@ -89,8 +89,6 @@ architecture Behavioral of filters is
   signal ettrans_re          : real := 0.0;
   signal thilb_ettrans_im    : real := 0.0;
   signal thilb_ettrans_re    : real := 0.0;
-  signal esust_im_int        : real := 0.0;
-  signal esust_re_int        : real := 0.0;
   signal shilb_esptrans_im   : real := 0.0;
   signal shilb_esptrans_re   : real := 0.0;
   signal ehilb_re            : real := 0.0;
@@ -102,13 +100,56 @@ architecture Behavioral of filters is
   signal ohilb_im            : real := 0.0;
   signal ohilb_re            : real := 0.0;
 
+
+  signal esust_im_int  : real;
+  signal esust_re_int  : real;
+  signal osust_re_int  : real;
+  signal osust_im_int  : real;
+  signal etrans_im_int : real;
+  signal etrans_re_int : real;
+  signal otrans_re_int : real;
+  signal otrans_im_int : real;
+
+  signal uf_int      : real := 0.0;
+  signal vf_int      : real := 0.0;
+  signal wf_int      : real := 0.0;
+  signal theta_int   : real := 0.0;
+  signal oeval_int   : real := 0.0;
+  signal stval_int   : real := 0.0;
+  signal mtspeed_int : real := 0.0;
+   
 begin  -- Behavioral
 
-  esust_im <= esust_im_int;
-  esust_re <= esust_re_int;
+  p_input_registers : process (clk)
+  begin  
+    if clk'event and clk = '1' then   
+      uf_int      <= uf;
+      vf_int      <= vf;
+      wf_int      <= wf;
+      theta_int   <= theta;
+      oeval_int   <= oeval;
+      stval_int   <= stval;
+      mtspeed_int <= mtspeed;
+    end if;
+  end process p_input_registers;
 
-  u0    <= real(peakhz)/mtspeed;
-  scale <= mtspeed*(3.0/real(peakhz));
+  p_output_registers : process (clk)
+  begin
+    if clk'event and clk = '1' then   
+      esust_im <= esust_im_int;
+      esust_re <= esust_re_int;
+      osust_im <= osust_im_int;
+      osust_re <= osust_re_int;
+      etrans_im <= etrans_im_int;
+      etrans_re <= etrans_re_int;
+      otrans_im <= otrans_im_int;
+      otrans_re <= otrans_re_int;
+    end if;
+  end process p_output_registers;
+
+
+  u0    <= real(peakhz)/mtspeed_int;
+  scale <= mtspeed_int*(3.0/real(peakhz));
   sigys <= (1.4*real(aspect))/u0;
   speed <= (real(kratio)*u0)/1.0;
 
@@ -117,18 +158,19 @@ begin  -- Behavioral
   ang_S <= sin(ang);
   ang_C <= cos(ang);
 
-  udash <= (vf*ang_S)+(uf*ang_C);
+  udash <= (vf_int*ang_S)+(uf_int*ang_C);
 
-  p_shilb : process (ang, uf, vf)
+
+  p_shilb : process (ang, uf_int, vf_int)
   begin  -- process p_shilb
     if (ang = 0.0) then
-      if (uf <= 0.0) then
+      if (uf_int <= 0.0) then
         shilb_im <= 1.0;
       else
         shilb_im <= -1.0;
       end if;
     else
-      if (vf <= grad) then
+      if (vf_int <= grad) then
         shilb_im <= 1.0;
       else
         shilb_im <= -1.0;
@@ -165,8 +207,8 @@ begin  -- Behavioral
   p1 <= p + q;
   r1 <= r - t;
 
-  vdash    <= ((-1.0 * uf)*ang_S)+(vf*ang_C);
-  w        <= wInterval * wf;
+  vdash    <= ((-1.0 * uf_int)*ang_S)+(vf_int*ang_C);
+  w        <= wInterval * wf_int;
   sigys_pi <= sigys * MATH_PI;
   temp1    <= (scale_C*((p1**2)+(-1.0 * (2.0 * (scale_C * p1)))))**2;
   temp2    <= temp1 + (r1 * (scale_C*(1.0-2.0*g)))**2;
@@ -195,7 +237,7 @@ begin  -- Behavioral
   emain_re <= -1.0 * (ettrans_re * esptrans);
   emain_im <= -1.0 * (ettrans_im * esptrans);
 
-  thilb_im <= SIGN(wf);
+  thilb_im <= SIGN(wf_int);
 
 
 
@@ -214,16 +256,16 @@ begin  -- Behavioral
   esust_re_int <= espsust * etsust_re;
   esust_im_int <= espsust * etsust_im;
 
-  osust_re <= esust_im_int * shilb_im;
-  osust_im <= esust_re_int * shilb_im;
+  osust_re_int <= esust_im_int * shilb_im;
+  osust_im_int <= esust_re_int * shilb_im;
 
   shilb_esptrans_im <= esptrans * shilb_im;
   shilb_esptrans_re <= shilb_im * shilb_esptrans_im;
   ehilb_re          <= thilb_ettrans_im * shilb_esptrans_im;
   ehilb_im          <= shilb_esptrans_im * thilb_ettrans_re;
 
-  etrans_re <= -1.0 * ((-1.0 * emain_re) + ehilb_re);
-  etrans_im <= -1.0 * ((-1.0 * emain_im) + ehilb_im);
+  etrans_re_int <= -1.0 * ((-1.0 * emain_re) + ehilb_re);
+  etrans_im_int <= -1.0 * ((-1.0 * emain_im) + ehilb_im);
 
   omain_im <= -1.0 * (shilb_esptrans_im * ettrans_re);
   omain_re <= -1.0 * (shilb_esptrans_im * ettrans_im);
@@ -231,8 +273,8 @@ begin  -- Behavioral
   ohilb_re <= shilb_esptrans_re * thilb_ettrans_re;
   ohilb_im <= thilb_ettrans_im * shilb_esptrans_re;
 
-  otrans_re <= -1.0 * ((ohilb_im * omain_im) + (ohilb_re * omain_re));
-  otrans_im <= -1.0 * ((ohilb_im * omain_re) + (ohilb_re * omain_im));
+  otrans_re_int <= -1.0 * ((ohilb_im * omain_im) + (ohilb_re * omain_re));
+  otrans_im_int <= -1.0 * ((ohilb_im * omain_re) + (ohilb_re * omain_im));
 
 
 end Behavioral;

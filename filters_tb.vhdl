@@ -1,4 +1,23 @@
 -------------------------------------------------------------------------------
+-- Title      : Testbench for design "filters"
+-- Project    : 
+-------------------------------------------------------------------------------
+-- File       : filters_tb.vhdl
+-- Author     : Aaron Storey  <freaktm@freaktm>
+-- Company    : 
+-- Created    : 2011-01-29
+-- Last update: 2011-01-29
+-- Platform   : 
+-- Standard   : VHDL'87
+-------------------------------------------------------------------------------
+-- Description: 
+-------------------------------------------------------------------------------
+-- Copyright (c) 2011 
+-------------------------------------------------------------------------------
+-- Revisions  :
+-- Date        Version  Author  Description
+-- 2011-01-29  1.0      freaktm Created
+-------------------------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -15,6 +34,7 @@ architecture tb of filters_tb is
 
   component filters
     port (
+      clk       : in  std_logic;
       esust_im  : out real;
       esust_re  : out real;
       osust_re  : out real;
@@ -29,132 +49,165 @@ architecture tb of filters_tb is
       theta     : in  real;
       oeval     : in  real;
       stval     : in  real;
-      mtspeed   : in  real;
-      fps       : in  real);
+      mtspeed   : in  real
+      );
   end component;
 
-  signal esust_im_i  : real;
-  signal esust_re_i  : real;
-  signal osust_re_i  : real;
-  signal osust_im_i  : real;
-  signal etrans_re_i : real;
-  signal etrans_im_i : real;
-  signal otrans_re_i : real;
-  signal otrans_im_i : real;
-  signal uf_i        : real;
-  signal vf_i        : real;
-  signal wf_i        : real;
-  signal theta_i     : real;
-  signal oeval_i     : real;
-  signal stval_i     : real;
-  signal mtspeed_i   : real;
-  signal fps_i       : real;
-  signal wvals       : real      := 0.0;
-  signal x1, y1      : real      := 0.0;
-  signal nk          : integer   := 1;
-  signal wimang      : real      := 0.0;
-  signal clk         : std_logic := '0';
+  -- component ports
+  signal esust_im  : real;
+  signal esust_re  : real;
+  signal osust_re  : real;
+  signal osust_im  : real;
+  signal etrans_re : real;
+  signal etrans_im : real;
+  signal otrans_re : real;
+  signal otrans_im : real;
+  signal uf        : real := -20.0;
+  signal vf        : real := -20.0;
+  signal wf        : real := -4.0;
+  signal theta     : real := 0.0;
+  signal oeval     : real := 0.0;
+  signal stval     : real := 0.0;
+  signal mtspeed   : real := 1.0;
+
+  -- clock
+  signal Clk : std_logic := '1';
+
+  constant X_SIZE : integer := 128;
+  constant Y_SIZE : integer := 128;
+
+  type frame_t is array (X_SIZE-1 downto 0, Y_SIZE-1 downto 0) of real;
+
+  signal frame_esust_re  : frame_t;
+  signal frame_esust_im  : frame_t;
+  signal frame_osust_re  : frame_t;
+  signal frame_osust_im  : frame_t;
+  signal frame_etrans_re : frame_t;
+  signal frame_etrans_im : frame_t;
+  signal frame_otrans_re : frame_t;
+  signal frame_otrans_im : frame_t;
+
+  type filter_set_t is
+  record
+    esust_re  : frame_t;
+    esust_im  : frame_t;
+    osust_re  : frame_t;
+    osust_im  : frame_t;
+    etrans_re : frame_t;
+    etrans_im : frame_t;
+    otrans_re : frame_t;
+    otrans_im : frame_t;
+  end record;
 
 
+  impure function load_filter_set_from_file(filename : in string)
+    return filter_set_t is
+
+    type real_file is file of real;
+    file my_file : real_file;
+
+    variable filter_set_0 : filter_set_t;
+    
+  begin
+    file_open(my_file, filename, read_mode);
+
+    for i in 0 to X_SIZE-1 loop
+      for j in 0 to Y_SIZE-1 loop
+        read(my_file, filter_set_0.esust_im(i, j));
+      end loop;
+    end loop;
+    for i in 0 to X_SIZE-1 loop
+      for j in 0 to Y_SIZE-1 loop
+        read(my_file, filter_set_0.esust_im(i, j));
+      end loop;
+    end loop;
+    for i in 0 to X_SIZE-1 loop
+      for j in 0 to Y_SIZE-1 loop
+        read(my_file, filter_set_0.osust_re(i, j));
+      end loop;
+    end loop;
+    for i in 0 to X_SIZE-1 loop
+      for j in 0 to Y_SIZE-1 loop
+        read(my_file, filter_set_0.osust_im(i, j));
+      end loop;
+    end loop;
+    for i in 0 to X_SIZE-1 loop
+      for j in 0 to Y_SIZE-1 loop
+        read(my_file, filter_set_0.etrans_re(i, j));
+      end loop;
+    end loop;
+    for i in 0 to X_SIZE-1 loop
+      for j in 0 to Y_SIZE-1 loop
+        read(my_file, filter_set_0.etrans_im(i, j));
+      end loop;
+    end loop;
+    for i in 0 to X_SIZE-1 loop
+      for j in 0 to Y_SIZE-1 loop
+        read(my_file, filter_set_0.otrans_re(i, j));
+      end loop;
+    end loop;
+    for i in 0 to X_SIZE-1 loop
+      for j in 0 to Y_SIZE-1 loop
+        read(my_file, filter_set_0.otrans_im(i, j));
+      end loop;
+    end loop;
+
+
+    file_close(my_file);
+    return filter_set_0;
+    
+  end function;
+
+
+  signal filter_set_0 : filter_set_t := load_filter_set_from_file("nFilter1.1.dat");
+
+
+begin  -- tb
+
+  -- component instantiation
   DUT : filters
     port map (
-      esust_im  => esust_im_i,
-      esust_re  => esust_re_i,
-      osust_re  => osust_re_i,
-      osust_im  => osust_im_i,
-      etrans_re => etrans_re_i,
-      etrans_im => etrans_im_i,
-      otrans_re => otrans_re_i,
-      otrans_im => otrans_im_i,
-      uf        => uf_i,
-      vf        => vf_i,
-      wf        => wf_i,
-      theta     => theta_i,
-      oeval     => oeval_i,
-      stval     => stval_i,
-      mtspeed   => mtspeed_i,
-      fps       => fps_i);
+      clk => clk,
+      esust_im  => esust_im,
+      esust_re  => esust_re,
+      osust_re  => osust_re,
+      osust_im  => osust_im,
+      etrans_re => etrans_re,
+      etrans_im => etrans_im,
+      otrans_re => otrans_re,
+      otrans_im => otrans_im,
+      uf        => uf,
+      vf        => vf,
+      wf        => wf,
+      theta     => theta,
+      oeval     => oeval,
+      stval     => stval,
+      mtspeed   => mtspeed
+      );
 
-  clk <= not clk after 10 ns;
+  -- clock generation
+  Clk <= not Clk after 10 ns;
 
-  p_increment_values : process (clk)
-  begin  -- process p_increment_values
-    if clk'event and clk = '1' then     -- rising clock edge
-      if theta = 330 then
-        theta_i <= 0;
-      else
-        theta_i <= theta_i + 30;
-      end if;
+  -- waveform generation
+  WaveGen_Proc : process
+  begin
+    -- insert signal assignments here
 
-      if x1 >= umax then
-        x1 <= -1 * umax;
-      else
-        x1 <= x1 + deltu;
-      end if;
-      
-    end if;
-  end process p_increment_values;
-
-  -- theta <= [0 30 60 90 120 150 180 210 240 270 300 330];
-
-  wvals <= [-thalf : thalf-1];
---  x1    <= [-umax     : deltu : umax];
-  y1    <= [-umax     : deltu : umax];
-
-  nk <= 1;
+    wait for 100 ns;
+    wait until Clk = '1';
+    report "simulation finished" severity warning;
+    wait;
+  end process WaveGen_Proc;
 
 
-
-  for ntheta = 1 : length(theta)
-    [mtspeed theta(ntheta)]
-
-    wimang = <= theta * ntheta;
-  ang = wimang * con;
-  for nn = 1 : 8
-    wf = wvals(nn);
-  for ny = 1 : ysize
-    vf = y1(ny);
-  for nx = 1 : xsize
-    uf = x1(nx);
-  [esust, osust, etrans, otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);
-  nspectSe(nn, ny, nx) = esust * 4;
-  nspectSo(nn, ny, nx) = osust * 4;
-  nspectTe(nn, ny, nx) = etrans * 4 * 2;
-  nspectTo(nn, ny, nx) = otrans * 4 * 2;
-end
-end
-
-end
-  fnspectSe = (fftshift(nspectSe));
-fnspectSo = (fftshift(nspectSo));
-fnspectTe = (fftshift(nspectTe));
-fnspectTo = (fftshift(nspectTo));
-
-str4 = num2str(nk);
-str5 = strcat(str1, str3, '.', str4, str2);
-fid1 = fopen(str5, 'wb');
-for nf = 1 : nframes
-  fwrite(fid1, real((fnspectSe((nf), : , : ))), 'float32');
-fwrite(fid1, imag((fnspectSe((nf), : , : ))), 'float32');
-fwrite(fid1, real((fnspectSo((nf), : , : ))), 'float32');
-fwrite(fid1, imag((fnspectSo((nf), : , : ))), 'float32');
-fwrite(fid1, real((fnspectTe((nf), : , : ))), 'float32');
-fwrite(fid1, imag((fnspectTe((nf), : , : ))), 'float32');
-fwrite(fid1, real((fnspectTo((nf), : , : ))), 'float32');
-fwrite(fid1, imag((fnspectTo((nf), : , : ))), 'float32');
-end
-  fclose(fid1);
-clear nspectSe;
-clear nspectTe;
-clear nspectSo;
-clear nspectTo;
-
-nk = nk + 1;
-end
-
-
-
-
+  
 end tb;
+
+-------------------------------------------------------------------------------
+
+configuration filters_tb_tb_cfg of filters_tb is
+  for tb
+  end for;
+end filters_tb_tb_cfg;
 
 -------------------------------------------------------------------------------
