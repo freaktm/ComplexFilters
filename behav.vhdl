@@ -1,9 +1,12 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use ieee.math_real.all;
 
 library floatfixlib;
 use floatfixlib.float_pkg.all;
+
+
 
 
 entity filters is
@@ -101,14 +104,14 @@ architecture Behavioral of filters is
   signal ohilb_re            : real := 0.0;
 
 
-  signal esust_im_int  : real;
-  signal esust_re_int  : real;
-  signal osust_re_int  : real;
-  signal osust_im_int  : real;
-  signal etrans_im_int : real;
-  signal etrans_re_int : real;
-  signal otrans_re_int : real;
-  signal otrans_im_int : real;
+  signal esust_im_int  : float32;
+  signal esust_re_int  : float32;
+  signal osust_re_int  : float32;
+  signal osust_im_int  : float32;
+  signal etrans_im_int : float32;
+  signal etrans_re_int : float32;
+  signal otrans_re_int : float32;
+  signal otrans_im_int : float32;
 
   signal uf_int      : real := 0.0;
   signal vf_int      : real := 0.0;
@@ -253,19 +256,19 @@ begin  -- Behavioral
   end process p_thilb;
 
 
-  esust_re_int <= espsust * etsust_re;
-  esust_im_int <= espsust * etsust_im;
+  esust_re_int <= to_float(espsust * etsust_re);
+  esust_im_int <= to_float(espsust * etsust_im);
 
-  osust_re_int <= esust_im_int * shilb_im;
-  osust_im_int <= esust_re_int * shilb_im;
+  osust_re_int <= esust_im_int * to_float(shilb_im);
+  osust_im_int <= esust_re_int * to_float(shilb_im);
 
   shilb_esptrans_im <= esptrans * shilb_im;
   shilb_esptrans_re <= shilb_im * shilb_esptrans_im;
   ehilb_re          <= thilb_ettrans_im * shilb_esptrans_im;
   ehilb_im          <= shilb_esptrans_im * thilb_ettrans_re;
 
-  etrans_re_int <= -1.0 * ((-1.0 * emain_re) + ehilb_re);
-  etrans_im_int <= -1.0 * ((-1.0 * emain_im) + ehilb_im);
+  etrans_re_int <= to_float(-1.0 * ((-1.0 * emain_re) + ehilb_re));
+  etrans_im_int <= to_float(-1.0 * ((-1.0 * emain_im) + ehilb_im));
 
   omain_im <= -1.0 * (shilb_esptrans_im * ettrans_re);
   omain_re <= -1.0 * (shilb_esptrans_im * ettrans_im);
@@ -273,8 +276,8 @@ begin  -- Behavioral
   ohilb_re <= shilb_esptrans_re * thilb_ettrans_re;
   ohilb_im <= thilb_ettrans_im * shilb_esptrans_re;
 
-  otrans_re_int <= -1.0 * ((ohilb_im * omain_im) + (ohilb_re * omain_re));
-  otrans_im_int <= -1.0 * ((ohilb_im * omain_re) + (ohilb_re * omain_im));
+  otrans_re_int <= to_float(-1.0 * ((ohilb_im * omain_im) + (ohilb_re * omain_re)));
+  otrans_im_int <= to_float(-1.0 * ((ohilb_im * omain_re) + (ohilb_re * omain_im)));
 
 
 end Behavioral;

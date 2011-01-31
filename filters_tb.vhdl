@@ -6,7 +6,7 @@
 -- Author     : Aaron Storey  <freaktm@freaktm>
 -- Company    : 
 -- Created    : 2011-01-29
--- Last update: 2011-01-29
+-- Last update: 2011/02/01
 -- Platform   : 
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
@@ -21,6 +21,12 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use ieee.math_real.all;
+
+
+library floatfixlib;
+use floatfixlib.float_pkg.all;
 
 -------------------------------------------------------------------------------
 
@@ -35,14 +41,14 @@ architecture tb of filters_tb is
   component filters
     port (
       clk       : in  std_logic;
-      esust_im  : out real;
-      esust_re  : out real;
-      osust_re  : out real;
-      osust_im  : out real;
-      etrans_re : out real;
-      etrans_im : out real;
-      otrans_re : out real;
-      otrans_im : out real;
+      esust_im  : out float32;
+      esust_re  : out float32;
+      osust_re  : out float32;
+      osust_im  : out float32;
+      etrans_re : out float32;
+      etrans_im : out float32;
+      otrans_re : out float32;
+      otrans_im : out float32;
       uf        : in  real;
       vf        : in  real;
       wf        : in  real;
@@ -54,14 +60,14 @@ architecture tb of filters_tb is
   end component;
 
   -- component ports
-  signal esust_im  : real;
-  signal esust_re  : real;
-  signal osust_re  : real;
-  signal osust_im  : real;
-  signal etrans_re : real;
-  signal etrans_im : real;
-  signal otrans_re : real;
-  signal otrans_im : real;
+  signal esust_im  : float32;
+  signal esust_re  : float32;
+  signal osust_re  : float32;
+  signal osust_im  : float32;
+  signal etrans_re : float32;
+  signal etrans_im : float32;
+  signal otrans_re : float32;
+  signal otrans_im : float32;
   signal uf        : real := -20.0;
   signal vf        : real := -20.0;
   signal wf        : real := -4.0;
