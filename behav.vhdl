@@ -5,6 +5,7 @@ use ieee.math_real.all;
 
 library floatfixlib;
 use floatfixlib.float_pkg.all;
+use floatfixlib.fixed_pkg.all;
 
 
 
@@ -55,10 +56,13 @@ architecture Behavioral of filters is
   constant ks1       : integer := 43;
   constant ks2       : integer := kc2+ks1-kc1;
 
+  constant sfixed_exp_size : integer := 21;
+  constant sfixed_dec_size : integer := 10;
+
   signal speed               : real := 0.0;
   signal u0                  : real := 0.0;
   signal scale               : real := 0.0;
-  signal sigys               : real ;
+  signal sigys               : float32;
   signal udash               : real := 0.0;
   signal shilb_im            : real := 0.0;
   signal hz                  : real := 0.0;
@@ -75,17 +79,18 @@ architecture Behavioral of filters is
   signal r1, p1              : real := 0.0;
   signal vdash               : real := 0.0;
   signal w                   : real := 0.0;
-  signal sigys_pi            : real ;
+  signal sigys_pi            : sfixed(sfixed_exp_size downto sfixed_dec_size);
+  signal sigys_pi_vdash      : sfixed(sfixed_exp_size downto sfixed_dec_size);
   signal temp1, temp2, temp3 : real := 0.0;
-  signal temp4               : real := 0.0;
+  signal temp4               : sfixed(sfixed_exp_size downto sfixed_dec_size);
   signal temp5_im            : real := 0.0;
   signal tphase_S, tphase_C  : real := 0.0;
   signal etsust_re           : real := 0.0;
   signal etsust_im           : real := 0.0;
   signal thilb_im            : real := 0.0;
-  signal tempy, tempx        : real := 0.0;
-  signal espsust             : real := 0.0;
-  signal esptrans            : real := 0.0;
+  signal tempy, tempx        : sfixed(sfixed_exp_size downto sfixed_dec_size);
+  signal espsust             : sfixed(sfixed_exp_size downto sfixed_dec_size);
+  signal esptrans            : sfixed(sfixed_exp_size downto sfixed_dec_size);
   signal temp6_re            : real := 0.0;
   signal temp6_im            : real := 0.0;
   signal ettrans_im          : real := 0.0;
@@ -120,12 +125,12 @@ architecture Behavioral of filters is
   signal oeval_int   : real := 0.0;
   signal stval_int   : real := 0.0;
   signal mtspeed_int : real := 0.0;
-   
+
 begin  -- Behavioral
 
   p_input_registers : process (clk)
-  begin  
-    if clk'event and clk = '1' then   
+  begin
+    if clk'event and clk = '1' then
       uf_int      <= uf;
       vf_int      <= vf;
       wf_int      <= wf;
@@ -138,11 +143,11 @@ begin  -- Behavioral
 
   p_output_registers : process (clk)
   begin
-    if clk'event and clk = '1' then   
-      esust_im <= esust_im_int;
-      esust_re <= esust_re_int;
-      osust_im <= osust_im_int;
-      osust_re <= osust_re_int;
+    if clk'event and clk = '1' then
+      esust_im  <= esust_im_int;
+      esust_re  <= esust_re_int;
+      osust_im  <= osust_im_int;
+      osust_re  <= osust_re_int;
       etrans_im <= etrans_im_int;
       etrans_re <= etrans_re_int;
       otrans_im <= otrans_im_int;
@@ -153,7 +158,7 @@ begin  -- Behavioral
 
   u0    <= real(peakhz)/mtspeed_int;
   scale <= mtspeed_int*(3.0/real(peakhz));
-  sigys <= (1.4*real(aspect))/u0;
+  sigys <= to_float((1.4*real(aspect))/u0);
   speed <= (real(kratio)*u0)/1.0;
 
   ang   <= theta * con;
@@ -183,7 +188,7 @@ begin  -- Behavioral
 
   p_hz_check : process (hz)
   begin  -- process p_hz_check
-    hz <= speed * udash;
+    hz   <= speed * udash;
     if (hz = 0.0) then
       hz <= 0.001;
     end if;
@@ -210,15 +215,16 @@ begin  -- Behavioral
   p1 <= p + q;
   r1 <= r - t;
 
-  vdash    <= ((-1.0 * uf_int)*ang_S)+(vf_int*ang_C);
-  w        <= wInterval * wf_int;
-  sigys_pi <= sigys * MATH_PI;
-  temp1    <= (scale_C*((p1**2)+(-1.0 * (2.0 * (scale_C * p1)))))**2;
-  temp2    <= temp1 + (r1 * (scale_C*(1.0-2.0*g)))**2;
-  temp4    <= sigys_pi * (exp(-1.0 * ((sigys_pi * vdash)**2)));
+  vdash          <= ((-1.0 * uf_int)*ang_S)+(vf_int*ang_C);
+  w              <= wInterval * wf_int;
+  sigys_pi       <= to_sfixed(sigys, sfixed_exp_size, sfixed_dec_size) * to_sfixed(MATH_PI, sfixed_exp_size, sfixed_dec_size);
+  sigys_pi_vdash <= sigys_pi * to_sfixed(vdash, sfixed_exp_size, sfixed_dec_size);
+  temp1          <= (scale_C*((p1**2)+(-1.0 * (2.0 * (scale_C * p1)))))**2;
+  temp2          <= temp1 + (r1 * (scale_C*(1.0-2.0*g)))**2;
+  temp4          <= sigys_pi * to_sfixed(exp(-1.0 * (to_real(sigys_pi_vdash)**2)), sfixed_exp_size, sfixed_dec_size);
 
-  tempy <= SQRT(temp4);
-  tempx <= SQRT(temp2);
+  tempy <= to_sfixed(SQRT(to_real(temp4)), sfixed_exp_size, sfixed_dec_size);
+  tempx <= to_sfixed(SQRT(temp2), sfixed_exp_size, sfixed_dec_size);
 
   tphase_C <= cos(w * (2.0*MATH_PI*tphase));
   tphase_S <= sin(w * (2.0*MATH_PI*tphase));
@@ -230,7 +236,7 @@ begin  -- Behavioral
   etsust_im <= temp5_im;
 
   espsust  <= tempy * tempx;
-  esptrans <= espsust * stratio;
+  esptrans <= espsust * to_sfixed(stratio, sfixed_exp_size, sfixed_dec_size);
 
   temp6_im   <= w*etsust_im;
   temp6_re   <= w*etsust_re;
