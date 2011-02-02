@@ -70,7 +70,7 @@ architecture Behavioral of filters is
 
 
   -----------------------------------------------------------------------------
-  -- stage 0
+  -- stage 0 signals
   -----------------------------------------------------------------------------
   signal uf_0         : float32;
   signal vf_0         : float32;
@@ -80,7 +80,7 @@ architecture Behavioral of filters is
   signal thilb_im     : float32;
   signal w            : float32;
   -----------------------------------------------------------------------------
-  -- stage 1
+  -- stage 1 signals
   -----------------------------------------------------------------------------
   signal uf_1         : float32;
   signal vf_1         : float32;
@@ -96,7 +96,7 @@ architecture Behavioral of filters is
   signal w_tphase     : float32;
   signal scale_0      : float32;
   -----------------------------------------------------------------------------
-  -- stage 2
+  -- stage 2 signals
   -----------------------------------------------------------------------------
   signal speed        : float32;
   signal vf_ang_c     : float32;
@@ -113,7 +113,7 @@ architecture Behavioral of filters is
   signal vf_2         : float32;
   signal ang_1        : float32;
   -----------------------------------------------------------------------------
-  -- stage 3
+  -- stage 3 signals
   -----------------------------------------------------------------------------
   signal speed_0      : float32;
   signal udash        : float32;
@@ -126,7 +126,7 @@ architecture Behavioral of filters is
   signal shilb_im     : float32;
   signal s            : float32;
   -----------------------------------------------------------------------------
-  -- stage 4
+  -- stage 4 signals
   -----------------------------------------------------------------------------
   signal hz           : float32;
   signal sf           : float32;
@@ -139,7 +139,7 @@ architecture Behavioral of filters is
   signal tphase_c_1   : float32;
   signal exp_w_2      : float32;
   -----------------------------------------------------------------------------
-  -- stage 5
+  -- stage 5 signals
   -----------------------------------------------------------------------------
   signal hz_0         : float32;
   signal xc1          : float32;
@@ -152,45 +152,59 @@ architecture Behavioral of filters is
   signal vdash_sx2    : float32;
   signal temp3        : float32;
   signal tphase_exp_s : float32;
+  -----------------------------------------------------------------------------
+  -- stage 6 signals
+  -----------------------------------------------------------------------------
+  signal hz_abs       : float32;
+  signal xc22         : float32;
+  signal sf_pi2_0     : float32;
+  signal scale_s      : float32;
+  signal scale_c      : float32;
+  signal xs22         : float32;
+  signal xc12         : float32;
+  signal sigys_pi_3   : float32;
+  signal vdash_exp    : float32;
+  signal xs12         : float32;
+  signal temp3_0      : float32;
+  signal temp5_im     : float32;
 
 
 
-  signal sigys_pi_vdash : float32;
+--  signal sigys_pi_vdash : float32;
+--  signal stratio           : real := 0.0;
+--  signal udash_pi          : real := 0.0;
+--  signal r, t              : real := 0.0;
+--  signal p, q              : real := 0.0;
+--  signal r1, p1            : real := 0.0;
+--  signal temp1, temp2      : real := 0.0;
+--  signal temp4 : sfixed(sfixed_exp_size downto sfixed_dec_size);
+--  signal etsust_re         : real := 0.0;
+--  signal etsust_im         : real := 0.0;
+--  signal tempy, tempx : sfixed(sfixed_exp_size downto sfixed_dec_size);
+--  signal espsust : sfixed(sfixed_exp_size downto sfixed_dec_size);
+--  signal esptrans : sfixed(sfixed_exp_size downto sfixed_dec_size);
+--  signal temp6_re          : real := 0.0;
+--  signal temp6_im          : real := 0.0;
+--  signal ettrans_im        : real := 0.0;
+--  signal ettrans_re        : real := 0.0;
+--  signal thilb_ettrans_im  : real := 0.0;
+--  signal thilb_ettrans_re  : real := 0.0;
+--  signal shilb_esptrans_im : real := 0.0;
+--  signal shilb_esptrans_re : real := 0.0;
+--  signal ehilb_re          : real := 0.0;
+--  signal ehilb_im          : real := 0.0;
+--  signal emain_re          : real := 0.0;
+--  signal emain_im          : real := 0.0;
+--  signal omain_im          : real := 0.0;
+--  signal omain_re          : real := 0.0;
+--  signal ohilb_im          : real := 0.0;
+--  signal ohilb_re          : real := 0.0;
 
 
 
-  signal stratio           : real := 0.0;
-  signal udash_pi          : real := 0.0;
-  signal scale_S, scale_C  : real := 0.0;
-  signal r, t              : real := 0.0;
-  signal p, q              : real := 0.0;
-  signal r1, p1            : real := 0.0;
-  signal temp1, temp2      : real := 0.0;
--- signal temp4 : sfixed(sfixed_exp_size downto sfixed_dec_size);
-  signal temp5_im          : real := 0.0;
-  signal etsust_re         : real := 0.0;
-  signal etsust_im         : real := 0.0;
--- signal tempy, tempx : sfixed(sfixed_exp_size downto sfixed_dec_size);
--- signal espsust : sfixed(sfixed_exp_size downto sfixed_dec_size);
--- signal esptrans : sfixed(sfixed_exp_size downto sfixed_dec_size);
-  signal temp6_re          : real := 0.0;
-  signal temp6_im          : real := 0.0;
-  signal ettrans_im        : real := 0.0;
-  signal ettrans_re        : real := 0.0;
-  signal thilb_ettrans_im  : real := 0.0;
-  signal thilb_ettrans_re  : real := 0.0;
-  signal shilb_esptrans_im : real := 0.0;
-  signal shilb_esptrans_re : real := 0.0;
-  signal ehilb_re          : real := 0.0;
-  signal ehilb_im          : real := 0.0;
-  signal emain_re          : real := 0.0;
-  signal emain_im          : real := 0.0;
-  signal omain_im          : real := 0.0;
-  signal omain_re          : real := 0.0;
-  signal ohilb_im          : real := 0.0;
-  signal ohilb_re          : real := 0.0;
-
-
+  -----------------------------------------------------------------------------
+  -- output signals
+  -----------------------------------------------------------------------------
   signal esust_im_int  : float32;
   signal esust_re_int  : float32;
   signal osust_re_int  : float32;
@@ -199,14 +213,16 @@ architecture Behavioral of filters is
   signal etrans_re_int : float32;
   signal otrans_re_int : float32;
   signal otrans_im_int : float32;
-
-  signal uf_int      : float32;
-  signal vf_int      : float32;
-  signal wf_int      : float32;
-  signal theta_int   : float32;
-  signal oeval_int   : float32;
-  signal stval_int   : float32;
-  signal mtspeed_int : float32;
+  -----------------------------------------------------------------------------
+  -- input signals
+  -----------------------------------------------------------------------------
+  signal uf_int        : float32;
+  signal vf_int        : float32;
+  signal wf_int        : float32;
+  signal theta_int     : float32;
+  signal oeval_int     : float32;
+  signal stval_int     : float32;
+  signal mtspeed_int   : float32;
 
 
   -----------------------------------------------------------------------------
