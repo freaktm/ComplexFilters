@@ -36,6 +36,17 @@ end filters;
 
 architecture Behavioral of filters is
 
+
+  component trig_function
+    generic (
+      opcode : string := "COS"
+      );
+    port (
+      clk      : in  std_logic;
+      data_in  : in  float32;
+      data_out : out float32);
+  end component;
+
   constant nframes   : integer := 8;
   constant xsize     : integer := 128;
   constant peakhz    : integer := 4;
@@ -61,17 +72,24 @@ architecture Behavioral of filters is
   signal sigys          : float32;
   signal sigys_pi       : float32;
   signal sigys_pi_vdash : float32;
+  signal speed          : float32;
+  signal u0             : float32;
+  signal scale          : float32;
+  signal grad           : float32;
+  signal u0_kratio      : float32;
+  signal ang_90_con     : float32;
+  signal w_2            : float32;
+  signal w_tphase       : float32;
 
-  signal speed               : float32;
-  signal u0                  : float32;
-  signal scale               : float32;
+
+
   signal udash               : real := 0.0;
   signal shilb_im            : real := 0.0;
   signal hz                  : real := 0.0;
   signal stratio             : real := 0.0;
   signal udash_pi            : real := 0.0;
   signal ang                 : float32;
-  signal ang_S, ang_C, grad  : real := 0.0;
+  signal ang_S, ang_C        : real := 0.0;
   signal S                   : real := 0.0;
   signal scale_S, scale_C    : real := 0.0;
   signal xc1, xc2, xs1, xs2  : real := 0.0;
@@ -79,14 +97,14 @@ architecture Behavioral of filters is
   signal p, q                : real := 0.0;
   signal r1, p1              : real := 0.0;
   signal vdash               : real := 0.0;
-  signal w                   : real := 0.0;
+  signal w                   : float32;
   signal temp1, temp2, temp3 : real := 0.0;
 -- signal temp4 : sfixed(sfixed_exp_size downto sfixed_dec_size);
   signal temp5_im            : real := 0.0;
   signal tphase_S, tphase_C  : real := 0.0;
   signal etsust_re           : real := 0.0;
   signal etsust_im           : real := 0.0;
-  signal thilb_im            : real := 0.0;
+  signal thilb_im            : float32;
 -- signal tempy, tempx : sfixed(sfixed_exp_size downto sfixed_dec_size);
 -- signal espsust : sfixed(sfixed_exp_size downto sfixed_dec_size);
 -- signal esptrans : sfixed(sfixed_exp_size downto sfixed_dec_size);
@@ -133,11 +151,12 @@ architecture Behavioral of filters is
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
   --synthesis translate_off
-  signal sigys_real : real := 0.0;
-  signal u0_real    : real := 0.0;
-  signal scale_real : real := 0.0;
-  signal speed_real : real := 0.0;
-  signal ang_real   : real := 0.0;
+  signal sigys_real : real;
+  signal u0_real    : real;
+  signal scale_real : real;
+  signal speed_real : real;
+  signal ang_real   : real;
+  signal grad_real  : real;
   --synthesis translate_on
 
 
@@ -147,7 +166,7 @@ architecture Behavioral of filters is
 
 
 begin  -- Behavioral
-
+  
   p_input_registers : process (clk)
   begin
     if clk'event and clk = '1' then
@@ -176,11 +195,65 @@ begin  -- Behavioral
   end process p_output_registers;
 
 
-  u0    <= to_float(peakhz)/mtspeed_int;
-  sigys <= (1.4*to_float(aspect))/u0;
-  scale <= mtspeed_int*(3.0/to_float(peakhz));
-  speed <= 1.0/(to_float(kratio)*u0);
-  ang   <= theta * to_float(con);
+  p_stage_0 : process (clk)
+  begin
+    if clk'event and clk = '1' then
+      u0       <= to_float(peakhz)/mtspeed_int;
+      scale    <= mtspeed_int*(3.0/to_float(peakhz));
+      uf_0     <= uf_int;
+      vf_0     <= vf_int;
+      ang      <= theta_int * to_float(con);
+      thilb_im <= SIGN(wf_int);
+      w        <= to_float(wInterval) * wf_int;
+    end if;
+  end process p_stage_0;
+
+
+  p_stage_1 : process (clk)
+  begin
+    if clk'event and clk = '1' then
+      sigys      <= (1.4*to_float(aspect))/u0;
+      u0_kratio  <= to_float(kratio) * u0;
+      uf_1       <= uf_0;
+      vf_1       <= vf_0;
+      ang_0      <= ang;
+      ang_S      <= sin(ang);
+      ang_C      <= cos(ang);
+      ang_90_con <= (90.0 * to_float(con)) + ang;
+      w_2        <= (w)**2;
+      w_tphase   <= w * (2.0*to_float(MATH_PI)*to_float(tphase));
+    end if;
+  end process p_stage_1;
+
+
+  p_stage_2 : process (clk)
+  begin
+    if clk'event and clk = '1' then
+      speed    <= 1.0/u0_kratio;
+      vf_ang_s <= vf_1 * ang_S;
+      vf_ang_c <= vf_1 * ang_C;
+      uf_ang_s <= uf_1 * ang_S;
+      uf_ang_c <= uf_1 * ang_C;
+      sigys_pi <= sigys * to_float(MATH_PI);
+      grad_in  <= ang * 90.0 * to_float(con);
+      w_2_tsd  <= w_2 * to_float(tsd**2);
+      tphase_s <= sin(w_tphase);
+      tphase_c <= cos(w_tphase);
+    end if;
+  end process p_stage_2;
+
+
+
+
+
+  grad : trig_function
+    generic map (
+      opcode => "TAN")
+    port map (
+      clk      => clk,
+      data_in  => grad_in,
+      data_out => grad);
+
 
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
@@ -194,14 +267,13 @@ begin  -- Behavioral
   scale_real <= To_real(scale);
   speed_real <= To_real(speed);
   ang_real   <= To_real(ang);
+  grad_real  <= To_real(grad);
   --synthesis translate_on
 
 
 
 
--- grad <= tan(ang * 90.0*real(con));
--- ang_S <= sin(ang);
--- ang_C <= cos(ang);
+
 
 -- udash <= (vf_int*ang_S)+(uf_int*ang_C);
 
@@ -253,8 +325,8 @@ begin  -- Behavioral
 -- r1 <= r - t;
 
 -- vdash <= ((-1.0 * uf_int)*ang_S)+(vf_int*ang_C);
--- w <= wInterval * wf_int;
--- sigys_pi <= to_sfixed(sigys, sfixed_exp_size, sfixed_dec_size) * to_sfixed(MATH_PI, sfixed_exp_size, sfixed_dec_size);
+
+
 -- sigys_pi_vdash <= sigys_pi * to_sfixed(vdash, sfixed_exp_size, sfixed_dec_size);
 -- temp1 <= (scale_C*((p1**2)+(-1.0 * (2.0 * (scale_C * p1)))))**2;
 -- temp2 <= temp1 + (r1 * (scale_C*(1.0-2.0*g)))**2;
@@ -282,9 +354,6 @@ begin  -- Behavioral
 
 -- emain_re <= -1.0 * (ettrans_re * esptrans);
 -- emain_im <= -1.0 * (ettrans_im * esptrans);
-
--- thilb_im <= SIGN(wf_int);
-
 
 
 -- p_thilb : process (thilb_im)

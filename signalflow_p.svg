@@ -36,9 +36,9 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.47797233"
-     inkscape:cx="1061.556"
-     inkscape:cy="3941.0911"
+     inkscape:zoom="1.3519099"
+     inkscape:cx="659.92617"
+     inkscape:cy="3123.8292"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -504,7 +504,7 @@
     </g>
     <g
        id="g5010"
-       transform="translate(1.016863,2335.1241)">
+       transform="translate(-10.818245,3182.8137)">
       <g
          transform="translate(-66.572484,1.4793885)"
          id="g5006">
@@ -523,7 +523,7 @@
     </g>
     <g
        id="g5028"
-       transform="translate(-17.105637,2312.5635)">
+       transform="translate(-28.940745,3160.2531)">
       <text
          id="text5020"
          y="128.48405"
@@ -538,7 +538,7 @@
     </g>
     <g
        id="g5032"
-       transform="translate(-835.85476,2221.9509)">
+       transform="translate(-847.68987,3069.6405)">
       <path
          transform="matrix(1.0905804,0,0,1.1280199,-90.813541,-24.838694)"
          d="M 1004.135,193.29976 A 4.6230893,4.7155509 0 1 1 994.88881,193.29976 A 4.6230893,4.7155509 0 1 1 1004.135,193.29976 z"
@@ -563,28 +563,28 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 137.06308,2402.4905 L 157.89539,2412.5182"
+       d="M 125.22797,3250.1801 L 146.06028,3260.2078"
        id="path5040"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g5010"
        inkscape:connection-end="#g5032" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 139.17863,2432.1413 L 157.89539,2419.0068"
+       d="M 127.34353,3279.8309 L 146.06028,3266.6964"
        id="path5042"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g5028"
        inkscape:connection-end="#g5032" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 163.37979,2409.3964 L 163.37979,2409.3964"
+       d="M 151.54468,3268.6096 L 151.54468,3268.6096"
        id="path5044"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g5032"
        inkscape:connection-end="#g5032" />
     <g
        id="g5242"
-       transform="translate(205.2571,2376.7401)">
+       transform="translate(193.42199,3224.4297)">
       <text
          id="text5070"
          y="87.940559"
@@ -598,7 +598,7 @@
     </g>
     <g
        id="g5082"
-       transform="translate(-6.059837,2421.149)">
+       transform="translate(-17.894945,3268.8386)">
       <g
          transform="translate(-66.572484,1.4793885)"
          id="g5084">
@@ -622,7 +622,7 @@
     </g>
     <g
        id="g5096"
-       transform="translate(-835.16468,2264.3339)">
+       transform="translate(-846.99979,3112.0235)">
       <path
          transform="matrix(1.0905804,0,0,1.1280199,-90.813541,-24.838694)"
          d="M 1004.135,193.29976 A 4.6230893,4.7155509 0 1 1 994.88881,193.29976 A 4.6230893,4.7155509 0 1 1 1004.135,193.29976 z"
@@ -647,23 +647,23 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 136.92546,2474.3133 L 158.58546,2460.9299"
+       d="M 125.09035,3322.0029 L 146.75035,3308.6195"
        id="path5106"
        inkscape:connector-type="polyline" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 169.55426,2457.5412 L 169.55426,2457.5412"
+       d="M 157.71915,3305.2308 L 157.71915,3305.2308"
        id="path5108"
        inkscape:connector-type="polyline" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 158.58547,2454.6153 L 162.27026,2456.5811"
+       d="M 146.75036,3302.3049 L 150.43515,3304.2707"
        id="path5112"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g5096" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 139.53316,2441.2175 L 158.58547,2453.8925"
+       d="M 127.69805,3288.9071 L 146.75036,3301.5821"
        id="path5114"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g5028"
@@ -3103,20 +3103,6 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 640.97613,2809.2213 L 951.41693,2761.1512"
-       id="path7227"
-       inkscape:connector-type="polyline"
-       inkscape:connection-start="#g7195"
-       inkscape:connection-end="#g7213" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 619.35134,2734.2495 L 951.41693,2759.8787"
-       id="path7229"
-       inkscape:connector-type="polyline"
-       inkscape:connection-end="#g7213"
-       inkscape:connection-start="#g7148" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 1099.6506,2684.0769 L 962.38573,2757.3735"
        id="path7231"
        inkscape:connector-type="polyline"
@@ -3242,16 +3228,9 @@
        inkscape:connector-type="polyline"
        inkscape:connection-end="#g7259"
        inkscape:connection-start="#g7271" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 354.2308,2626.4905 L 606.7137,2571.5158"
-       id="path7285"
-       inkscape:connector-type="polyline"
-       inkscape:connection-end="#g7259"
-       inkscape:connection-start="#g7251" />
     <g
        id="g7297"
-       transform="translate(738.06072,2151.0027)">
+       transform="translate(345.28307,2136.2088)">
       <text
          id="text7289"
          y="438.41595"
@@ -3318,14 +3297,14 @@
        inkscape:connection-end="#g7313" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1096.7231,2585.5651 L 617.6825,2570.4942"
+       d="M 703.94548,2571.1571 L 617.6825,2570.3716"
        id="path7323"
        inkscape:connector-type="polyline"
        inkscape:connection-end="#g7259"
        inkscape:connection-start="#g7297" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 169.55427,2457.6221 L 329.8629,2459.9882"
+       d="M 157.71916,3305.3117 L 318.02779,3307.6778"
        id="path7325"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g5096"
@@ -3616,7 +3595,7 @@
          y="611.96008" /></text>
     <g
        id="g7507"
-       transform="translate(33.232198,2299.2498)">
+       transform="translate(21.39709,3146.9394)">
       <g
          transform="translate(68.791567,2.9587771)"
          id="g7509">
@@ -3634,7 +3613,7 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 168.86419,2415.2739 L 335.3073,2418.7858"
+       d="M 157.02908,3262.9635 L 323.4722,3266.4754"
        id="path7515"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g5032"
@@ -3956,7 +3935,7 @@
        inkscape:connection-end="#g8296" />
     <g
        id="g8370"
-       transform="translate(170.1325,2254.3367)">
+       transform="translate(158.29739,3102.0263)">
       <text
          id="text8366"
          y="110.87824"
@@ -3970,7 +3949,7 @@
     </g>
     <g
        id="g8374"
-       transform="translate(-629.38459,2196.4176)">
+       transform="translate(-641.2197,3044.1072)">
       <path
          transform="matrix(1.0905804,0,0,1.1280199,-90.813541,-24.838694)"
          d="M 1004.135,193.29976 A 4.6230893,4.7155509 0 1 1 994.88881,193.29976 A 4.6230893,4.7155509 0 1 1 1004.135,193.29976 z"
@@ -3995,14 +3974,14 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 346.3343,2414.3894 L 364.37875,2395.3867"
+       d="M 334.4992,3262.079 L 352.54364,3243.0763"
        id="path8382"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g7507"
        inkscape:connection-end="#g8374" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 337.9513,2367.711 L 364.36556,2385.8572"
+       d="M 326.11619,3215.4006 L 352.53045,3233.5468"
        id="path8384"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g8370"
@@ -4711,7 +4690,7 @@
        inkscape:connection-start="#g7473" />
     <g
        id="g8957"
-       transform="translate(10.863012,2666.5429)">
+       transform="translate(-387.0925,2691.6925)">
       <text
          id="text8943"
          y="616.08948"
@@ -4725,7 +4704,7 @@
     </g>
     <g
        id="g8947"
-       transform="translate(-35.645284,3069.0833)">
+       transform="translate(-433.6008,3094.2329)">
       <path
          transform="matrix(1.0905804,0,0,1.1280199,-90.813541,-24.838694)"
          d="M 1004.135,193.29976 A 4.6230893,4.7155509 0 1 1 994.88881,193.29976 A 4.6230893,4.7155509 0 1 1 1004.135,193.29976 z"
@@ -4750,14 +4729,14 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 958.10487,3265.7865 L 941.23874,3276.5374"
+       d="M 560.14935,3290.9361 L 543.28323,3301.687"
        id="path8967"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g8947"
        inkscape:connection-end="#g8957" />
     <g
        id="g8973"
-       transform="translate(602.21101,2890.4961)">
+       transform="translate(204.2555,2915.6457)">
       <text
          id="text8975"
          y="325.38959"
@@ -4771,7 +4750,7 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 958.10487,3257.6744 L 911.42173,3218.3818"
+       d="M 560.14935,3282.824 L 513.46622,3243.5314"
        id="path8983"
        inkscape:connector-type="polyline"
        inkscape:connection-end="#g8973"
@@ -4827,7 +4806,7 @@
     </g>
     <g
        id="g3473"
-       transform="translate(184.58823,2530.3094)">
+       transform="translate(293.69313,2532.1586)">
       <text
          id="text3469"
          y="366.78516"
@@ -4971,14 +4950,7 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 431.57854,2929.1455 L 517.42997,2897.4872"
-       id="path3539"
-       inkscape:connector-type="polyline"
-       inkscape:connection-end="#g3531"
-       inkscape:connection-start="#g3511" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 561.84116,2893.4951 L 542.92888,2893.0714"
+       d="M 670.94606,2895.3943 L 542.92888,2893.022"
        id="path3541"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g3473"
@@ -5005,13 +4977,6 @@
            id="tspan3553"
            sodipodi:role="line">==0?</tspan></text>
     </g>
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 303.06417,2941.1126 L 687.48261,2993.6348"
-       id="path3563"
-       inkscape:connector-type="polyline"
-       inkscape:connection-end="#g3558"
-       inkscape:connection-start="#g7093" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 950.0635,3055.4267 L 950.0635,3085.7542 L 964.8575,3076.1382 L 964.8575,3059.1252 L 950.1077,3050.5438 L 950.0635,3055.4267 z"
@@ -5381,7 +5346,7 @@
        id="path3758" />
     <g
        id="g3576"
-       transform="translate(153.00194,2680.9669)">
+       transform="translate(-333.71689,2615.8738)">
       <text
          id="text3572"
          y="603.14478"
@@ -5393,44 +5358,9 @@
            id="tspan3574"
            sodipodi:role="line">sigys_pi</tspan></text>
     </g>
-    <g
-       id="g3580"
-       transform="translate(-58.928287,2701.6728)">
-      <text
-         id="text3582"
-         y="603.14478"
-         x="1101.4048"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="603.14478"
-           x="1101.4048"
-           id="tspan3584"
-           sodipodi:role="line">sigys_pi</tspan></text>
-    </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 969.07366,3264.3998 L 1050.4631,3295.7004"
-       id="path3586"
-       inkscape:connector-type="polyline"
-       inkscape:connection-start="#g8947"
-       inkscape:connection-end="#g3580" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1126.4301,3326.798 L 1080.3652,3307.6477"
-       id="path3588"
-       inkscape:connector-type="polyline"
-       inkscape:connection-start="#g4528"
-       inkscape:connection-end="#g3580" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1538.9481,3301.4662 L 1300.7954,3282.764"
-       id="path3590"
-       inkscape:connector-type="polyline"
-       inkscape:connection-start="#g4434"
-       inkscape:connection-end="#g3576" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 969.07366,3262.6165 L 1255.0571,3279.6093"
+       d="M 571.11815,3285.7002 L 772.37851,3221.8487"
        id="path3592"
        inkscape:connector-type="polyline"
        inkscape:connection-end="#g3576"
@@ -5462,13 +5392,6 @@
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g6957"
        inkscape:connection-end="#g7093" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1122.1703,2591.9147 L 1156.4661,2616.2349"
-       id="path3598"
-       inkscape:connector-type="polyline"
-       inkscape:connection-start="#g7297"
-       inkscape:connection-end="#g7301" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 102.59784,2720.528 L 630.00733,2809.1489"
@@ -5696,30 +5619,6 @@
        d="M 4042.075,4334.3593 L 4042.075,1843.0689"
        id="path3685" />
     <g
-       id="g3687"
-       transform="translate(336.53896,2306.6766)">
-      <g
-         id="g3693">
-        <text
-           xml:space="preserve"
-           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           x="123.95541"
-           y="87.940559"
-           id="text3689"><tspan
-             sodipodi:role="line"
-             id="tspan3691"
-             x="123.95541"
-             y="87.940559">sigys</tspan></text>
-      </g>
-    </g>
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 375.33436,2389.7119 L 461.14476,2391.0739"
-       id="path3697"
-       inkscape:connector-type="polyline"
-       inkscape:connection-start="#g8374"
-       inkscape:connection-end="#g3687" />
-    <g
        id="g3703"
        transform="translate(-1968.4703,820.79646)">
       <text
@@ -5740,20 +5639,6 @@
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g4434"
        inkscape:connection-end="#g3703" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 605.65055,3473.4882 L 951.69783,3522.9994"
-       id="path3709"
-       inkscape:connector-type="polyline"
-       inkscape:connection-start="#g7433"
-       inkscape:connection-end="#g7473" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 608.72275,3547.403 L 951.69783,3524.1559"
-       id="path3711"
-       inkscape:connector-type="polyline"
-       inkscape:connection-start="#g7455"
-       inkscape:connection-end="#g7473" />
     <g
        id="g3721"
        transform="translate(-14.434218,3281.9225)">
@@ -5777,7 +5662,7 @@
     </g>
     <g
        id="g3729"
-       transform="translate(-671.59881,3472.7609)">
+       transform="translate(-785.51173,3459.4464)">
       <path
          transform="matrix(1.0905804,0,0,1.1280199,-90.813541,-24.838694)"
          d="M 1004.135,193.29976 A 4.6230893,4.7155509 0 1 1 994.88881,193.29976 A 4.6230893,4.7155509 0 1 1 1004.135,193.29976 z"
@@ -5817,7 +5702,7 @@
     </g>
     <g
        id="g3743"
-       transform="translate(176.99939,3332.1347)">
+       transform="translate(63.086473,3318.8202)">
       <text
          id="text3745"
          y="374.10773"
@@ -5836,12 +5721,12 @@
        inkscape:connector-type="polyline" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 322.43909,3671.73 L 297.36299,3699.5334"
+       d="M 208.52617,3658.4155 L 183.45007,3686.2189"
        id="path3751"
        inkscape:connector-type="polyline" />
     <g
        id="g3755"
-       transform="translate(277.73007,3350.2508)"
+       transform="translate(75.835539,3345.0203)"
        inkscape:transform-center-y="4.6435547">
       <text
          id="text3757"
@@ -5852,11 +5737,11 @@
            y="319.71127"
            x="172.60413"
            id="tspan3759"
-           sodipodi:role="line">thilb</tspan></text>
+           sodipodi:role="line">thilb_im</tspan></text>
     </g>
     <g
        id="g3763"
-       transform="translate(213.76297,3457.176)">
+       transform="translate(21.806251,3454.5608)">
       <rect
          y="176.09982"
          x="304.36115"
@@ -5878,11 +5763,11 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 583.63907,3648.6315 L 583.63907,3678.959 L 598.43297,3669.343 L 598.43297,3652.33 L 583.68327,3643.7486 L 583.63907,3648.6315 z"
+       d="M 391.68235,3646.0163 L 391.68235,3676.3438 L 406.47625,3666.7278 L 406.47625,3649.7148 L 391.72655,3641.1334 L 391.68235,3646.0163 z"
        id="path3771" />
     <g
        id="g3773"
-       transform="translate(155.04967,3395.0417)">
+       transform="translate(-36.907049,3392.4265)">
       <text
          id="text3775"
          y="264.13663"
@@ -5896,7 +5781,7 @@
     </g>
     <g
        id="g3779"
-       transform="translate(155.04967,3395.0417)">
+       transform="translate(-36.907049,3392.4265)">
       <text
          id="text3781"
          y="276.68967"
@@ -5910,17 +5795,17 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 546.79317,3643.4151 L 588.13997,3654.1294"
+       d="M 354.83645,3640.7999 L 396.18325,3651.5142"
        id="path3785"
        inkscape:connector-type="polyline" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 505.77817,3665.5286 L 505.77817,3665.5286"
+       d="M 313.82145,3662.9134 L 313.82145,3662.9134"
        id="path3787"
        inkscape:connector-type="polyline" />
     <g
        id="g3789"
-       transform="translate(134.41847,3397.6803)">
+       transform="translate(-57.538249,3395.0651)">
       <g
          id="g3791">
         <text
@@ -5937,22 +5822,12 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 476.27947,3665.6769 L 587.87407,3667.3187"
-       id="path3797"
-       inkscape:connector-type="polyline" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 517.79437,3645.0994 L 475.84067,3660.8449"
-       id="path3799"
-       inkscape:connector-type="polyline" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 572.71767,3657.1098 L 588.13987,3655.1374"
+       d="M 380.76095,3654.4946 L 396.18315,3652.5222"
        id="path3801"
        inkscape:connector-type="polyline" />
     <g
        id="g3803"
-       transform="translate(-976.71065,2711.7228)">
+       transform="translate(-1175.99,2708.5846)">
       <text
          id="text3805"
          y="954.49957"
@@ -5966,21 +5841,21 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 156.01264,3633.1874 L 322.15134,3664.9206"
+       d="M 156.01264,3635.137 L 208.23842,3650.989"
        id="path3811"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g3721"
        inkscape:connection-end="#g3729" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 612.4749,3661.601 L 598.93297,3661.4449"
+       d="M 413.19555,3658.6715 L 406.97625,3658.701"
        id="path3813"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g3803"
        inkscape:connection-end="#path3771" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 333.12014,3665.9488 L 450.65646,3665.5337"
+       d="M 219.20722,3653.4959 L 248.76193,3658.0346"
        id="path3815"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g3729"
@@ -6156,7 +6031,7 @@
     </g>
     <g
        id="g3903"
-       transform="translate(226.78348,2882.1085)">
+       transform="translate(351.26767,2887.862)">
       <g
          transform="translate(140.90142,878.25414)"
          id="g3905">
@@ -6174,7 +6049,7 @@
     </g>
     <g
        id="g3911"
-       transform="translate(224.5644,2895.423)">
+       transform="translate(349.57164,2897.5152)">
       <text
          id="text3913"
          y="1153.5675"
@@ -6186,16 +6061,6 @@
            id="tspan3915"
            sodipodi:role="line">tphase_C</tspan></text>
     </g>
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 528.97848,3977.3391 L 544.05438,3977.2369"
-       id="path3921"
-       inkscape:connector-type="polyline" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 529.0325,4045.708 L 543.3147,4045.7559"
-       id="path3923"
-       inkscape:connector-type="polyline" />
     <g
        id="g3925"
        transform="matrix(0.5900723,0,0,0.5919861,-55.2825,3696.6527)">
@@ -6333,7 +6198,7 @@
     </g>
     <g
        id="g3981"
-       transform="translate(293.96644,3628.978)">
+       transform="translate(325.0336,3630.4574)">
       <rect
          y="198.23325"
          x="741.15167"
@@ -6566,7 +6431,7 @@
        inkscape:connection-start="#g3925" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1230.9488,3864.7942 L 597.62667,3972.5"
+       d="M 1230.9488,3865.0671 L 722.11086,3976.9207"
        id="path4093"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g3971"
@@ -6608,21 +6473,21 @@
        inkscape:connection-end="#g3935" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1034.7191,3828.9769 L 949.56254,3806.3448"
+       d="M 1065.7863,3831.6799 L 949.56254,3806.0945"
        id="path4105"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g3981"
        inkscape:connection-end="#g3959" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1088.3444,3840.3584 L 1230.9488,3862.9911"
+       d="M 1119.4116,3842.4812 L 1230.9488,3862.8595"
        id="path4107"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g3981"
        inkscape:connection-end="#g3971" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1235.0273,3812.8605 L 1088.3444,3832.511"
+       d="M 1235.0273,3813.0697 L 1119.4116,3832.9678"
        id="path4109"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g4037"
@@ -7061,6 +6926,341 @@
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g8921"
        inkscape:connection-end="#g8911" />
+    <g
+       id="g3655"
+       transform="translate(59.626883,-21.444756)">
+      <text
+         id="text3651"
+         y="2620.8054"
+         x="403.26602"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="2620.8054"
+           x="403.26602"
+           id="tspan3653"
+           sodipodi:role="line">u0_kratio</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 354.2308,2626.4717 L 464.01698,2602.1907"
+       id="path3659"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7251"
+       inkscape:connection-end="#g3655" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 606.7137,2571.4937 L 518.14095,2590.4225"
+       id="path3661"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7259"
+       inkscape:connection-end="#g3655" />
+    <g
+       id="g3667"
+       transform="translate(-5.9175541,-7.7667898)">
+      <text
+         id="text3663"
+         y="2924.2456"
+         x="460.08984"
+         style="font-size:6px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="2924.2456"
+           x="460.08984"
+           id="tspan3665"
+           sodipodi:role="line">ang_90_con</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 431.57854,2929.2295 L 463.65222,2917.8939"
+       id="path3671"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3511"
+       inkscape:connection-end="#g3667" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 517.42997,2897.6412 L 479.65846,2912.0257"
+       id="path3674"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3531"
+       inkscape:connection-end="#g3667" />
+    <g
+       id="g3681"
+       transform="translate(-5.1778598,6.6572484)">
+      <text
+         id="text3676"
+         y="2967.5176"
+         x="517.78595"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="2967.5176"
+           x="517.78595"
+           id="tspan3678"
+           sodipodi:role="line">ang_0</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 303.06417,2941.0656 L 513.32879,2968.8439"
+       id="path3687"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7093"
+       inkscape:connection-end="#g3681" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 687.48261,2993.4346 L 548.03973,2973.6048"
+       id="path3689"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3558"
+       inkscape:connection-end="#g3681" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 325.83766,3642.2429 L 288.55598,3655.6144"
+       id="path3691"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3763"
+       inkscape:connection-end="#g3755" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 395.91735,3664.6728 L 295.03927,3662.1636"
+       id="path3693"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3779"
+       inkscape:connection-end="#g3755" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 363.49925,3237.3296 L 491.90726,3237.6843"
+       id="path3695"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g8374"
+       inkscape:connection-end="#g8973" />
+    <g
+       id="g3701"
+       transform="translate(-29.587771,1.4793885)">
+      <text
+         id="text3697"
+         y="3230.8489"
+         x="1068.8582"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="3230.8489"
+           x="1068.8582"
+           id="tspan3699"
+           sodipodi:role="line">sigys_pi_0</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 1128.3299,3323.3162 L 1073.4848,3235.1583"
+       id="path3705"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g4528"
+       inkscape:connection-end="#g3701" />
+    <g
+       id="g3715"
+       transform="translate(-19.971745,0.7396943)">
+      <text
+         id="text3707"
+         y="3236.0266"
+         x="1241.9467"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           id="tspan3711"
+           y="3236.0266"
+           x="1241.9467"
+           sodipodi:role="line">sigys_pi_1</tspan></text>
+    </g>
+    <g
+       id="g3723"
+       transform="translate(-7.3969426,2.9587771)">
+      <text
+         id="text3719"
+         y="3237.5061"
+         x="1396.5428"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="3237.5061"
+           x="1396.5428"
+           id="tspan3721"
+           sodipodi:role="line">sigys_pi_2</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 1538.9481,3299.0634 L 1431.0042,3243.295"
+       id="path3727"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g4434"
+       inkscape:connection-end="#g3723" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 1282.0101,3234.2799 L 1389.7963,3236.6652"
+       id="path3729"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3715"
+       inkscape:connection-end="#g3723" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 1099.6161,3229.9104 L 1222.6253,3232.9009"
+       id="path3732"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3701"
+       inkscape:connection-end="#g3715" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 814.07657,3216.9677 L 1039.9208,3227.7586"
+       id="path3734"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3576"
+       inkscape:connection-end="#g3701" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 528.97852,3977.8087 L 668.5386,3982.0037"
+       id="path3736"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3895"
+       inkscape:connection-end="#g3903" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 668.32195,4047.5968 L 529.03246,4045.8421"
+       id="path3738"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3911"
+       inkscape:connection-end="#g3887" />
+    <g
+       id="g3744"
+       transform="translate(2.9587771,0)">
+      <text
+         id="text3740"
+         y="2595.4514"
+         x="1067.3788"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="2595.4514"
+           x="1067.3788"
+           id="tspan3742"
+           sodipodi:role="line">speed_0</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 738.46306,2572.283 L 1070.988,2590.9482"
+       id="path3753"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7297"
+       inkscape:connection-end="#g3744" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 1156.4661,2617.8383 L 1109.5432,2598.2815"
+       id="path3755"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7301"
+       inkscape:connection-end="#g3744" />
+    <g
+       id="g3762"
+       transform="translate(181.22509,-5.9175541)">
+      <text
+         id="text3758"
+         y="2731.5552"
+         x="681.99811"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="2731.5552"
+           x="681.99811"
+           id="tspan3760"
+           sodipodi:role="line">vf_ang_s</tspan></text>
+    </g>
+    <g
+       id="g3770">
+      <text
+         id="text3766"
+         y="2801.0864"
+         x="865.44226"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="2801.0864"
+           x="865.44226"
+           id="tspan3768"
+           sodipodi:role="line">uf_ang_c</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 640.97613,2809.8113 L 866.46179,2799.1543"
+       id="path3774"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7195"
+       inkscape:connection-end="#g3770" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 619.35134,2733.6004 L 863.58062,2723.5482"
+       id="path3776"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7148"
+       inkscape:connection-end="#g3762" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 951.41693,2757.2396 L 899.88999,2728.4677"
+       id="path3778"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7213"
+       inkscape:connection-end="#g3762" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 902.37866,2791.9692 L 951.41693,2763.4874"
+       id="path3780"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3770"
+       inkscape:connection-end="#g7213" />
+    <g
+       id="g3786"
+       transform="translate(178.88065,16.737371)">
+      <text
+         id="text3782"
+         y="3473.8882"
+         x="695.64697"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="3473.8882"
+           x="695.64697"
+           id="tspan3784"
+           sodipodi:role="line">uf_ang_s</tspan></text>
+    </g>
+    <g
+       id="g3794"
+       transform="translate(-13.314497,-0.7396943)">
+      <text
+         id="text3790"
+         y="3559.6675"
+         x="888.12671"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+         xml:space="preserve"><tspan
+           y="3559.6675"
+           x="888.12671"
+           id="tspan3792"
+           sodipodi:role="line">vf_ang_c</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 605.65055,3472.9728 L 875.54715,3486.2278"
+       id="path3798"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7433"
+       inkscape:connection-end="#g3786" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 608.72275,3547.9224 L 875.16963,3555.0925"
+       id="path3800"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7455"
+       inkscape:connection-end="#g3794" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 951.69783,3526.901 L 911.38594,3549.8106"
+       id="path3802"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g7473"
+       inkscape:connection-end="#g3794" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 910.31618,3493.4556 L 951.69783,3520.235"
+       id="path3804"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g3786"
+       inkscape:connection-end="#g7473" />
   </g>
   <g
      inkscape:groupmode="layer"
