@@ -37,8 +37,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.47797233"
-     inkscape:cx="4215.5758"
-     inkscape:cy="3809.9846"
+     inkscape:cx="1061.556"
+     inkscape:cy="3941.0911"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -3247,8 +3247,8 @@
        d="M 354.2308,2626.4905 L 606.7137,2571.5158"
        id="path7285"
        inkscape:connector-type="polyline"
-       inkscape:connection-start="#g7251"
-       inkscape:connection-end="#g7259" />
+       inkscape:connection-end="#g7259"
+       inkscape:connection-start="#g7251" />
     <g
        id="g7297"
        transform="translate(738.06072,2151.0027)">
@@ -3796,7 +3796,7 @@
        inkscape:connection-end="#g7455" />
     <g
        id="g8296"
-       transform="translate(1150.6019,1929.6279)">
+       transform="translate(1139.095,1885.6923)">
       <text
          id="text8292"
          y="676.42651"
@@ -3896,7 +3896,7 @@
        inkscape:connection-end="#g8314" />
     <g
        id="g8348"
-       transform="translate(1164.201,1919.9516)">
+       transform="translate(1151.648,1815.0815)">
       <text
          id="text8336"
          y="707.28601"
@@ -3910,7 +3910,7 @@
     </g>
     <g
        id="g8340"
-       transform="translate(740.07872,2408.6666)">
+       transform="translate(728.57178,2364.731)">
       <path
          transform="matrix(1.0905804,0,0,1.1280199,-90.813541,-24.838694)"
          d="M 1004.135,193.29976 A 4.6230893,4.7155509 0 1 1 994.88881,193.29976 A 4.6230893,4.7155509 0 1 1 1004.135,193.29976 z"
@@ -3935,21 +3935,21 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1634.6705,2580.4995 L 1733.8289,2600.7536"
+       d="M 1634.6705,2578.1869 L 1722.3219,2559.1306"
        id="path8352"
        inkscape:connector-type="polyline"
        inkscape:connection-end="#g8340"
        inkscape:connection-start="#g8314" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1722.277,2620.0802 L 1733.9218,2607.6357"
+       d="M 1709.3847,2522.3675 L 1724.8224,2552.1765"
        id="path8354"
        inkscape:connector-type="polyline"
-       inkscape:connection-start="#g8348"
-       inkscape:connection-end="#g8340" />
+       inkscape:connection-end="#g8340"
+       inkscape:connection-start="#g8348" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 1744.7977,2601.8238 L 1752.7516,2601.7512"
+       d="M 1733.2907,2557.8882 L 1741.2447,2557.8156"
        id="path8356"
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g8340"
