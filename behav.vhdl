@@ -69,61 +69,126 @@ architecture Behavioral of filters is
   constant g         : real    := 0.25;
 
 
-  signal sigys          : float32;
-  signal sigys_pi       : float32;
+  -----------------------------------------------------------------------------
+  -- stage 0
+  -----------------------------------------------------------------------------
+  signal uf_0         : float32;
+  signal vf_0         : float32;
+  signal ang          : float32;
+  signal u0           : float32;
+  signal scale        : float32;
+  signal thilb_im     : float32;
+  signal w            : float32;
+  -----------------------------------------------------------------------------
+  -- stage 1
+  -----------------------------------------------------------------------------
+  signal uf_1         : float32;
+  signal vf_1         : float32;
+  signal u0_kratio    : float32;
+  signal ang_s        : float32;
+  signal ang_c        : float32;
+  signal ang_90_con   : float32;
+  signal ang_0        : float32;
+  signal sigys        : float32;
+  signal thilb_im_0   : float32;
+  signal thilb_re_0   : float32;
+  signal w_2          : float32;
+  signal w_tphase     : float32;
+  signal scale_0      : float32;
+  -----------------------------------------------------------------------------
+  -- stage 2
+  -----------------------------------------------------------------------------
+  signal speed        : float32;
+  signal vf_ang_c     : float32;
+  signal vf_ang_s     : float32;
+  signal uf_ang_c     : float32;
+  signal uf_ang_s     : float32;
+  signal grad         : float32;
+  signal sigys_pi     : float32;
+  signal w_2_tsd      : float32;
+  signal tphase_s     : float32;
+  signal tphase_c     : float32;
+  signal scale_1      : float32;
+  signal uf_2         : float32;
+  signal vf_2         : float32;
+  signal ang_1        : float32;
+  -----------------------------------------------------------------------------
+  -- stage 3
+  -----------------------------------------------------------------------------
+  signal speed_0      : float32;
+  signal udash        : float32;
+  signal vdash        : float32;
+  signal scale_2      : float32;
+  signal sigys_pi_0   : float32;
+  signal w_2_tsd_div  : float32;
+  signal tphase_s_0   : float32;
+  signal tphase_c_0   : float32;
+  signal shilb_im     : float32;
+  signal s            : float32;
+  -----------------------------------------------------------------------------
+  -- stage 4
+  -----------------------------------------------------------------------------
+  signal hz           : float32;
+  signal sf           : float32;
+  signal udash_0      : float32;
+  signal s_2_pi       : float32;
+  signal scale_3      : float32;
+  signal sigys_pi_1   : float32;
+  signal vdash_s      : float32;
+  signal tphase_s_1   : float32;
+  signal tphase_c_1   : float32;
+  signal exp_w_2      : float32;
+  -----------------------------------------------------------------------------
+  -- stage 5
+  -----------------------------------------------------------------------------
+  signal hz_0         : float32;
+  signal xc1          : float32;
+  signal xc2          : float32;
+  signal xs1          : float32;
+  signal xs2          : float32;
+  signal sf_pi2       : float32;
+  signal udash_s_pi   : float32;
+  signal sigys_pi_2   : float32;
+  signal vdash_sx2    : float32;
+  signal temp3        : float32;
+  signal tphase_exp_s : float32;
+
+
+
   signal sigys_pi_vdash : float32;
-  signal speed          : float32;
-  signal u0             : float32;
-  signal scale          : float32;
-  signal grad           : float32;
-  signal u0_kratio      : float32;
-  signal ang_90_con     : float32;
-  signal w_2            : float32;
-  signal w_tphase       : float32;
 
 
 
-  signal udash               : real := 0.0;
-  signal shilb_im            : real := 0.0;
-  signal hz                  : real := 0.0;
-  signal stratio             : real := 0.0;
-  signal udash_pi            : real := 0.0;
-  signal ang                 : float32;
-  signal ang_S, ang_C        : real := 0.0;
-  signal S                   : real := 0.0;
-  signal scale_S, scale_C    : real := 0.0;
-  signal xc1, xc2, xs1, xs2  : real := 0.0;
-  signal r, t                : real := 0.0;
-  signal p, q                : real := 0.0;
-  signal r1, p1              : real := 0.0;
-  signal vdash               : real := 0.0;
-  signal w                   : float32;
-  signal temp1, temp2, temp3 : real := 0.0;
+  signal stratio           : real := 0.0;
+  signal udash_pi          : real := 0.0;
+  signal scale_S, scale_C  : real := 0.0;
+  signal r, t              : real := 0.0;
+  signal p, q              : real := 0.0;
+  signal r1, p1            : real := 0.0;
+  signal temp1, temp2      : real := 0.0;
 -- signal temp4 : sfixed(sfixed_exp_size downto sfixed_dec_size);
-  signal temp5_im            : real := 0.0;
-  signal tphase_S, tphase_C  : real := 0.0;
-  signal etsust_re           : real := 0.0;
-  signal etsust_im           : real := 0.0;
-  signal thilb_im            : float32;
+  signal temp5_im          : real := 0.0;
+  signal etsust_re         : real := 0.0;
+  signal etsust_im         : real := 0.0;
 -- signal tempy, tempx : sfixed(sfixed_exp_size downto sfixed_dec_size);
 -- signal espsust : sfixed(sfixed_exp_size downto sfixed_dec_size);
 -- signal esptrans : sfixed(sfixed_exp_size downto sfixed_dec_size);
-  signal temp6_re            : real := 0.0;
-  signal temp6_im            : real := 0.0;
-  signal ettrans_im          : real := 0.0;
-  signal ettrans_re          : real := 0.0;
-  signal thilb_ettrans_im    : real := 0.0;
-  signal thilb_ettrans_re    : real := 0.0;
-  signal shilb_esptrans_im   : real := 0.0;
-  signal shilb_esptrans_re   : real := 0.0;
-  signal ehilb_re            : real := 0.0;
-  signal ehilb_im            : real := 0.0;
-  signal emain_re            : real := 0.0;
-  signal emain_im            : real := 0.0;
-  signal omain_im            : real := 0.0;
-  signal omain_re            : real := 0.0;
-  signal ohilb_im            : real := 0.0;
-  signal ohilb_re            : real := 0.0;
+  signal temp6_re          : real := 0.0;
+  signal temp6_im          : real := 0.0;
+  signal ettrans_im        : real := 0.0;
+  signal ettrans_re        : real := 0.0;
+  signal thilb_ettrans_im  : real := 0.0;
+  signal thilb_ettrans_re  : real := 0.0;
+  signal shilb_esptrans_im : real := 0.0;
+  signal shilb_esptrans_re : real := 0.0;
+  signal ehilb_re          : real := 0.0;
+  signal ehilb_im          : real := 0.0;
+  signal emain_re          : real := 0.0;
+  signal emain_im          : real := 0.0;
+  signal omain_im          : real := 0.0;
+  signal omain_re          : real := 0.0;
+  signal ohilb_im          : real := 0.0;
+  signal ohilb_re          : real := 0.0;
 
 
   signal esust_im_int  : float32;
@@ -217,11 +282,18 @@ begin  -- Behavioral
       uf_1       <= uf_0;
       vf_1       <= vf_0;
       ang_0      <= ang;
-      ang_S      <= sin(ang);
-      ang_C      <= cos(ang);
+      ang_s      <= sin(ang);
+      ang_c      <= cos(ang);
       ang_90_con <= (90.0 * to_float(con)) + ang;
       w_2        <= (w)**2;
       w_tphase   <= w * (2.0*to_float(MATH_PI)*to_float(tphase));
+      scale_0    <= scale;
+      if thilb_im = 0.0 then
+        thilb_re_0 <= to_float(1.0);
+      else
+        thilb_re_0 <= to_float(0.0);
+      end if;
+      thilb_im_0 <= thilb_im;
     end if;
   end process p_stage_1;
 
@@ -229,21 +301,22 @@ begin  -- Behavioral
   p_stage_2 : process (clk)
   begin
     if clk'event and clk = '1' then
+      uf_2     <= uf_1;
+      vf_2     <= vf_1;
+      ang_1    <= ang_0;
       speed    <= 1.0/u0_kratio;
-      vf_ang_s <= vf_1 * ang_S;
-      vf_ang_c <= vf_1 * ang_C;
-      uf_ang_s <= uf_1 * ang_S;
-      uf_ang_c <= uf_1 * ang_C;
+      vf_ang_s <= vf_1 * ang_s;
+      vf_ang_c <= vf_1 * ang_c;
+      uf_ang_s <= uf_1 * ang_s;
+      uf_ang_c <= uf_1 * ang_c;
       sigys_pi <= sigys * to_float(MATH_PI);
       grad_in  <= ang * 90.0 * to_float(con);
       w_2_tsd  <= w_2 * to_float(tsd**2);
       tphase_s <= sin(w_tphase);
       tphase_c <= cos(w_tphase);
+      scale_1  <= scale_0;
     end if;
   end process p_stage_2;
-
-
-
 
 
   grad : trig_function
@@ -253,6 +326,75 @@ begin  -- Behavioral
       clk      => clk,
       data_in  => grad_in,
       data_out => grad);
+
+
+  
+  p_stage_3 : process (clk)
+  begin
+    if clk'event and clk = '1' then
+      speed_0     <= speed;
+      scale_2     <= scale_1;
+      sigys_pi_0  <= sigys_pi;
+      udash       <= vf_ang_s + uf_ang_c;
+      vdash       <= uf_ang_s + vf_ang_c;
+      w_2_tsd_div <= w_2_tsd * 0.5;
+      tphase_c_0  <= tphase_c;
+      tphase_s_0  <= tphase_s;
+      s           <= (8.23/60) * scale;
+      if (ang_1 = 0.0) then
+        if (uf_2 <= 0.0) then
+          shilb_im <= 1.0;
+        else
+          shilb_im <= -1.0;
+        end if;
+      else
+        if (vf_2 <= grad) then
+          shilb_im <= 1.0;
+        else
+          shilb_im <= -1.0;
+        end if;
+      end if;
+    end if;
+  end process p_stage_3;
+
+  p_stage_4 : process (clk)
+  begin
+    if clk'event and clk = '1' then
+      hz         <= speed_0 * udash;
+      sf         <= (udash)**2;
+      udash_0    <= udash;
+      s_2_pi     <= (2.0 * to_float(MATH_PI)) * s;
+      scale_3    <= scale_2;
+      sigys_pi_1 <= sigys_pi_0;
+      vdash_s    <= vdash * sigys_pi_0;
+      tphase_s_1 <= tphase_s_0;
+      tphase_c_1 <= tphase_c_0;
+      exp_w_2    <= exp(w_2_tsd_div);
+    end if;
+  end process p_stage_4;
+
+
+
+  p_stage_5 : process (clk)
+  begin
+    if clk'event and clk = '1' then
+      if (hz = 0.0) then
+        hz_0 <= to_float(0.001);
+      else
+        hz_0 <= hz;
+      end if;
+      xc1          <= scale_3*(2.22/60.0);
+      xc2          <= scale_3*(4.97/60.0);
+      xs1          <= scale_3*(15.36/60.0);
+      xs2          <= scale_3*(17.41/60.0);
+      sf_pi2       <= sf * to_float(MATH_PI*MATH_PI);
+      udash_s_pi   <= udash_0 * s_2_pi;
+      sigys_pi_2   <= sigys_pi_1;
+      vdash_sx2    <= -1.0 * (vdash_s)**2;
+      temp3        <= tphase_c_1 * exp_w_2;
+      tphase_exp_s <= tphase_s_1 * exp_w_2;
+    end if;
+  end process p_stage_5;
 
 
   -----------------------------------------------------------------------------
@@ -275,33 +417,6 @@ begin  -- Behavioral
 
 
 
--- udash <= (vf_int*ang_S)+(uf_int*ang_C);
-
-
--- p_shilb : process (ang, uf_int, vf_int)
--- begin                                -- process p_shilb
---     if (ang = 0.0) then
---       if (uf_int <= 0.0) then
---         shilb_im <= 1.0;
---       else
---         shilb_im <= -1.0;
---       end if;
---     else
---       if (vf_int <= grad) then
---         shilb_im <= 1.0;
---       else
---         shilb_im <= -1.0;
---       end if;
---     end if;
---   end process p_shilb;
-
--- p_hz_check : process (hz)
--- begin                                -- process p_hz_check
---     hz   <= speed * udash;
---     if (hz = 0.0) then
---       hz <= 0.001;
---     end if;
---   end process p_hz_check;
 
 -- stratio <= (abs(hz)*real(kratio))/1.0;
 
@@ -311,10 +426,6 @@ begin  -- Behavioral
 -- scale_S <= sin(S);
 -- scale_C <= cos(S);
 
--- xc1 <= scale*(2.22/60.0);
--- xc2 <= scale*(4.97/60.0);
--- xs1 <= scale*(15.36/60.0);
--- xs2 <= scale*(17.41/60.0);
 
 -- r <= real(kc2) * (exp(-1.0 * ((xs2**2)*udash_pi)));
 -- t <= real(ks2) * (exp(-1.0 * ((xs2**2)*udash_pi)));

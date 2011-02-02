@@ -92,8 +92,8 @@ begin  -- tb
   -- set mtspeed to 1
   mtspeed_i <= to_float(1.0);
 
-  -- set theta to 6
-  theta_i <= to_float(6.0);
+  -- set theta to 30 
+  theta_i <= to_float(30.0);
 
 
   -- synthesis translate_off 
