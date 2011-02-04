@@ -39,7 +39,7 @@ architecture Behavioral of filters is
 
   component trig_function
     generic (
-      opcode   :     string := "COS"
+      opcode : string := "COS"
       );
     port (
       clk      : in  std_logic;
@@ -74,68 +74,72 @@ architecture Behavioral of filters is
 
 
   -----------------------------------------------------------------------------
+  -- pipelined signals length definition
+  -----------------------------------------------------------------------------
+  subtype  float_vec is array (natural range<>) of float32;
+  constant N_STAGES_UF       : integer := 3;
+  constant N_STAGES_VF       : integer := 3;
+  constant N_STAGES_ANG      : integer := 3;
+  constant N_STAGES_SCALE    : integer := 5;
+  constant N_STAGES_THILB    : integer := 9;
+  constant N_STAGES_SHILB    : integer := 18;
+  constant N_STAGES_STRATIO  : integer := 11;
+  constant N_STAGES_SG1      : integer := 5;
+  constant N_STAGES_ETSUST   : integer := 12;
+  constant N_STAGES_W        : integer := 8;
+  constant N_STAGES_SPEED    : integer := 2;
+  constant N_STAGES_SIGYS_PI : integer := 5;
+  constant N_STAGES_TPHASE_S : integer := 3;
+  constant N_STAGES_TPHASE_C : integer := 3;
+
+  -----------------------------------------------------------------------------
   -- stage 0 signals
   -----------------------------------------------------------------------------
-  signal uf_0               : float32;
-  signal vf_0               : float32;
-  signal ang                : float32;
+  signal uf                 : float_vec(N_STAGES_UF-1 downto 0);
+  signal vf                 : float_vec(N_STAGES_VF-1 downto 0);
+  signal ang                : float_vec(N_STAGES_ANG-1 downto 0);
+  signal scale              : float_vec(N_STAGES_SCALE-1 downto 0);
+  signal w                  : float_vec(N_STAGES_W-1 downto 0);
+  signal thilb_im_temp      : float32;
   signal u0                 : float32;
-  signal scale              : float32;
-  signal thilb_im           : float32;
-  signal w                  : float32;
   -----------------------------------------------------------------------------
   -- stage 1 signals
   -----------------------------------------------------------------------------
-  signal uf_1               : float32;
-  signal vf_1               : float32;
+  signal thilb_im           : float_vec(N_STAGES_THILB-1 downto 0);
+  signal thilb_re           : float_vec(N_STAGES_THILB-1 downto 0);
   signal u0_kratio          : float32;
   signal ang_s              : float32;
   signal ang_c              : float32;
   signal ang_90_con         : float32;
-  signal ang_0              : float32;
   signal sigys              : float32;
-  signal thilb_im_0         : float32;
-  signal thilb_re_0         : float32;
   signal w_square           : float32;
   signal w_tphase           : float32;
-  signal scale_0            : float32;
-  signal w_0                : float32;
   -----------------------------------------------------------------------------
   -- stage 2 signals
   -----------------------------------------------------------------------------
-  signal speed              : float32;
+  signal speed              : float_vec(N_STAGES_SPEED-1 downto 0);
   signal vf_ang_c           : float32;
   signal vf_ang_s           : float32;
   signal uf_ang_c           : float32;
   signal uf_ang_s           : float32;
   signal grad               : float32;
-  signal sigys_pi           : float32;
+  signal sigys_pi           : float_vec(N_STAGES_SIGYS_PI-1 downto 0);
   signal w_2_tsd            : float32;
-  signal tphase_s           : float32;
-  signal tphase_c           : float32;
-  signal scale_1            : float32;
-  signal uf_2               : float32;
-  signal vf_2               : float32;
-  signal ang_1              : float32;
-  signal w_1                : float32;
-  signal thilb_im_1         : float32;
-  signal thilb_re_1         : float32;
+  signal tphase_s           : float_vec(N_STAGES_TPHASE_S-1 downto 0);
+  signal tphase_c           : float_vec(N_STAGES_TPHASE_C-1 downto 0);
   -----------------------------------------------------------------------------
   -- stage 3 signals
   -----------------------------------------------------------------------------
+  signal shilb_im           : float_vec(N_STAGES_SHILB-1 downto 0);
   signal speed_0            : float32;
   signal udash              : float32;
   signal vdash              : float32;
-  signal scale_2            : float32;
   signal sigys_pi_0         : float32;
   signal w_2_tsd_div        : float32;
   signal tphase_s_0         : float32;
   signal tphase_c_0         : float32;
-  signal shilb_im           : float32;
   signal s                  : float32;
   signal w_2                : float32;
-  signal thilb_im_2         : float32;
-  signal thilb_re_2         : float32;
   -----------------------------------------------------------------------------
   -- stage 4 signals
   -----------------------------------------------------------------------------
@@ -143,16 +147,12 @@ architecture Behavioral of filters is
   signal sf                 : float32;
   signal udash_0            : float32;
   signal s_2_pi             : float32;
-  signal scale_3            : float32;
   signal sigys_pi_1         : float32;
   signal vdash_s            : float32;
   signal tphase_s_1         : float32;
   signal tphase_c_1         : float32;
   signal exp_w_2            : float32;
   signal w_3                : float32;
-  signal thilb_im_3         : float32;
-  signal thilb_re_3         : float32;
-  signal shilb_im_0         : float32;
   -----------------------------------------------------------------------------
   -- stage 5 signals
   -----------------------------------------------------------------------------
@@ -168,9 +168,6 @@ architecture Behavioral of filters is
   signal temp3              : float32;
   signal tphase_exp_s       : float32;
   signal w_4                : float32;
-  signal thilb_im_4         : float32;
-  signal thilb_re_4         : float32;
-  signal shilb_im_1         : float32;
   -----------------------------------------------------------------------------
   -- stage 6 signals
   -----------------------------------------------------------------------------
@@ -187,14 +184,11 @@ architecture Behavioral of filters is
   signal temp3_0            : float32;
   signal temp5_im           : float32;
   signal w_5                : float32;
-  signal thilb_im_5         : float32;
-  signal thilb_re_5         : float32;
-  signal shilb_im_2         : float32;
   -----------------------------------------------------------------------------
   -- stage 7 signals
   -----------------------------------------------------------------------------
-  signal etsust_re          : float32;
-  signal etsust_im          : float32;
+  signal etsust_re          : float_vec(N_STAGES_ETSUST-1 downto 0);
+  signal etsust_im          : float_vec(N_STAGES_ETSUST-1 downto 0);
   signal xs12_sfpi2         : float32;
   signal xc12_sfpi2         : float32;
   signal xs22_sfpi2         : float32;
@@ -204,13 +198,10 @@ architecture Behavioral of filters is
   signal w_6                : float32;
   signal scale_s_0          : float32;
   signal scale_c_0          : float32;
-  signal thilb_im_6         : float32;
-  signal thilb_re_6         : float32;
-  signal shilb_im_3         : float32;
   -----------------------------------------------------------------------------
   -- stage 8 signals
   -----------------------------------------------------------------------------
-  signal stratio            : float32;
+  signal stratio            : float_vec(N_STAGES_STRATIO-1 downto 0);
   signal xc22_exp           : float32;
   signal xs22_exp           : float32;
   signal xc12_exp           : float32;
@@ -220,16 +211,10 @@ architecture Behavioral of filters is
   signal temp6_im           : float32;
   signal scale_s_1          : float32;
   signal scale_c_1          : float32;
-  signal thilb_im_7         : float32;
-  signal thilb_re_7         : float32;
-  signal shilb_im_4         : float32;
   signal temp4_0            : float32;
-  signal etsust_re_0        : float32;
-  signal etsust_im_0        : float32;
   -----------------------------------------------------------------------------
   -- stage 9 signals
   -----------------------------------------------------------------------------
-  signal stratio_0          : float32;
   signal r                  : float32;
   signal t                  : float32;
   signal scale_s_2          : float32;
@@ -238,32 +223,20 @@ architecture Behavioral of filters is
   signal q                  : float32;
   signal temp7_im           : float32;
   signal temp7_re           : float32;
-  signal thilb_im_8         : float32;
-  signal thilb_re_8         : float32;
-  signal shilb_im_5         : float32;
   signal temp4_1            : float32;
-  signal etsust_re_1        : float32;
-  signal etsust_im_1        : float32;
   -----------------------------------------------------------------------------
   -- stage 10 signals
   -----------------------------------------------------------------------------
-  signal stratio_1          : float32;
   signal scale_s_g          : float32;
   signal r1                 : float32;
   signal scale_c_3          : float32;
   signal p1                 : float32;
   signal ettrans_re         : float32;
   signal ettrans_im         : float32;
-  signal thilb_im_9         : float32;
-  signal thilb_re_9         : float32;
-  signal shilb_im_6         : float32;
   signal temp4_2            : float32;
-  signal etsust_re_2        : float32;
-  signal etsust_im_2        : float32;
   -----------------------------------------------------------------------------
   -- stage 11 signals
   -----------------------------------------------------------------------------
-  signal stratio_2          : float32;
   signal scale_s_r1         : float32;
   signal scale_c_r1         : float32;
   signal scale_c_4          : float32;
@@ -271,108 +244,68 @@ architecture Behavioral of filters is
   signal p1_square          : float32;
   signal thilb_ettrans_re   : float32;
   signal thilb_ettrans_im   : float32;
-  signal shilb_im_7         : float32;
   signal temp4_3            : float32;
-  signal etsust_re_3        : float32;
-  signal etsust_im_3        : float32;
   -----------------------------------------------------------------------------
   -- stage 12 signals
   -----------------------------------------------------------------------------
-  signal stratio_3          : float32;
-  signal scale_s_square     : float32;
+  signal scale_SG1          : float_vec(N_STAGES_SG1-1 downto 0);
   signal scale_c_p1         : float32;
   signal p1_square_0        : float32;
   signal thilb_ettrans_re_0 : float32;
   signal thilb_ettrans_im_0 : float32;
-  signal shilb_im_8         : float32;
   signal temp4_4            : float32;
-  signal etsust_re_4        : float32;
-  signal etsust_im_4        : float32;
   -----------------------------------------------------------------------------
   -- stage 13 signals
   -----------------------------------------------------------------------------
-  signal stratio_4          : float32;
-  signal scale_s_square_0   : float32;
   signal scale_c_p1_x2      : float32;
   signal p1_square_1        : float32;
   signal thilb_ettrans_re_1 : float32;
   signal thilb_ettrans_im_1 : float32;
-  signal shilb_im_9         : float32;
   signal temp4_5            : float32;
-  signal etsust_re_5        : float32;
-  signal etsust_im_5        : float32;
   -----------------------------------------------------------------------------
   -- stage 14 signals
   -----------------------------------------------------------------------------
-  signal stratio_5          : float32;
-  signal shilb_im_10        : float32;
-  signal scale_s_square_1   : float32;
   signal thilb_ettrans_re_2 : float32;
   signal thilb_ettrans_im_2 : float32;
   signal p1_square_scale_c  : float32;
   signal temp4_6            : float32;
-  signal etsust_re_6        : float32;
-  signal etsust_im_6        : float32;
   -----------------------------------------------------------------------------
   -- stage 15 signals
   -----------------------------------------------------------------------------
-  signal stratio_6          : float32;
-  signal shilb_im_11        : float32;
-  signal scale_s_square_2   : float32;
   signal thilb_ettrans_re_3 : float32;
   signal thilb_ettrans_im_3 : float32;
   signal scale_cc           : float32;
   signal temp4_7            : float32;
-  signal etsust_re_7        : float32;
-  signal etsust_im_7        : float32;
   -----------------------------------------------------------------------------
   -- stage 16 signals
   -----------------------------------------------------------------------------
-  signal stratio_7          : float32;
-  signal shilb_im_12        : float32;
-  signal scale_s_square_3   : float32;
   signal thilb_ettrans_re_4 : float32;
   signal thilb_ettrans_im_4 : float32;
   signal temp4_8            : float32;
   signal temp1              : float32;
-  signal etsust_re_8        : float32;
-  signal etsust_im_8        : float32;
   -----------------------------------------------------------------------------
   -- stage 17 signals
   -----------------------------------------------------------------------------
-  signal stratio_8          : float32;
-  signal shilb_im_13        : float32;
   signal thilb_ettrans_re_5 : float32;
   signal thilb_ettrans_im_5 : float32;
   signal temp4_9            : float32;
   signal temp2              : float32;
-  signal etsust_re_9        : float32;
-  signal etsust_im_9        : float32;
   -----------------------------------------------------------------------------
   -- stage 18 signals
   -----------------------------------------------------------------------------
-  signal stratio_9          : float32;
-  signal shilb_im_14        : float32;
   signal thilb_ettrans_re_6 : float32;
   signal thilb_ettrans_im_6 : float32;
   signal tempx              : float32;
   signal tempy              : float32;
-  signal etsust_re_10       : float32;
-  signal etsust_im_10       : float32;
   -----------------------------------------------------------------------------
   -- stage 19 signals
   -----------------------------------------------------------------------------
-  signal stratio_10         : float32;
-  signal shilb_im_15        : float32;
   signal thilb_ettrans_re_7 : float32;
   signal thilb_ettrans_im_7 : float32;
   signal espsust            : float32;
-  signal etsust_re_11       : float32;
-  signal etsust_im_11       : float32;
   -----------------------------------------------------------------------------
   -- stage 20 signals
   -----------------------------------------------------------------------------
-  signal shilb_im_16        : float32;
   signal thilb_ettrans_re_8 : float32;
   signal thilb_ettrans_im_8 : float32;
   signal esust_int          : float32;
@@ -380,7 +313,6 @@ architecture Behavioral of filters is
   -----------------------------------------------------------------------------
   -- stage 21 signals
   -----------------------------------------------------------------------------
-  signal shilb_im_17        : float32;
   signal thilb_ettrans_re_9 : float32;
   signal thilb_ettrans_im_9 : float32;
   signal esust_int_0        : float32;
@@ -465,98 +397,137 @@ begin  -- Behavioral
   end process p_output_registers;
 
 
+  -----------------------------------------------------------------------------
+  -- stage 0
+  -----------------------------------------------------------------------------
   p_stage_0 : process (clk)
   begin
     if clk'event and clk = '1' then
-      u0       <= to_float(peakhz)/mtspeed_int;
-      scale    <= mtspeed_int*(3.0/to_float(peakhz));
-      uf_0     <= uf_int;
-      vf_0     <= vf_int;
-      ang      <= theta_int * to_float(con);
-      thilb_im <= SIGN(wf_int);
-      w        <= to_float(wInterval) * wf_int;
+      u0            <= to_float(peakhz)/mtspeed_int;
+      thilb_im_temp <= SIGN(wf_int);
+
+
+      w(0) <= to_float(wInterval) * wf_int;
+      for i in 1 to N_STAGES_W-1 loop
+        w(i) <= w(i-1);
+      end loop;  -- i
+
+      uf(0) <= uf_int;
+      for i in 1 to N_STAGES_UF-1 loop
+        uf(i) <= uf(i-1);
+      end loop;  -- i
+
+      vf(0) <= vf_int;
+      for i in 1 to N_STAGES_VF-1 loop
+        vf(i) <= vf(i-1);
+      end loop;  -- i
+
+      ang(0) <= theta_int * to_float(con);
+      for i in 1 to N_STAGES_ANG-1 loop
+        ang(i) <= ang(i-1);
+      end loop;  -- i
+
+      scale(0) <= mtspeed_int*(3.0/to_float(peakhz));
+      for i in 1 to N_STAGES_SCALE-1 loop
+        scale(i) <= scale(i-1);
+      end loop;  -- i
+      
     end if;
   end process p_stage_0;
 
 
+
+  -----------------------------------------------------------------------------
+  -- stage 1
+  -----------------------------------------------------------------------------
   p_stage_1 : process (clk)
   begin
     if clk'event and clk = '1' then
-      sigys        <= (1.4*to_float(aspect))/u0;
-      u0_kratio    <= to_float(kratio) * u0;
-      uf_1         <= uf_0;
-      vf_1         <= vf_0;
-      ang_0        <= ang;
-      ang_s        <= sin(ang);
-      ang_c        <= cos(ang);
-      ang_90_con   <= (90.0 * to_float(con)) + ang;
-      w_square     <= (w)**2;
-      w_tphase     <= w * (2.0*to_float(MATH_PI)*to_float(tphase));
-      scale_0      <= scale;
-      w_0          <= w;
-      if thilb_im = 0.0 then
-        thilb_re_0 <= to_float(1.0);
+      sigys      <= (1.4*to_float(aspect))/u0;
+      u0_kratio  <= to_float(kratio) * u0;
+      ang_s      <= sin(ang);
+      ang_c      <= cos(ang);
+      ang_90_con <= (90.0 * to_float(con)) + ang;
+      w_square   <= (w)**2;
+      w_tphase   <= w * (2.0*to_float(MATH_PI)*to_float(tphase));
+
+      if thilb_im_temp = 0.0 then
+        thilb_re(0) <= to_float(1.0);
       else
-        thilb_re_0 <= to_float(0.0);
+        thilb_re(0) <= to_float(0.0);
       end if;
-      thilb_im_0   <= thilb_im;
+      thilb_im(0) <= thilb_im_temp;
+      for i in 1 to N_STAGES_THILB-1 loop
+        thilb_im(i) <= thilb_im(i-1);
+        thilb_re(i) <= thilb_re(i-1);
+      end loop;  -- i
     end if;
   end process p_stage_1;
 
-
+  -----------------------------------------------------------------------------
+  -- stage 2
+  -----------------------------------------------------------------------------
   p_stage_2 : process (clk)
   begin
     if clk'event and clk = '1' then
-      uf_2     <= uf_1;
-      vf_2     <= vf_1;
-      ang_1    <= ang_0;
-      speed    <= 1.0/u0_kratio;
+      sigys_pi(0) <= sigys * to_float(MATH_PI);
+      for i in 1 to N_STAGES_SIGYS_PI-1 loop
+        sigys_pi(i) <= sigys_pi(i-1);
+      end loop;  -- i
+      speed(0) <= 1.0/u0_kratio;
+      for i in 1 to N_STAGES_SPEED-1 loop
+        speed(i) <= speed(i-1);
+      end loop;  -- i
+      tphase_s(0) <= sin(w_tphase);
+      for i in 1 to N_STAGES_TPHASE_S-1 loop
+        tphase_s(i) <= tphase_s(i-1);
+      end loop;  -- i
+      tphase_c(0) <= cos(w_tphase);
+      for i in 1 to N_STAGES_TPHASE_C-1 loop
+        tphase_c(i) <= tphase_c(i-1);
+      end loop;  -- i
+
       vf_ang_s <= vf_1 * ang_s;
       vf_ang_c <= vf_1 * ang_c;
       uf_ang_s <= uf_1 * ang_s;
       uf_ang_c <= uf_1 * ang_c;
-      sigys_pi <= sigys * to_float(MATH_PI);
       grad_in  <= ang * 90.0 * to_float(con);
       w_2_tsd  <= w_square * to_float(tsd**2);
-      tphase_s <= sin(w_tphase);
-      tphase_c <= cos(w_tphase);
-      scale_1  <= scale_0;
-      w_1      <= w_0;
     end if;
   end process p_stage_2;
 
 
-  grad : trig_function
-    generic map (
-      opcode   => "TAN")
-    port map (
-      clk      => clk,
-      data_in  => grad_in,
-      data_out => grad);
+--  grad : trig_function
+--    generic map (
+--      opcode   => "TAN")
+--    port map (
+--      clk      => clk,
+--      data_in  => grad_in,
+--      data_out => grad);
 
 
 
   p_stage_3 : process (clk)
   begin
     if clk'event and clk = '1' then
-      speed_0      <= speed;
-      scale_2      <= scale_1;
-      sigys_pi_0   <= sigys_pi;
-      udash        <= vf_ang_s + uf_ang_c;
-      vdash        <= uf_ang_s + vf_ang_c;
-      w_2_tsd_div  <= w_2_tsd * 0.5;
-      tphase_c_0   <= tphase_c;
-      tphase_s_0   <= tphase_s;
-      s            <= (8.23/60) * scale;
-      w_2          <= w_1;
+      speed_0     <= speed;
+      scale_2     <= scale_1;
+      sigys_pi_0  <= sigys_pi;
+      udash       <= vf_ang_s + uf_ang_c;
+      vdash       <= uf_ang_s + vf_ang_c;
+      w_2_tsd_div <= w_2_tsd * 0.5;
+      tphase_c_0  <= tphase_c;
+      tphase_s_0  <= tphase_s;
+      s           <= (8.23/60) * scale;
+      w_2         <= w_1;
       if (ang_1 = 0.0) then
-        if (uf_2   <= 0.0) then
+        if (uf_2 <= 0.0) then
           shilb_im <= 1.0;
         else
           shilb_im <= -1.0;
         end if;
       else
-        if (vf_2   <= grad) then
+        if (vf_2 <= grad) then
           shilb_im <= 1.0;
         else
           shilb_im <= -1.0;
@@ -588,9 +559,9 @@ begin  -- Behavioral
   begin
     if clk'event and clk = '1' then
       if (hz = 0.0) then
-        hz_0       <= to_float(0.001);
+        hz_0 <= to_float(0.001);
       else
-        hz_0       <= hz;
+        hz_0 <= hz;
       end if;
       xc1          <= scale_3*(2.22/60.0);
       xc2          <= scale_3*(4.97/60.0);
