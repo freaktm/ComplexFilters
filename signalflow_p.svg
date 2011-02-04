@@ -36,16 +36,16 @@
      objecttolerance="0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.51704175"
-     inkscape:cx="1215.4502"
-     inkscape:cy="579.91437"
+     inkscape:zoom="0.73120746"
+     inkscape:cx="671.87265"
+     inkscape:cy="1304.644"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1024"
-     inkscape:window-height="768"
+     inkscape:window-width="1016"
+     inkscape:window-height="713"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="90"
      showguides="true"
      inkscape:guide-bbox="true"
      units="mm">
@@ -9364,6 +9364,73 @@
        inkscape:connector-type="polyline"
        inkscape:connection-start="#g3911"
        inkscape:connection-end="#g4031" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#00ff00;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 938.7901,460.78737 L 804.14935,914.44097"
+       id="path4326"
+       transform="translate(81.321691,1838.3845)"
+       inkscape:connector-type="polyline"
+       inkscape:connection-start="#g5761" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="392.77216"
+       y="2470.55"
+       id="text4328"><tspan
+         sodipodi:role="line"
+         id="tspan4330"
+         x="392.77216"
+         y="2470.55">00</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="559.64142"
+       y="2472.3928"
+       id="text4332"><tspan
+         sodipodi:role="line"
+         id="tspan4334"
+         x="559.64142"
+         y="2472.3928">01</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="731.42529"
+       y="2471.406"
+       id="text4336"><tspan
+         sodipodi:role="line"
+         id="tspan4338"
+         x="731.42529"
+         y="2471.406">02</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#ff6600;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="393.82175"
+       y="2549.5742"
+       id="text4340"><tspan
+         sodipodi:role="line"
+         id="tspan4342"
+         x="393.82175"
+         y="2549.5742">00</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#ff6600;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="560.69098"
+       y="2551.4167"
+       id="text4344"><tspan
+         sodipodi:role="line"
+         id="tspan4346"
+         x="560.69098"
+         y="2551.4167">01</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#ff6600;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="732.47485"
+       y="2548.3789"
+       id="text4348"><tspan
+         sodipodi:role="line"
+         id="tspan4350"
+         x="732.47485"
+         y="2548.3789">02</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"

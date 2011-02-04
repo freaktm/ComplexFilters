@@ -130,7 +130,7 @@ architecture Behavioral of filters is
   -----------------------------------------------------------------------------
   -- stage 3 signals
   -----------------------------------------------------------------------------
-  signal shilb_im           : float_vec(N_STAGES_SHILB-1 downto 0);
+  signal shilb_im           : std_logic_vector(N_STAGES_SHILB-1 downto 0);
   signal speed_0            : float32;
   signal udash              : float32;
   signal vdash              : float32;
@@ -486,51 +486,42 @@ begin  -- Behavioral
       for i in 1 to N_STAGES_TPHASE_C-1 loop
         tphase_c(i) <= tphase_c(i-1);
       end loop;  -- i
-
-      vf_ang_s <= vf_1 * ang_s;
-      vf_ang_c <= vf_1 * ang_c;
-      uf_ang_s <= uf_1 * ang_s;
-      uf_ang_c <= uf_1 * ang_c;
+      
       grad_in  <= ang * 90.0 * to_float(con);
+
+      vf_ang_s <= vf(1) * ang_s;
+      vf_ang_c <= vf(1) * ang_c;
+      uf_ang_s <= uf(1) * ang_s;
+      uf_ang_c <= uf(1) * ang_c;
       w_2_tsd  <= w_square * to_float(tsd**2);
     end if;
   end process p_stage_2;
 
 
---  grad : trig_function
---    generic map (
---      opcode   => "TAN")
---    port map (
---      clk      => clk,
---      data_in  => grad_in,
---      data_out => grad);
 
 
 
+  -----------------------------------------------------------------------------
+  -- stage 3
+  -----------------------------------------------------------------------------
   p_stage_3 : process (clk)
   begin
     if clk'event and clk = '1' then
-      speed_0     <= speed;
-      scale_2     <= scale_1;
-      sigys_pi_0  <= sigys_pi;
       udash       <= vf_ang_s + uf_ang_c;
       vdash       <= uf_ang_s + vf_ang_c;
       w_2_tsd_div <= w_2_tsd * 0.5;
-      tphase_c_0  <= tphase_c;
-      tphase_s_0  <= tphase_s;
-      s           <= (8.23/60) * scale;
-      w_2         <= w_1;
+      s           <= (8.23/60) * scale(2);
       if (ang_1 = 0.0) then
-        if (uf_2 <= 0.0) then
-          shilb_im <= 1.0;
+        if (uf(2) <= 0.0) then
+          shilb_im(0) <= 1.0;
         else
-          shilb_im <= -1.0;
+          shilb_im(0) <= -1.0;
         end if;
       else
-        if (vf_2 <= grad) then
-          shilb_im <= 1.0;
+        if vf(2) <= grad) then
+          shilb_im(0) <= 1.0;
         else
-          shilb_im <= -1.0;
+          shilb_im(0) <= -1.0;
         end if;
       end if;
     end if;
