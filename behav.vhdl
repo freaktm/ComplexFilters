@@ -631,17 +631,17 @@ begin  -- Behavioral
   p_stage_7 : process (clk)
   begin
     if clk'event and clk = '1' then
-      etsust_re <= temp3_0;
-      etsust_im <= temp5_im;
-      xs12_sfpi2 sf_pi2_0 * xs12;
-      xc12_sfpi2 sf_pi2_0 * xc12;
-      xs22_sfpi2 sf_pi2_0 * xs22;
-      xc22_sfpi2 sf_pi2_0 * xc22;
-      temp4 sigys_pi_3 * vdash_exp;
-      hz_kratio hz_abs * to_float(kratio);
-      w_6       <= w_5;
-      scale_s_0 <= scale_s;
-      scale_c_0 <= scale_c;
+      etsust_re  <= temp3_0;
+      etsust_im  <= temp5_im;
+      xs12_sfpi2 <= sf_pi2_0 * xs12;
+      xc12_sfpi2 <= sf_pi2_0 * xc12;
+      xs22_sfpi2 <= sf_pi2_0 * xs22;
+      xc22_sfpi2 <= sf_pi2_0 * xc22;
+      temp4      <= sigys_pi_3 * vdash_exp;
+      hz_kratio  <= hz_abs * to_float(kratio);
+      w_6        <= w_5;
+      scale_s_0  <= scale_s;
+      scale_c_0  <= scale_c;
     end if;
   end process p_stage_7;
 
@@ -723,35 +723,35 @@ begin  -- Behavioral
   end process p_stage_18;
 
 
-   p_stage_19 : process (clk)
+  p_stage_19 : process (clk)
   begin
     if clk'event and clk = '1' then
 
     end if;
   end process p_stage_19;
 
-   p_stage_20 : process (clk)
+  p_stage_20 : process (clk)
   begin
     if clk'event and clk = '1' then
 
     end if;
   end process p_stage_20;
 
-   p_stage_21 : process (clk)
+  p_stage_21 : process (clk)
   begin
     if clk'event and clk = '1' then
 
     end if;
   end process p_stage_21;
 
-   p_stage_22 : process (clk)
+  p_stage_22 : process (clk)
   begin
     if clk'event and clk = '1' then
 
     end if;
   end process p_stage_22;
 
-  
+
 
 
   -----------------------------------------------------------------------------
@@ -780,7 +780,7 @@ begin  -- Behavioral
   -- --------------------------------------------------------------------------
   -- --------------------------------------------------------------------------
   -- --------------------------------------------------------------------------
-  -- OLD CODE - COMBINATIONAL -------------------------------------------------
+  -- OLD CODE - COMBINATIONAL           -------------------------------------------------
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
