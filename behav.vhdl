@@ -76,51 +76,50 @@ architecture Behavioral of filters is
   -----------------------------------------------------------------------------
   -- stage 0 signals
   -----------------------------------------------------------------------------
-  signal uf_0       : float32;
-  signal vf_0       : float32;
-  signal ang        : float32;
-  signal u0         : float32;
-  signal scale      : float32;
-  signal thilb_im   : float32;
-  signal w          : float32;
+  signal uf_0               : float32;
+  signal vf_0               : float32;
+  signal ang                : float32;
+  signal u0                 : float32;
+  signal scale              : float32;
+  signal thilb_im           : float32;
+  signal w                  : float32;
   -----------------------------------------------------------------------------
   -- stage 1 signals
   -----------------------------------------------------------------------------
-  signal uf_1       : float32;
-  signal vf_1       : float32;
-  signal u0_kratio  : float32;
-  signal ang_s      : float32;
-  signal ang_c      : float32;
-  signal ang_90_con : float32;
-  signal ang_0      : float32;
-  signal sigys      : float32;
-  signal thilb_im_0 : float32;
-  signal thilb_re_0 : float32;
-  signal w_square   : float32;
-  signal w_tphase   : float32;
-  signal scale_0    : float32;
-  signal w_0        : float32;
+  signal uf_1               : float32;
+  signal vf_1               : float32;
+  signal u0_kratio          : float32;
+  signal ang_s              : float32;
+  signal ang_c              : float32;
+  signal ang_90_con         : float32;
+  signal ang_0              : float32;
+  signal sigys              : float32;
+  signal thilb_im_0         : float32;
+  signal thilb_re_0         : float32;
+  signal w_square           : float32;
+  signal w_tphase           : float32;
+  signal scale_0            : float32;
+  signal w_0                : float32;
   -----------------------------------------------------------------------------
   -- stage 2 signals
   -----------------------------------------------------------------------------
-  signal speed      : float32;
-  signal vf_ang_c   : float32;
-  signal vf_ang_s   : float32;
-  signal uf_ang_c   : float32;
-  signal uf_ang_s   : float32;
-  signal grad       : float32;
-  signal sigys_pi   : float32;
-  signal w_2_tsd    : float32;
-  signal tphase_s   : float32;
-  signal tphase_c   : float32;
-  signal scale_1    : float32;
-  signal uf_2       : float32;
-  signal vf_2       : float32;
-  signal ang_1      : float32;
-  signal w_1        : float32;
-  signal thilb_im_1 : float32;
-  signal thilb_re_1 : float32;
-
+  signal speed              : float32;
+  signal vf_ang_c           : float32;
+  signal vf_ang_s           : float32;
+  signal uf_ang_c           : float32;
+  signal uf_ang_s           : float32;
+  signal grad               : float32;
+  signal sigys_pi           : float32;
+  signal w_2_tsd            : float32;
+  signal tphase_s           : float32;
+  signal tphase_c           : float32;
+  signal scale_1            : float32;
+  signal uf_2               : float32;
+  signal vf_2               : float32;
+  signal ang_1              : float32;
+  signal w_1                : float32;
+  signal thilb_im_1         : float32;
+  signal thilb_re_1         : float32;
   -----------------------------------------------------------------------------
   -- stage 3 signals
   -----------------------------------------------------------------------------
