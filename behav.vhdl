@@ -39,7 +39,7 @@ architecture Behavioral of filters is
 
   component trig_function
     generic (
-      opcode   :     string := "COS"
+      opcode : string := "COS"
       );
     port (
       clk      : in  std_logic;
@@ -61,13 +61,13 @@ architecture Behavioral of filters is
   constant tsd       : real    := 0.22;
   constant tphase    : real    := 0.1;
   constant ysize     : integer := xsize;
-  constant deltu     : real    := (2.0*real(umax))/real(xsize);
+  constant deltu     : float32 := (2.0*to_float(umax))/to_float(xsize);
   constant thalf     : integer := nframes/2;
   constant maxrate   : integer := 20;
   constant wInterval : real    := real(maxrate/thalf);
-  constant con       : real    := MATH_PI / 180.0;
+  constant con       : float32 := MATH_PI / 180.0;
   constant kc1       : integer := 43;
-  constant con_90    : real    := con * 90.0;
+  constant con_90    : float32 := con * 90.0;
   constant kc2       : integer := 41;
   constant ks1       : integer := 43;
   constant ks2       : integer := kc2+ks1-kc1;
@@ -77,8 +77,8 @@ architecture Behavioral of filters is
   -----------------------------------------------------------------------------
   -- pipelined signals length definition
   -----------------------------------------------------------------------------
-  type float_vec is array (natural range <>) of float32;
-  type std_logic_a is array (natural range <>) of std_logic;
+  type     float_vec is array (natural range <>) of float32;
+  type     std_logic_a is array (natural range <>) of std_logic;
   constant N_STAGES_UF       : integer := 3;
   constant N_STAGES_VF       : integer := 3;
   constant N_STAGES_ANG      : integer := 3;
@@ -351,27 +351,27 @@ begin  -- Behavioral
       thilb_im_temp <= SIGN(wf_int);
 
 
-      w(0)   <= to_float(wInterval) * wf_int;
+      w(0) <= to_float(wInterval) * wf_int;
       for i in 1 to N_STAGES_W-1 loop
         w(i) <= w(i-1);
       end loop;  -- i
 
-      uf_int(0)   <= uf_i;
+      uf_int(0) <= uf_i;
       for i in 1 to N_STAGES_UF-1 loop
         uf_int(i) <= uf_int(i-1);
       end loop;  -- i
 
-      vf_int(0)   <= vf_i;
+      vf_int(0) <= vf_i;
       for i in 1 to N_STAGES_VF-1 loop
         vf_int(i) <= vf_int(i-1);
       end loop;  -- i
 
-      ang(0)   <= theta_int * to_float(con);
+      ang(0) <= theta_int * con;
       for i in 1 to N_STAGES_ANG-1 loop
         ang(i) <= ang(i-1);
       end loop;  -- i
 
-      scale(0)   <= mtspeed_int*(3.0/to_float(peakhz));
+      scale(0) <= mtspeed_int*(3.0/to_float(peakhz));
       for i in 1 to N_STAGES_SCALE-1 loop
         scale(i) <= scale(i-1);
       end loop;  -- i
@@ -391,7 +391,7 @@ begin  -- Behavioral
       u0_kratio  <= to_float(kratio) * u0;
       ang_s      <= sin(ang);
       ang_c      <= cos(ang);
-      ang_90_con <= to_float(con_90) + ang(0);
+      ang_90_con <= con_90 + ang(0);
       w_square   <= w(0)*w(0);
       w_tphase   <= w(0) * (2.0*to_float(MATH_PI)*to_float(tphase));
 
@@ -400,7 +400,7 @@ begin  -- Behavioral
       else
         thilb_re(0) <= to_float(0.0);
       end if;
-      thilb_im(0)   <= thilb_im_temp;
+      thilb_im(0) <= thilb_im_temp;
       for i in 1 to N_STAGES_THILB-1 loop
         thilb_im(i) <= thilb_im(i-1);
         thilb_re(i) <= thilb_re(i-1);
@@ -416,28 +416,28 @@ begin  -- Behavioral
   p_stage_2 : process (clk)
   begin
     if clk'event and clk = '1' then
-      sigys_pi(0)   <= sigys * to_float(MATH_PI);
+      sigys_pi(0) <= sigys * to_float(MATH_PI);
       for i in 1 to N_STAGES_SIGYS_PI-1 loop
         sigys_pi(i) <= sigys_pi(i-1);
       end loop;  -- i
-      speed(0)      <= 1.0/u0_kratio;
+      speed(0) <= 1.0/u0_kratio;
       for i in 1 to N_STAGES_SPEED-1 loop
-        speed(i)    <= speed(i-1);
+        speed(i) <= speed(i-1);
       end loop;  -- i
-      tphase_s(0)   <= sin(w_tphase);
+      tphase_s(0) <= sin(w_tphase);
       for i in 1 to N_STAGES_TPHASE_S-1 loop
         tphase_s(i) <= tphase_s(i-1);
       end loop;  -- i
-      tphase_c(0)   <= cos(w_tphase);
+      tphase_c(0) <= cos(w_tphase);
       for i in 1 to N_STAGES_TPHASE_C-1 loop
         tphase_c(i) <= tphase_c(i-1);
       end loop;  -- i
-      grad          <= tan(ang_90_con);
-      vf_ang_s      <= vf_int(2) * ang_s;
-      vf_ang_c      <= vf_int(2) * ang_c;
-      uf_ang_s      <= uf_int(2) * ang_s;
-      uf_ang_c      <= uf_int(2) * ang_c;
-      w_2_tsd       <= w_square * to_float(tsd**2);
+      grad     <= tan(ang_90_con);
+      vf_ang_s <= vf_int(2) * ang_s;
+      vf_ang_c <= vf_int(2) * ang_c;
+      uf_ang_s <= uf_int(2) * ang_s;
+      uf_ang_c <= uf_int(2) * ang_c;
+      w_2_tsd  <= w_square * to_float(tsd**2);
     end if;
   end process p_stage_2;
 
@@ -451,10 +451,10 @@ begin  -- Behavioral
   p_stage_3 : process (clk)
   begin
     if clk'event and clk = '1' then
-      udash(0)        <= vf_ang_s + uf_ang_c;
-      vdash           <= uf_ang_s + vf_ang_c;
-      w_2_tsd_div     <= w_2_tsd * 0.5;
-      s               <= (8.23/60) * scale(3);
+      udash(0)    <= vf_ang_s + uf_ang_c;
+      vdash       <= uf_ang_s + vf_ang_c;
+      w_2_tsd_div <= w_2_tsd * 0.5;
+      s           <= (8.23/60) * scale(3);
       if (ang(2) = 0.0) then
         if (uf_int(2) <= 0.0) then
           shilb_im(0) <= '1';           -- i
@@ -469,10 +469,10 @@ begin  -- Behavioral
         end if;
       end if;
       for i in 1 to N_STAGES_SHILB-1 loop
-        shilb_im(i)   <= shilb_im(i-1);
+        shilb_im(i) <= shilb_im(i-1);
       end loop;  -- i
       for i in 1 to N_STAGES_UDASH-1 loop
-        udash(i)      <= udash(i-1);
+        udash(i) <= udash(i-1);
       end loop;  -- i
     end if;
   end process p_stage_3;
@@ -503,17 +503,17 @@ begin  -- Behavioral
   begin
     if clk'event and clk = '1' then
       if (hz = 0.0) then
-        hz_0       <= to_float(0.001);
+        hz_0 <= to_float(0.001);
       else
-        hz_0       <= hz;
+        hz_0 <= hz;
       end if;
-      xc1          <= scale(4)*(2.22/60.0);
-      xc2          <= scale(4)*(4.97/60.0);
-      xs1          <= scale(4)*(15.36/60.0);
-      xs2          <= scale(4)*(17.41/60.0);
-      sf_pi2(0)    <= sf * to_float(MATH_PI*MATH_PI);
+      xc1       <= scale(4)*(2.22/60.0);
+      xc2       <= scale(4)*(4.97/60.0);
+      xs1       <= scale(4)*(15.36/60.0);
+      xs2       <= scale(4)*(17.41/60.0);
+      sf_pi2(0) <= sf * to_float(MATH_PI*MATH_PI);
       for i in 1 to N_STAGES_SFPI2-1 loop
-        sf_pi2(i)  <= sf_pi2(i-1);
+        sf_pi2(i) <= sf_pi2(i-1);
       end loop;  -- i
       udash_s_pi   <= udash(1) * s_2_pi;
       vdash_sx2    <= -1.0 * (vdash_s * vdash_s);
