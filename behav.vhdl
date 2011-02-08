@@ -134,7 +134,7 @@ architecture Behavioral of filters is
   -----------------------------------------------------------------------------
   -- stage 3 signals
   -----------------------------------------------------------------------------
-  signal shilb_im             : std_logic_a(N_STAGES_SHILB-1 downto 0);
+  signal shilb_im             : std_logic_vector(N_STAGES_SHILB-1 downto 0);
   signal udash                : float_vec(N_STAGES_UDASH-1 downto 0);
   signal vdash                : float32;
   signal w_2_tsd_div          : float32;
@@ -725,7 +725,7 @@ begin  -- Behavioral
   p_stage_21         : process (clk)
   begin
     if clk'event and clk = '1' then
-      osust_int_re(0)       <= esust_int_im(0) * shilb_im(17);
+      osust_int_re(0)       <= esust_int_im(0) * to_float(shilb_im(17));
       osust_int_im(0)       <= esust_int_re(0) * shilb_im(17);
       for i in 1 to N_STAGES_OSUST_INT-1 loop
         osust_int_im(i)     <= osust_int_im(i-1);
