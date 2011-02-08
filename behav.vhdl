@@ -451,15 +451,15 @@ begin  -- Behavioral
       s                     <= (8.23/60) * scale(3);
       if (ang(2) = 0.0) then
         if (uf_int(2)       <= 0.0) then
-          shilb_im(0)       <= '1';     -- i
+          shilb_im(0)       <= '0';     -- i
         else
-          shilb_im(0)       <= '0';     -- -i
+          shilb_im(0)       <= '1';     -- -i
         end if;
       else
         if (vf_int(2)       <= grad) then
-          shilb_im(0)       <= '1';     -- i
+          shilb_im(0)       <= '0';     -- i
         else
-          shilb_im(0)       <= '0';     -- -i
+          shilb_im(0)       <= '1';     -- -i
         end if;
       end if;
       for i in 1 to N_STAGES_SHILB-1 loop
@@ -503,7 +503,7 @@ begin  -- Behavioral
         sf_pi2(i)           <= sf_pi2(i-1);
       end loop;  -- i
       udash_s_pi            <= udash(1) * s_2_pi;
-      vdash_sx2             <= -1.0 * (vdash_s * vdash_s);
+      vdash_sx2             <= to_float(-1.0) * (vdash_s * vdash_s);
       temp3                 <= tphase_c(2) * exp_w_2;
       tphase_exp_s          <= tphase_s(2) * exp_w_2;
     end if;
