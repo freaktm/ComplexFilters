@@ -770,8 +770,8 @@ begin  -- Behavioral
   p_stage_23         : process (clk)
   begin
     if clk'event and clk = '1' then
-      ohilb_re              <= shilb_esptrans_re * thilb_ettrans_im(12);
-      ohilb_im              <= shilb_esptrans_re * thilb_ettrans_re(12);
+      ohilb_re              <= shilb_esptrans_re * thilb_ettrans_re(12);
+      ohilb_im              <= shilb_esptrans_re * thilb_ettrans_im(12);
       etrans_int_re(0)      <= -(emain_neg_re + ehilb_re);
       etrans_int_im(0)      <= -(emain_neg_im + ehilb_im);
       for i in 1 to N_STAGES_ETRANS_INT-1 loop
