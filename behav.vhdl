@@ -67,7 +67,6 @@ architecture Behavioral of filters is
   -- Array signals length definition
   -----------------------------------------------------------------------------
   type float_vec is array (natural range <>) of float32;
-  type std_logic_a is array (natural range <>) of std_logic;
   constant N_STAGES_UF            : integer := 3;
   constant N_STAGES_VF            : integer := 3;
   constant N_STAGES_ANG           : integer := 3;
@@ -99,211 +98,211 @@ architecture Behavioral of filters is
   -----------------------------------------------------------------------------
   -- stage 0 signals
   -----------------------------------------------------------------------------
-  signal uf_int               : float_vec(N_STAGES_UF-1 downto 0);
-  signal vf_int               : float_vec(N_STAGES_VF-1 downto 0);
-  signal ang                  : float_vec(N_STAGES_ANG-1 downto 0);
-  signal scale                : float_vec(N_STAGES_SCALE-1 downto 0);
-  signal w                    : float_vec(N_STAGES_W-1 downto 0);
-  signal thilb_im_temp        : float32;
-  signal u0                   : float32;
+  signal uf_int            : float_vec(N_STAGES_UF-1 downto 0);
+  signal vf_int            : float_vec(N_STAGES_VF-1 downto 0);
+  signal ang               : float_vec(N_STAGES_ANG-1 downto 0);
+  signal scale             : float_vec(N_STAGES_SCALE-1 downto 0);
+  signal w                 : float_vec(N_STAGES_W-1 downto 0);
+  signal thilb_im_temp     : float32;
+  signal u0                : float32;
   -----------------------------------------------------------------------------
   -- stage 1 signals
   -----------------------------------------------------------------------------
-  signal thilb_im             : float_vec(N_STAGES_THILB-1 downto 0);
-  signal thilb_re             : std_logic_a(N_STAGES_THILB-1 downto 0);
-  signal u0_kratio            : float32;
-  signal ang_s                : float32;
-  signal ang_c                : float32;
-  signal ang_90_con           : float32;
-  signal sigys                : float32;
-  signal w_square             : float32;
-  signal w_tphase             : float32;
+  signal thilb_im          : float_vec(N_STAGES_THILB-1 downto 0);
+  signal thilb_re          : std_logic_vector(N_STAGES_THILB-1 downto 0);
+  signal u0_kratio         : float32;
+  signal ang_s             : float32;
+  signal ang_c             : float32;
+  signal ang_90_con        : float32;
+  signal sigys             : float32;
+  signal w_square          : float32;
+  signal w_tphase          : float32;
   -----------------------------------------------------------------------------
   -- stage 2 signals
   -----------------------------------------------------------------------------
-  signal speed                : float_vec(N_STAGES_SPEED-1 downto 0);
-  signal vf_ang_c             : float32;
-  signal vf_ang_s             : float32;
-  signal uf_ang_c             : float32;
-  signal uf_ang_s             : float32;
-  signal grad                 : float32;
-  signal sigys_pi             : float_vec(N_STAGES_SIGYS_PI-1 downto 0);
-  signal w_2_tsd              : float32;
-  signal tphase_s             : float_vec(N_STAGES_TPHASE_S-1 downto 0);
-  signal tphase_c             : float_vec(N_STAGES_TPHASE_C-1 downto 0);
+  signal speed             : float_vec(N_STAGES_SPEED-1 downto 0);
+  signal vf_ang_c          : float32;
+  signal vf_ang_s          : float32;
+  signal uf_ang_c          : float32;
+  signal uf_ang_s          : float32;
+  signal grad              : float32;
+  signal sigys_pi          : float_vec(N_STAGES_SIGYS_PI-1 downto 0);
+  signal w_2_tsd           : float32;
+  signal tphase_s          : float_vec(N_STAGES_TPHASE_S-1 downto 0);
+  signal tphase_c          : float_vec(N_STAGES_TPHASE_C-1 downto 0);
   -----------------------------------------------------------------------------
   -- stage 3 signals
   -----------------------------------------------------------------------------
-  signal shilb_im             : std_logic_vector(N_STAGES_SHILB-1 downto 0);
-  signal udash                : float_vec(N_STAGES_UDASH-1 downto 0);
-  signal vdash                : float32;
-  signal w_2_tsd_div          : float32;
-  signal s                    : float32;
+  signal shilb_im          : std_logic_vector(N_STAGES_SHILB-1 downto 0);
+  signal udash             : float_vec(N_STAGES_UDASH-1 downto 0);
+  signal vdash             : float32;
+  signal w_2_tsd_div       : float32;
+  signal s                 : float32;
   -----------------------------------------------------------------------------
   -- stage 4 signals
   -----------------------------------------------------------------------------
-  signal hz                   : float32;
-  signal sf                   : float32;
-  signal s_2_pi               : float32;
-  signal vdash_s              : float32;
-  signal exp_w_2              : float32;
+  signal hz                : float32;
+  signal sf                : float32;
+  signal s_2_pi            : float32;
+  signal vdash_s           : float32;
+  signal exp_w_2           : float32;
   -----------------------------------------------------------------------------
   -- stage 5 signals
   -----------------------------------------------------------------------------
-  signal xc1                  : float32;
-  signal xc2                  : float32;
-  signal xs1                  : float32;
-  signal xs2                  : float32;
-  signal hz_0                 : float32;
-  signal sf_pi2               : float_vec(N_STAGES_SFPI2-1 downto 0);
-  signal udash_s_pi           : float32;
-  signal vdash_sx2            : float32;
-  signal temp3                : float32;
-  signal tphase_exp_s         : float32;
+  signal xc1               : float32;
+  signal xc2               : float32;
+  signal xs1               : float32;
+  signal xs2               : float32;
+  signal hz_0              : float32;
+  signal sf_pi2            : float_vec(N_STAGES_SFPI2-1 downto 0);
+  signal udash_s_pi        : float32;
+  signal vdash_sx2         : float32;
+  signal temp3             : float32;
+  signal tphase_exp_s      : float32;
   -----------------------------------------------------------------------------
   -- stage 6 signals
   -----------------------------------------------------------------------------
-  signal hz_abs               : float32;
-  signal xc22                 : float32;
-  signal scale_s              : float_vec(N_STAGES_SCALES-1 downto 0);
-  signal scale_c              : float_vec(N_STAGES_SCALEC-1 downto 0);
-  signal xs22                 : float32;
-  signal xc12                 : float32;
-  signal vdash_exp            : float32;
-  signal xs12                 : float32;
-  signal etsust_re            : float_vec(N_STAGES_ETSUST-1 downto 0);
-  signal etsust_im            : float_vec(N_STAGES_ETSUST-1 downto 0);
+  signal hz_abs            : float32;
+  signal xc22              : float32;
+  signal scale_s           : float_vec(N_STAGES_SCALES-1 downto 0);
+  signal scale_c           : float_vec(N_STAGES_SCALEC-1 downto 0);
+  signal xs22              : float32;
+  signal xc12              : float32;
+  signal vdash_exp         : float32;
+  signal xs12              : float32;
+  signal etsust_re         : float_vec(N_STAGES_ETSUST-1 downto 0);
+  signal etsust_im         : float_vec(N_STAGES_ETSUST-1 downto 0);
   -----------------------------------------------------------------------------
   -- stage 7 signals
   -----------------------------------------------------------------------------
-  signal xs12_sfpi2           : float32;
-  signal xc12_sfpi2           : float32;
-  signal xs22_sfpi2           : float32;
-  signal xc22_sfpi2           : float32;
-  signal temp4                : float_vec(N_STAGES_TEMP4-1 downto 0);
-  signal hz_kratio            : float32;
-  signal temp6_re             : float32;
-  signal temp6_im             : float32;
+  signal xs12_sfpi2        : float32;
+  signal xc12_sfpi2        : float32;
+  signal xs22_sfpi2        : float32;
+  signal xc22_sfpi2        : float32;
+  signal temp4             : float_vec(N_STAGES_TEMP4-1 downto 0);
+  signal hz_kratio         : float32;
+  signal temp6_re          : float32;
+  signal temp6_im          : float32;
   -----------------------------------------------------------------------------
   -- stage 8 signals
   -----------------------------------------------------------------------------
-  signal stratio              : float_vec(N_STAGES_STRATIO-1 downto 0);
-  signal xc22_exp             : float32;
-  signal xs22_exp             : float32;
-  signal xc12_exp             : float32;
-  signal xs12_exp             : float32;
-  signal temp7_im             : float32;
-  signal temp7_re             : float32;
+  signal stratio           : float_vec(N_STAGES_STRATIO-1 downto 0);
+  signal xc22_exp          : float32;
+  signal xs22_exp          : float32;
+  signal xc12_exp          : float32;
+  signal xs12_exp          : float32;
+  signal temp7_im          : float32;
+  signal temp7_re          : float32;
   -----------------------------------------------------------------------------
   -- stage 9 signals
   -----------------------------------------------------------------------------
-  signal r                    : float32;
-  signal t                    : float32;
-  signal p                    : float32;
-  signal q                    : float32;
-  signal ettrans_re           : float_vec(N_STAGES_ETTRANS-1 downto 0);
-  signal ettrans_im           : float_vec(N_STAGES_ETTRANS-1 downto 0);
+  signal r                 : float32;
+  signal t                 : float32;
+  signal p                 : float32;
+  signal q                 : float32;
+  signal ettrans_re        : float_vec(N_STAGES_ETTRANS-1 downto 0);
+  signal ettrans_im        : float_vec(N_STAGES_ETTRANS-1 downto 0);
   -----------------------------------------------------------------------------
   -- stage 10 signals
   -----------------------------------------------------------------------------
-  signal scale_s_g            : float32;
-  signal r1                   : float32;
-  signal p1                   : float_vec(N_STAGES_P1-1 downto 0);
-  signal thilb_ettrans_re     : float_vec(N_STAGES_THILB_ETTRANS-1 downto 0);
-  signal thilb_ettrans_im     : float_vec(N_STAGES_THILB_ETTRANS-1 downto 0);
+  signal scale_s_g         : float32;
+  signal r1                : float32;
+  signal p1                : float_vec(N_STAGES_P1-1 downto 0);
+  signal thilb_ettrans_re  : float_vec(N_STAGES_THILB_ETTRANS-1 downto 0);
+  signal thilb_ettrans_im  : float_vec(N_STAGES_THILB_ETTRANS-1 downto 0);
   -----------------------------------------------------------------------------
   -- stage 11 signals
   -----------------------------------------------------------------------------
-  signal scale_s_r1           : float32;
-  signal scale_c_r1           : float32;
-  signal p1_square            : float_vec(N_STAGES_P1SQUARE-1 downto 0);
+  signal scale_s_r1        : float32;
+  signal scale_c_r1        : float32;
+  signal p1_square         : float_vec(N_STAGES_P1SQUARE-1 downto 0);
   -----------------------------------------------------------------------------
   -- stage 12 signals
   -----------------------------------------------------------------------------
-  signal scale_SG1            : float_vec(N_STAGES_SG1-1 downto 0);
-  signal scale_c_p1           : float32;
+  signal scale_SG1         : float_vec(N_STAGES_SG1-1 downto 0);
+  signal scale_c_p1        : float32;
   -----------------------------------------------------------------------------
   -- stage 13 signals
   -----------------------------------------------------------------------------
-  signal scale_c_p1_x2        : float32;
+  signal scale_c_p1_x2     : float32;
   -----------------------------------------------------------------------------
   -- stage 14 signals
   -----------------------------------------------------------------------------
-  signal p1_square_scale_c    : float32;
+  signal p1_square_scale_c : float32;
   -----------------------------------------------------------------------------
   -- stage 15 signals
   -----------------------------------------------------------------------------
-  signal scale_cc             : float32;
+  signal scale_cc          : float32;
   -----------------------------------------------------------------------------
   -- stage 16 signals
   -----------------------------------------------------------------------------
-  signal temp1                : float32;
+  signal temp1             : float32;
   -----------------------------------------------------------------------------
   -- stage 17 signals
   -----------------------------------------------------------------------------
-  signal temp2                : float32;
+  signal temp2             : float32;
   -----------------------------------------------------------------------------
   -- stage 18 signals
   -----------------------------------------------------------------------------
-  signal tempx                : float32;
-  signal tempy                : float32;
+  signal tempx             : float32;
+  signal tempy             : float32;
   -----------------------------------------------------------------------------
   -- stage 19 signals
   -----------------------------------------------------------------------------
-  signal espsust              : float32;
+  signal espsust           : float32;
   -----------------------------------------------------------------------------
   -- stage 20 signals
   -----------------------------------------------------------------------------
-  signal esust_int_re         : float_vec(N_STAGES_ESUST_INT-1 downto 0);
-  signal esust_int_im         : float_vec(N_STAGES_ESUST_INT-1 downto 0);
-  signal esptrans             : float32;
+  signal esust_int_re      : float_vec(N_STAGES_ESUST_INT-1 downto 0);
+  signal esust_int_im      : float_vec(N_STAGES_ESUST_INT-1 downto 0);
+  signal esptrans          : float32;
   -----------------------------------------------------------------------------
   -- stage 21 signals
   -----------------------------------------------------------------------------
-  signal osust_int_re         : float_vec(N_STAGES_OSUST_INT-1 downto 0);
-  signal osust_int_im         : float_vec(N_STAGES_OSUST_INT-1 downto 0);
-  signal shilb_esptrans_im    : float32;
-  signal emain_im             : float32;
-  signal emain_re             : float32;
+  signal osust_int_re      : float_vec(N_STAGES_OSUST_INT-1 downto 0);
+  signal osust_int_im      : float_vec(N_STAGES_OSUST_INT-1 downto 0);
+  signal shilb_esptrans_im : float32;
+  signal emain_im          : float32;
+  signal emain_re          : float32;
   -----------------------------------------------------------------------------
   -- stage 22 signals
   -----------------------------------------------------------------------------
-  signal emain_neg_im         : float32;
-  signal emain_neg_re         : float32;
-  signal ehilb_im             : float32;
-  signal ehilb_re             : float32;
-  signal shilb_esptrans_im_im : float32;
-  signal omain_re             : float_vec(N_STAGES_OMAIN-1 downto 0);
-  signal omain_im             : float_vec(N_STAGES_OMAIN-1 downto 0);
+  signal emain_neg_im      : float32;
+  signal emain_neg_re      : float32;
+  signal ehilb_im          : float32;
+  signal ehilb_re          : float32;
+  signal shilb_esptrans_re : float32;
+  signal omain_re          : float_vec(N_STAGES_OMAIN-1 downto 0);
+  signal omain_im          : float_vec(N_STAGES_OMAIN-1 downto 0);
   -----------------------------------------------------------------------------
   -- stage 23 signals
   -----------------------------------------------------------------------------
-  signal ohilb_im             : float32;
-  signal ohilb_re             : float32;
-  signal etrans_int_im        : float_vec(N_STAGES_ETRANS_INT-1 downto 0);
-  signal etrans_int_re        : float_vec(N_STAGES_ETRANS_INT-1 downto 0);
+  signal ohilb_im          : float32;
+  signal ohilb_re          : float32;
+  signal etrans_int_im     : float_vec(N_STAGES_ETRANS_INT-1 downto 0);
+  signal etrans_int_re     : float_vec(N_STAGES_ETRANS_INT-1 downto 0);
   -----------------------------------------------------------------------------
   -- stage 24 signals
   -----------------------------------------------------------------------------
-  signal otrans_int_re        : float32;
-  signal otrans_int_im        : float32;
+  signal otrans_int_re     : float32;
+  signal otrans_int_im     : float32;
   -----------------------------------------------------------------------------
   -- output signals
   -----------------------------------------------------------------------------
-  signal etrans_im_int        : float32;
-  signal etrans_re_int        : float32;
-  signal otrans_re_int        : float32;
-  signal otrans_im_int        : float32;
+  signal etrans_im_int     : float32;
+  signal etrans_re_int     : float32;
+  signal otrans_re_int     : float32;
+  signal otrans_im_int     : float32;
   -----------------------------------------------------------------------------
   -- input signals
   -----------------------------------------------------------------------------
-  signal uf_i                 : float32;
-  signal vf_i                 : float32;
-  signal wf_int               : float32;
-  signal theta_int            : float32;
-  signal oeval_int            : float32;
-  signal stval_int            : float32;
-  signal mtspeed_int          : float32;
+  signal uf_i              : float32;
+  signal vf_i              : float32;
+  signal wf_int            : float32;
+  signal theta_int         : float32;
+  signal oeval_int         : float32;
+  signal stval_int         : float32;
+  signal mtspeed_int       : float32;
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
   -- float32 signals converted to real for simulation only  -------------------
@@ -311,12 +310,12 @@ architecture Behavioral of filters is
   -----------------------------------------------------------------------------
   -----------------------------------------------------------------------------
   --synthesis translate_off
-  signal sigys_real           : real;
-  signal u0_real              : real;
-  signal scale_real           : real;
-  signal speed_real           : real;
-  signal ang_real             : real;
-  signal grad_real            : real;
+  signal sigys_real        : real;
+  signal u0_real           : real;
+  signal scale_real        : real;
+  signal speed_real        : real;
+  signal ang_real          : real;
+  signal grad_real         : real;
   --synthesis translate_on
 
 
@@ -503,7 +502,7 @@ begin  -- Behavioral
         sf_pi2(i)           <= sf_pi2(i-1);
       end loop;  -- i
       udash_s_pi            <= udash(1) * s_2_pi;
-      vdash_sx2             <= to_float(-1.0) * (vdash_s * vdash_s);
+      vdash_sx2             <= -(vdash_s * vdash_s);
       temp3                 <= tphase_c(2) * exp_w_2;
       tphase_exp_s          <= tphase_s(2) * exp_w_2;
     end if;
@@ -559,10 +558,10 @@ begin  -- Behavioral
   begin
     if clk'event and clk = '1' then
       stratio(0)            <= 1.0 / hz_kratio;
-      xc22_exp              <= to_float(-1.0) * exp(xc22_sfpi2);
-      xs22_exp              <= to_float(-1.0) * exp(xs22_sfpi2);
-      xc12_exp              <= to_float(-1.0) * exp(xc12_sfpi2);
-      xs12_exp              <= to_float(-1.0) * exp(xs12_sfpi2);
+      xc22_exp              <= -(exp(xc22_sfpi2));
+      xs22_exp              <= -(exp(xs22_sfpi2));
+      xc12_exp              <= -(exp(xc12_sfpi2));
+      xs12_exp              <= -(exp(xs12_sfpi2));
       temp7_im              <= to_float(kratio) * temp6_im;
       temp7_re              <= to_float(kratio) * temp6_re;
       for i in 1 to N_STAGES_STRATIO-1 loop
@@ -655,7 +654,7 @@ begin  -- Behavioral
   p_stage_14         : process (clk)
   begin
     if clk'event and clk = '1' then
-      p1_square_scale_c     <= (-1.0 * scale_c_p1_x2) + p1_square(2);
+      p1_square_scale_c     <= -scale_c_p1_x2 + p1_square(2);
     end if;
   end process p_stage_14;
   -----------------------------------------------------------------------------
@@ -720,33 +719,43 @@ begin  -- Behavioral
     end if;
   end process p_stage_20;
   -----------------------------------------------------------------------------
-  -- stage 21
+  -- stage 21        FIX SHILB, REMOVE MULTIPLYER
   -----------------------------------------------------------------------------
   p_stage_21         : process (clk)
   begin
     if clk'event and clk = '1' then
-      osust_int_re(0)       <= esust_int_im(0) * to_float(shilb_im(17));
-      osust_int_im(0)       <= esust_int_re(0) * shilb_im(17);
+      if shilb_im(17) = '1' then
+        osust_int_re(0)     <= -esust_int_im(0);
+        osust_int_im(0)     <= -esust_int_re(0);
+        shilb_esptrans_im   <= -esptrans;
+      else
+        osust_int_re(0)     <= esust_int_im(0);
+        osust_int_im(0)     <= esust_int_re(0);
+        shilb_esptrans_im   <= esptrans;
+      end if;
+      emain_im              <= esptrans * ettrans_im(11);
+      emain_re              <= esptrans * ettrans_re(11);
       for i in 1 to N_STAGES_OSUST_INT-1 loop
         osust_int_im(i)     <= osust_int_im(i-1);
         osust_int_im(i)     <= osust_int_im(i-1);
       end loop;  -- i
-      emain_im              <= esptrans * ettrans_im(11);
-      emain_re              <= esptrans * ettrans_re(11);
-      shilb_esptrans_im     <= esptrans * shilb_im(17);
     end if;
   end process p_stage_21;
   -----------------------------------------------------------------------------
-  -- stage 22
+  -- stage 22        FIX SHILB, how to add a i or -i to an imaginary number
   -----------------------------------------------------------------------------
   p_stage_22         : process (clk)
   begin
     if clk'event and clk = '1' then
-      emain_neg_re          <= emain_re * to_float(-1.0);
-      emain_neg_im          <= emain_im * to_float(-1.0);
-      ehilb_re              <= thilb_ettrans_im * shilb_esptrans_im;
-      ehilb_im              <= thilb_ettrans_re * shilb_esptrans_im;
-      shilb_esptrans_im_im  <= shilb_esptrans_im + shilb_im(18);
+      if shilb_im(18) = '1' then
+        shilb_esptrans_re   <= -shilb_esptrans_im;
+      else
+        shilb_esptrans_re   <= shilb_esptrans_im;
+      end if;
+      emain_neg_re          <= -emain_re;
+      emain_neg_im          <= -emain_im;
+      ehilb_re              <= thilb_ettrans_im(11) * shilb_esptrans_im;
+      ehilb_im              <= thilb_ettrans_re(11) * shilb_esptrans_im;
       omain_re(0)           <= ettrans_im(12) * shilb_esptrans_im;
       omain_im(0)           <= ettrans_re(12) * shilb_esptrans_im;
       for i in 1 to N_STAGES_OMAIN-1 loop
@@ -761,10 +770,10 @@ begin  -- Behavioral
   p_stage_23         : process (clk)
   begin
     if clk'event and clk = '1' then
-      ohilb_re              <= shilb_esptrans_im_im * thilb_ettrans_im(12);
-      ohilb_im              <= shilb_esptrans_im_im * thilb_ettrans_re(12);
-      etrans_int_re(0)      <= -1.0 * (emain_neg_re + ehilb_re);
-      etrans_int_im(0)      <= -1.0 * (emain_neg_im + ehilb_im);
+      ohilb_re              <= shilb_esptrans_re * thilb_ettrans_im(12);
+      ohilb_im              <= shilb_esptrans_re * thilb_ettrans_re(12);
+      etrans_int_re(0)      <= -(emain_neg_re + ehilb_re);
+      etrans_int_im(0)      <= -(emain_neg_im + ehilb_im);
       for i in 1 to N_STAGES_ETRANS_INT-1 loop
         etrans_int_im(i)    <= etrans_int_im(i-1);
         etrans_int_re(i)    <= etrans_int_re(i-1);
@@ -777,8 +786,8 @@ begin  -- Behavioral
   p_stage_24         : process (clk)
   begin
     if clk'event and clk = '1' then
-      otrans_int_re         <= -1.0 * (ohilb_re + omain_re(1));
-      otrans_int_im         <= -1.0 * (ohilb_im + omain_im(1));
+      otrans_int_re         <= -(ohilb_re + omain_re(1));
+      otrans_int_im         <= -(ohilb_im + omain_im(1));
     end if;
   end process p_stage_24;
 
