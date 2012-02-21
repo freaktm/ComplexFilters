@@ -81,6 +81,8 @@ begin  -- tb
       mtspeed   => mtspeed_i);
 
  wf_i <= 2.0;
+ vf_i <= 1.0;
+ uf_i <= 1.0;
   -- set mtspeed to 1
   mtspeed_i <= 1.0;
 

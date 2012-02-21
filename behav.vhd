@@ -104,7 +104,8 @@ architecture Behavioral of filters is
   signal scale             : float_vec(N_STAGES_SCALE-1 downto 0);
   signal w                 : float_vec(N_STAGES_W-1 downto 0);
   signal thilb_im_temp     : real;
-  signal u0                : real := 0.0;  
+  signal u0                : real;
+  signal s0ready : std_logic := '0';  
   -----------------------------------------------------------------------------
   -- stage 1 signals
   -----------------------------------------------------------------------------
@@ -115,8 +116,9 @@ architecture Behavioral of filters is
   signal ang_c             : real;
   signal ang_90_con        : real;
   signal sigys             : real;
-  signal w_square          : real := 0.0;
-  signal w_tphase          : real := 0.0;
+  signal w_square          : real;
+  signal w_tphase          : real;
+  signal s1ready : std_logic := '0'; 
   -----------------------------------------------------------------------------
   -- stage 2 signals
   -----------------------------------------------------------------------------
@@ -130,6 +132,7 @@ architecture Behavioral of filters is
   signal w_2_tsd           : real;
   signal tphase_s          : float_vec(N_STAGES_TPHASE_S-1 downto 0);
   signal tphase_c          : float_vec(N_STAGES_TPHASE_C-1 downto 0);
+  signal s2ready : std_logic := '0'; 
   -----------------------------------------------------------------------------
   -- stage 3 signals
   -----------------------------------------------------------------------------
@@ -138,6 +141,7 @@ architecture Behavioral of filters is
   signal vdash             : real;
   signal w_2_tsd_div       : real;
   signal s                 : real;
+  signal s3ready : std_logic := '0'; 
   -----------------------------------------------------------------------------
   -- stage 4 signals
   -----------------------------------------------------------------------------
@@ -322,6 +326,7 @@ begin  -- Behavioral
       oeval_int             <= oeval;
       stval_int             <= stval;
       mtspeed_int           <= mtspeed;
+      s0ready <= '1';
     end if;
   end process p_input_registers;
   -----------------------------------------------------------------------------
@@ -346,6 +351,7 @@ begin  -- Behavioral
   p_stage_0          : process (clk)
   begin
     if clk'event and clk = '1' then
+      if s0ready = '1' then
       u0                    <= peakhz/mtspeed_int;
       thilb_im_temp         <= SIGN(wf_i);
      w(0)                   <= wInterval * wf_i;
@@ -368,12 +374,107 @@ begin  -- Behavioral
       for i in 1 to N_STAGES_SCALE-1 loop
         scale(i)            <= scale(i-1);
       end loop;  -- i
+      s1ready <= '1';
+    end if;
     end if;
   end process p_stage_0;
 
 
+  -----------------------------------------------------------------------------
+  -- stage 1
+  -----------------------------------------------------------------------------
+  p_stage_1          : process (clk)
+  begin
+    if clk'event and clk = '1' then
+      if s1ready = '1' then
+      sigys                 <= (1.4 * aspect)/u0;
+      u0_kratio             <= kratio * u0;
+      ang_s                 <= sin(ang(0));
+      ang_c                 <= cos(ang(0));
+      ang_90_con            <= con_90 + ang(0);
+     w_square              <= w(0)*w(0);
+     w_tphase              <= w(0) * (2.0*MATH_PI*tphase);
+      if thilb_im_temp = 0.0 then
+        thilb_re(0)         <= '1';
+      else
+        thilb_re(0)         <= '0';
+      end if;
+      thilb_im(0)           <= thilb_im_temp;
+      for i in 1 to N_STAGES_THILB-1 loop
+        thilb_im(i)         <= thilb_im(i-1);
+        thilb_re(i)         <= thilb_re(i-1);
+      end loop;  -- i
+      s2ready <= '1';
+    end if;
+    end if;
+  end process p_stage_1;
 
-
-
+  -----------------------------------------------------------------------------
+  -- stage 2
+  -----------------------------------------------------------------------------
+  p_stage_2          : process (clk)
+  begin
+    if clk'event and clk = '1' then
+      if s2ready = '1' then
+      sigys_pi(0)           <= sigys * MATH_PI;
+      for i in 1 to N_STAGES_SIGYS_PI-1 loop
+        sigys_pi(i)         <= sigys_pi(i-1);
+      end loop;  -- i
+      speed(0)              <= 1.0/u0_kratio;
+      for i in 1 to N_STAGES_SPEED-1 loop
+        speed(i)            <= speed(i-1);
+      end loop;  -- i
+      tphase_s(0)           <= sin(w_tphase);
+      for i in 1 to N_STAGES_TPHASE_S-1 loop
+        tphase_s(i)         <= tphase_s(i-1);
+      end loop;  -- i
+      tphase_c(0)           <= cos(w_tphase);
+      for i in 1 to N_STAGES_TPHASE_C-1 loop
+        tphase_c(i)         <= tphase_c(i-1);
+      end loop;  -- i
+      grad                  <= tan(ang_90_con);
+      vf_ang_s              <= vf_int(2) * ang_s;
+      vf_ang_c              <= vf_int(2) * ang_c;
+      uf_ang_s              <= uf_int(2) * ang_s;
+      uf_ang_c              <= uf_int(2) * ang_c;
+      w_2_tsd               <= w_square * tsd**2;
+      s3ready <= '1';
+    end if;
+  end if;
+  end process p_stage_2;
+  
+    -----------------------------------------------------------------------------
+  -- stage 3
+  -----------------------------------------------------------------------------
+  p_stage_3          : process (clk)
+  begin
+    if clk'event and clk = '1' then
+      if s3ready = '1' then
+  --    udash(0)              <= vf_ang_s + uf_ang_c;
+   --   vdash                 <= uf_ang_s + vf_ang_c;
+      w_2_tsd_div           <= w_2_tsd * 0.5;
+      s                     <= (8.23/60) * scale(3);
+      if (ang(2) = 0.0) then
+        if (uf_int(2)       <= 0.0) then
+          shilb_im(0)       <= '0';     -- i
+        else
+          shilb_im(0)       <= '1';     -- -i
+        end if;
+      else
+        if (vf_int(2)       <= grad) then
+          shilb_im(0)       <= '0';     -- i
+        else
+          shilb_im(0)       <= '1';     -- -i
+        end if;
+      end if;
+      for i in 1 to N_STAGES_SHILB-1 loop
+        shilb_im(i)         <= shilb_im(i-1);
+      end loop;  -- i
+      for i in 1 to N_STAGES_UDASH-1 loop
+        udash(i)            <= udash(i-1);
+      end loop;  -- i
+    end if;
+  end if;
+  end process p_stage_3;
 
 end Behavioral;
