@@ -67,33 +67,33 @@ architecture Behavioral of filters is
   -- Array signals length definition
   -----------------------------------------------------------------------------
   type float_vec is array (natural range <>) of real;
-  constant N_STAGES_UF            : real := 3;
-  constant N_STAGES_VF            : real := 3;
-  constant N_STAGES_ANG           : real := 3;
-  constant N_STAGES_SCALE         : real := 5;
-  constant N_STAGES_THILB         : real := 9;
-  constant N_STAGES_SHILB         : real := 19;
-  constant N_STAGES_STRATIO       : real := 12;
-  constant N_STAGES_SG1           : real := 5;
-  constant N_STAGES_ETSUST        : real := 14;
-  constant N_STAGES_W             : real := 7;
-  constant N_STAGES_SPEED         : real := 2;
-  constant N_STAGES_SIGYS_PI      : real := 5;
-  constant N_STAGES_TPHASE_S      : real := 3;
-  constant N_STAGES_TPHASE_C      : real := 3;
-  constant N_STAGES_UDASH         : real := 2;
-  constant N_STAGES_SFPI2         : real := 2;
-  constant N_STAGES_TEMP4         : real := 11;
-  constant N_STAGES_ETTRANS       : real := 13;
-  constant N_STAGES_THILB_ETTRANS : real := 13;
-  constant N_STAGES_SCALEC        : real := 9;
-  constant N_STAGES_SCALES        : real := 4;
-  constant N_STAGES_P1SQUARE      : real := 3;
-  constant N_STAGES_P1            : real := 2;
-  constant N_STAGES_ESUST_INT     : real := 5;
-  constant N_STAGES_OSUST_INT     : real := 4;
-  constant N_STAGES_ETRANS_INT    : real := 2;
-  constant N_STAGES_OMAIN         : real := 2;
+  constant N_STAGES_UF            : integer := 3;
+  constant N_STAGES_VF            : integer := 3;
+  constant N_STAGES_ANG           : integer := 3;
+  constant N_STAGES_SCALE         : integer := 5;
+  constant N_STAGES_THILB         : integer := 9;
+  constant N_STAGES_SHILB         : integer := 19;
+  constant N_STAGES_STRATIO       : integer := 12;
+  constant N_STAGES_SG1           : integer := 5;
+  constant N_STAGES_ETSUST        : integer := 14;
+  constant N_STAGES_W             : integer := 7;
+  constant N_STAGES_SPEED         : integer := 2;
+  constant N_STAGES_SIGYS_PI      : integer := 5;
+  constant N_STAGES_TPHASE_S      : integer := 3;
+  constant N_STAGES_TPHASE_C      : integer := 3;
+  constant N_STAGES_UDASH         : integer := 2;
+  constant N_STAGES_SFPI2         : integer := 2;
+  constant N_STAGES_TEMP4         : integer := 11;
+  constant N_STAGES_ETTRANS       : integer := 13;
+  constant N_STAGES_THILB_ETTRANS : integer := 13;
+  constant N_STAGES_SCALEC        : integer := 9;
+  constant N_STAGES_SCALES        : integer := 4;
+  constant N_STAGES_P1SQUARE      : integer := 3;
+  constant N_STAGES_P1            : integer := 2;
+  constant N_STAGES_ESUST_INT     : integer := 5;
+  constant N_STAGES_OSUST_INT     : integer := 4;
+  constant N_STAGES_ETRANS_INT    : integer := 2;
+  constant N_STAGES_OMAIN         : integer := 2;
 
   -----------------------------------------------------------------------------
   -- stage 0 signals
@@ -303,20 +303,7 @@ architecture Behavioral of filters is
   signal oeval_int         : real;
   signal stval_int         : real;
   signal mtspeed_int       : real;
-  -----------------------------------------------------------------------------
-  -----------------------------------------------------------------------------
-  -- real signals converted to real for simulation only  -------------------
-  -----------------------------------------------------------------------------
-  -----------------------------------------------------------------------------
-  -----------------------------------------------------------------------------
-  --synthesis translate_off
-  signal sigys_real        : real;
-  signal u0_real           : real;
-  signal scale_real        : real;
-  signal speed_real        : real;
-  signal ang_real          : real;
-  signal grad_real         : real;
-  --synthesis translate_on
+
 
 
 
@@ -359,9 +346,9 @@ begin  -- Behavioral
   p_stage_0          : process (clk)
   begin
     if clk'event and clk = '1' then
-      u0                    <= to_real(peakhz/mtspeed_int);
+      u0                    <= peakhz/mtspeed_int;
       thilb_im_temp         <= SIGN(wf_int);
-      w(0)                  <= to_float(wInterval) * wf_int;
+      w(0)                  <= wInterval * wf_int;
       for i in 1 to N_STAGES_W-1 loop
         w(i)                <= w(i-1);
       end loop;  -- i
@@ -377,7 +364,7 @@ begin  -- Behavioral
       for i in 1 to N_STAGES_ANG-1 loop
         ang(i)              <= ang(i-1);
       end loop;  -- i
-      scale(0)              <= mtspeed_int*(3.0/to_float(peakhz));
+      scale(0)              <= mtspeed_int*(3.0/peakhz);
       for i in 1 to N_STAGES_SCALE-1 loop
         scale(i)            <= scale(i-1);
       end loop;  -- i
@@ -389,13 +376,13 @@ begin  -- Behavioral
   p_stage_1          : process (clk)
   begin
     if clk'event and clk = '1' then
-      sigys                 <= (1.4 * to_float(aspect))/u0;
-      u0_kratio             <= to_float(kratio) * u0;
-      ang_s                 <= sin(ang);
-      ang_c                 <= cos(ang);
+      sigys                 <= (1.4 * aspect)/u0;
+      u0_kratio             <= kratio * u0;
+      ang_s                 <= sin(ang(0));
+      ang_c                 <= cos(ang(0));
       ang_90_con            <= con_90 + ang(0);
       w_square              <= w(0)*w(0);
-      w_tphase              <= w(0) * (2.0*to_float(MATH_PI)*to_float(tphase));
+      w_tphase              <= w(0) * (2.0*MATH_PI*tphase);
       if thilb_im_temp = 0.0 then
         thilb_re(0)         <= '1';
       else
@@ -414,7 +401,7 @@ begin  -- Behavioral
   p_stage_2          : process (clk)
   begin
     if clk'event and clk = '1' then
-      sigys_pi(0)           <= sigys * to_float(MATH_PI);
+      sigys_pi(0)           <= sigys * MATH_PI;
       for i in 1 to N_STAGES_SIGYS_PI-1 loop
         sigys_pi(i)         <= sigys_pi(i-1);
       end loop;  -- i
@@ -435,7 +422,7 @@ begin  -- Behavioral
       vf_ang_c              <= vf_int(2) * ang_c;
       uf_ang_s              <= uf_int(2) * ang_s;
       uf_ang_c              <= uf_int(2) * ang_c;
-      w_2_tsd               <= w_square * to_float(tsd**2);
+      w_2_tsd               <= w_square * tsd**2;
     end if;
   end process p_stage_2;
   -----------------------------------------------------------------------------
@@ -477,7 +464,7 @@ begin  -- Behavioral
     if clk'event and clk = '1' then
       hz                    <= speed(1) * udash(0);
       sf                    <= udash(0) * udash(0);
-      s_2_pi                <= (2.0 * to_float(MATH_PI)) * s;
+      s_2_pi                <= (2.0 * MATH_PI) * s;
       vdash_s               <= vdash * sigys_pi(1);
       exp_w_2               <= exp(w_2_tsd_div);
     end if;
@@ -489,7 +476,7 @@ begin  -- Behavioral
   begin
     if clk'event and clk = '1' then
       if (hz = 0.0) then
-        hz_0                <= to_float(0.001);
+        hz_0                <= 0.001;
       else
         hz_0                <= hz;
       end if;
@@ -497,7 +484,7 @@ begin  -- Behavioral
       xc2                   <= scale(4)*(4.97/60.0);
       xs1                   <= scale(4)*(15.36/60.0);
       xs2                   <= scale(4)*(17.41/60.0);
-      sf_pi2(0)             <= sf * to_float(MATH_PI*MATH_PI);
+      sf_pi2(0)             <= sf * MATH_PI*MATH_PI;
       for i in 1 to N_STAGES_SFPI2-1 loop
         sf_pi2(i)           <= sf_pi2(i-1);
       end loop;  -- i
@@ -546,7 +533,7 @@ begin  -- Behavioral
       xs22_sfpi2            <= sf_pi2(1) * xs22;
       xc22_sfpi2            <= sf_pi2(1) * xc22;
       temp4(0)              <= sigys_pi(4) * vdash_exp;
-      hz_kratio             <= hz_abs * to_float(kratio);
+      hz_kratio             <= hz_abs * kratio;
       temp6_re              <= w(6) * etsust_re(0);
       temp6_im              <= w(6) * etsust_im(0);
     end if;
@@ -562,8 +549,8 @@ begin  -- Behavioral
       xs22_exp              <= -(exp(xs22_sfpi2));
       xc12_exp              <= -(exp(xc12_sfpi2));
       xs12_exp              <= -(exp(xs12_sfpi2));
-      temp7_im              <= to_float(kratio) * temp6_im;
-      temp7_re              <= to_float(kratio) * temp6_re;
+      temp7_im              <= kratio * temp6_im;
+      temp7_re              <= kratio * temp6_re;
       for i in 1 to N_STAGES_STRATIO-1 loop
         stratio(i)          <= stratio(i-1);
       end loop;  -- i
@@ -575,10 +562,10 @@ begin  -- Behavioral
   p_stage_9          : process (clk)
   begin
     if clk'event and clk = '1' then
-      r                     <= xc22_exp * to_float(kc2);
-      t                     <= xs22_exp * to_float(ks2);
-      p                     <= xc12_exp * to_float(kc1);
-      q                     <= xs12_exp * to_float(ks1);
+      r                     <= xc22_exp * kc2;
+      t                     <= xs22_exp * ks2;
+      p                     <= xc12_exp * kc1;
+      q                     <= xs12_exp * ks1;
       ettrans_im(0)         <= temp7_re;
       ettrans_re(0)         <= temp7_im;
       for i in 1 to N_STAGES_ETTRANS-1 loop
@@ -593,7 +580,7 @@ begin  -- Behavioral
   p_stage_10         : process (clk)
   begin
     if clk'event and clk = '1' then
-      scale_s_g             <= scale_s(3) * 1.2 * to_float(g);
+      scale_s_g             <= scale_s(3) * 1.2 * g;
       r1                    <= r - t;
       p1(0)                 <= p - q;
       for i in 1 to N_STAGES_P1-1 loop
@@ -793,21 +780,6 @@ begin  -- Behavioral
 
 
 
-
-  -----------------------------------------------------------------------------
-  -----------------------------------------------------------------------------
-  -- real signals converted to real for simulation only  -------------------
-  -----------------------------------------------------------------------------
-  -----------------------------------------------------------------------------
-  -----------------------------------------------------------------------------
-  --synthesis translate_off
-  u0_real    <= To_real(u0);
-  sigys_real <= To_real(sigys);
-  scale_real <= To_real(scale(0));
-  speed_real <= To_real(speed(0));
-  ang_real   <= To_real(ang(0));
-  grad_real  <= To_real(grad);
-  --synthesis translate_on
 
 
 
