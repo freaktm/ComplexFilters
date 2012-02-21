@@ -104,7 +104,7 @@ architecture Behavioral of filters is
   signal scale             : float_vec(N_STAGES_SCALE-1 downto 0);
   signal w                 : float_vec(N_STAGES_W-1 downto 0);
   signal thilb_im_temp     : real;
-  signal u0                : real;
+  signal u0                : real := 0.0;  
   -----------------------------------------------------------------------------
   -- stage 1 signals
   -----------------------------------------------------------------------------
@@ -115,8 +115,8 @@ architecture Behavioral of filters is
   signal ang_c             : real;
   signal ang_90_con        : real;
   signal sigys             : real;
-  signal w_square          : real;
-  signal w_tphase          : real;
+  signal w_square          : real := 0.0;
+  signal w_tphase          : real := 0.0;
   -----------------------------------------------------------------------------
   -- stage 2 signals
   -----------------------------------------------------------------------------
@@ -296,13 +296,13 @@ architecture Behavioral of filters is
   -----------------------------------------------------------------------------
   -- input signals
   -----------------------------------------------------------------------------
-  signal uf_i              : real;
-  signal vf_i              : real;
-  signal wf_int            : real;
-  signal theta_int         : real;
-  signal oeval_int         : real;
-  signal stval_int         : real;
-  signal mtspeed_int       : real;
+  signal uf_i              : real := 1.0;
+  signal vf_i              : real := 1.0;
+  signal wf_i              : real := 1.0;
+  signal theta_int         : real := 1.0;
+  signal oeval_int         : real := 1.0;
+  signal stval_int         : real := 1.0;
+  signal mtspeed_int       : real := 1.0;
 
 
 
@@ -317,7 +317,7 @@ begin  -- Behavioral
     if clk'event and clk = '1' then
       uf_i                  <= uf;
       vf_i                  <= vf;
-      wf_int                <= wf;
+      wf_i                  <= wf;
       theta_int             <= theta;
       oeval_int             <= oeval;
       stval_int             <= stval;
@@ -347,8 +347,8 @@ begin  -- Behavioral
   begin
     if clk'event and clk = '1' then
       u0                    <= peakhz/mtspeed_int;
-      thilb_im_temp         <= SIGN(wf_int);
-      w(0)                  <= wInterval * wf_int;
+      thilb_im_temp         <= SIGN(wf_i);
+     w(0)                   <= wInterval * wf_i;
       for i in 1 to N_STAGES_W-1 loop
         w(i)                <= w(i-1);
       end loop;  -- i

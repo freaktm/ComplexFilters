@@ -21,46 +21,42 @@ architecture tb of filters_tb is
   component filters
     port (
       clk       : in  std_logic;
-      esust_im  : out float32;
-      esust_re  : out float32;
-      osust_re  : out float32;
-      osust_im  : out float32;
-      etrans_re : out float32;
-      etrans_im : out float32;
-      otrans_re : out float32;
-      otrans_im : out float32;
-      uf        : in  float32;
-      vf        : in  float32;
-      wf        : in  float32;
-      theta     : in  float32;
-      oeval     : in  float32;
-      stval     : in  float32;
-      mtspeed   : in  float32);
+      esust_im  : out real;
+      esust_re  : out real;
+      osust_re  : out real;
+      osust_im  : out real;
+      etrans_re : out real;
+      etrans_im : out real;
+      otrans_re : out real;
+      otrans_im : out real;
+      uf        : in  real;
+      vf        : in  real;
+      wf        : in  real;
+      theta     : in  real;
+      oeval     : in  real;
+      stval     : in  real;
+      mtspeed   : in  real);
   end component;
 
   signal clk_i       : std_logic := '1';
-  signal esust_im_i  : float32;
-  signal esust_re_i  : float32;
-  signal osust_re_i  : float32;
-  signal osust_im_i  : float32;
-  signal etrans_re_i : float32;
-  signal etrans_im_i : float32;
-  signal otrans_re_i : float32;
-  signal otrans_im_i : float32;
-  signal uf_i        : float32;
-  signal vf_i        : float32;
-  signal wf_i        : float32;
-  signal theta_i     : float32;
-  signal oeval_i     : float32;
-  signal stval_i     : float32;
-  signal mtspeed_i   : float32;
+  signal esust_im_i  : real := 0.0;
+  signal esust_re_i  : real := 0.0;
+  signal osust_re_i  : real := 0.0;
+  signal osust_im_i  : real := 0.0;
+  signal etrans_re_i : real := 0.0;
+  signal etrans_im_i : real := 0.0;
+  signal otrans_re_i : real := 0.0;
+  signal otrans_im_i : real := 0.0;
+  signal uf_i        : real := 0.0;
+  signal vf_i        : real := 0.0;
+  signal wf_i        : real := 0.0;
+  signal theta_i     : real := 0.0;
+  signal oeval_i     : real := 0.0;
+  signal stval_i     : real := 0.0;
+  signal mtspeed_i   : real := 0.0;
 
 
-  --synthesis translate_off
-  signal mtspeed_i_real : real := 0.0;
-  signal sigys_real     : real := 0.0;
-  signal theta_i_real   : real := 0.0;
-  --synthesis translate_on
+
 begin  -- tb
 
 
@@ -84,22 +80,17 @@ begin  -- tb
       stval     => stval_i,
       mtspeed   => mtspeed_i);
 
+ wf_i <= 2.0;
+  -- set mtspeed to 1
+  mtspeed_i <= 1.0;
+
+  -- set theta to 30 
+  theta_i <= 30.0;
 
   -- clock generation
   clk_i <= not clk_i after 10 ns;
 
 
-  -- set mtspeed to 1
-  mtspeed_i <= to_float(1.0);
-
-  -- set theta to 30 
-  theta_i <= to_float(30.0);
-
-
-  -- synthesis translate_off 
-  mtspeed_i_real <= To_real(mtspeed_i);
-  theta_i_real   <= To_real(theta_i);
-  -- synthesis translate_on
 
 
 
