@@ -94,20 +94,21 @@ begin  -- tb
 process
   variable x_cnt : real := 1.0; --variable to keep track of loop cnt  
   variable theta_cnt : real := 1.0;
-  variable line_var : line;
-  file text_var : text;
-
-
+  variable line_data : line;
+  file output_file : text;
   
 begin
   wait for 20 ns;
-  for i in 0 to 12 loop
-  for i in 2 to 99 loop
+  file_open(output_file,"output.txt",write_mode);
+  theta_i <= 30.0;
+  for i in 2 to 20 loop
     x_cnt := x_cnt + 1.0;
     wf_i <= x_cnt;
+    write(line_data, wf_i); 
+    writeline(output_file,line_data);    
     wait for 10 ns;
-  end loop;
-  end loop;
+  end loop;  
+  file_close(output_file); -- close output file
   wait;  -- simulation stops here
 end process;
 
