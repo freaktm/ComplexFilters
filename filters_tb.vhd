@@ -41,6 +41,10 @@ architecture tb of filters_tb is
       stval     : in  real;
       mtspeed   : in  real);
   end component;
+  
+  constant theta_angle_to_test : real := 30.0;
+  constant mtspeed_of_test : real := 1.0;
+  
 
   signal clk_i       : std_logic := '1';
   signal esust_im_i  : real := 1.0;
@@ -98,9 +102,15 @@ process
   file output_file : text;
   
 begin
-  wait for 20 ns;
+  wait for 10 ns;
+  theta_i <= theta_angle_to_test;
+  mtspeed_i <= mtspeed_of_test;
+  vf_i <= 1.0;
+  uf_i <= 1.0;
+  oeval_i <= 1.0;  
+  stval_i <= 1.0;  
+  wait for 10 ns;
   file_open(output_file,"output.txt",write_mode);
-  theta_i <= 30.0;
   for i in 2 to 20 loop
     x_cnt := x_cnt + 1.0;
     wf_i <= x_cnt;
