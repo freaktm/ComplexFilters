@@ -8,6 +8,10 @@ library floatfixlib;
 use floatfixlib.float_pkg.all;
 use floatfixlib.fixed_pkg.all;
 
+library std;
+use std.textio.all;
+
+
 -------------------------------------------------------------------------------
 
 entity filters_tb is
@@ -84,15 +88,25 @@ begin  -- tb
   clk_i <= not clk_i after 10 ns;
 
 
-
+------------------------------------
+--  TESTBENCH STIMULUS
+------------------------------------
 process
-  variable cnt : real := 1.0;
+  variable x_cnt : real := 1.0; --variable to keep track of loop cnt  
+  variable theta_cnt : real := 1.0;
+  variable line_var : line;
+  file text_var : text;
+
+
+  
 begin
   wait for 20 ns;
+  for i in 0 to 12 loop
   for i in 2 to 99 loop
-    cnt := cnt + 1.0;
-    wf_i <= cnt;
+    x_cnt := x_cnt + 1.0;
+    wf_i <= x_cnt;
     wait for 10 ns;
+  end loop;
   end loop;
   wait;  -- simulation stops here
 end process;
