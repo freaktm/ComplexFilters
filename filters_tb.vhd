@@ -39,21 +39,21 @@ architecture tb of filters_tb is
   end component;
 
   signal clk_i       : std_logic := '1';
-  signal esust_im_i  : real := 0.0;
-  signal esust_re_i  : real := 0.0;
-  signal osust_re_i  : real := 0.0;
-  signal osust_im_i  : real := 0.0;
-  signal etrans_re_i : real := 0.0;
-  signal etrans_im_i : real := 0.0;
-  signal otrans_re_i : real := 0.0;
-  signal otrans_im_i : real := 0.0;
-  signal uf_i        : real := 0.0;
-  signal vf_i        : real := 0.0;
-  signal wf_i        : real := 0.0;
-  signal theta_i     : real := 0.0;
-  signal oeval_i     : real := 0.0;
-  signal stval_i     : real := 0.0;
-  signal mtspeed_i   : real := 0.0;
+  signal esust_im_i  : real := 1.0;
+  signal esust_re_i  : real := 1.0;
+  signal osust_re_i  : real := 1.0;
+  signal osust_im_i  : real := 1.0;
+  signal etrans_re_i : real := 1.0;
+  signal etrans_im_i : real := 1.0;
+  signal otrans_re_i : real := 1.0;
+  signal otrans_im_i : real := 1.0;
+  signal uf_i        : real := 1.0;
+  signal vf_i        : real := 1.0;
+  signal wf_i        : real := 1.0;
+  signal theta_i     : real := 1.0;
+  signal oeval_i     : real := 1.0;
+  signal stval_i     : real := 1.0;
+  signal mtspeed_i   : real := 1.0;
 
 
 
@@ -80,20 +80,22 @@ begin  -- tb
       stval     => stval_i,
       mtspeed   => mtspeed_i);
 
- wf_i <= 2.0;
- vf_i <= 1.0;
- uf_i <= 1.0;
-  -- set mtspeed to 1
-  mtspeed_i <= 1.0;
-
-  -- set theta to 30 
-  theta_i <= 30.0;
-
   -- clock generation
   clk_i <= not clk_i after 10 ns;
 
 
 
+process
+  variable cnt : real := 1.0;
+begin
+  wait for 20 ns;
+  for i in 2 to 99 loop
+    cnt := cnt + 1.0;
+    wf_i <= cnt;
+    wait for 10 ns;
+  end loop;
+  wait;  -- simulation stops here
+end process;
 
 
 
