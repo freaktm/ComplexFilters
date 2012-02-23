@@ -107,8 +107,8 @@ begin
   mtspeed_i <= mtspeed_of_test;
   vf_i <= 1.0;
   uf_i <= 1.0;
-  oeval_i <= 1.0;  
-  stval_i <= 1.0;  
+  oeval_i <= 0.0;  
+  stval_i <= 0.0;  
   wait for 10 ns;
   file_open(output_file,"output.txt",write_mode);
   for i in 2 to 20 loop
