@@ -44,6 +44,12 @@ ufNum = 53; % 1 to xsize
 	uf = x1(ufNum);    
 	wimang = theta(angNum);
     ang = wimang * con;
+	
+	%initialise outputs
+	esust = 1;
+	osust = 1;
+	etrans = 1;
+	otrans = 1;
 
     % turn input variables into strings and concatenate	
 	inputstring = strcat(num2str(mtspeed), ',',num2str(wimang), ',', num2str(wf), ',', num2str(vf), ',', num2str(uf), ','); 
