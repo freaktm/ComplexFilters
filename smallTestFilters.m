@@ -53,8 +53,11 @@ ufNum = 53; % 1 to xsize
 
     % turn input variables into strings and concatenate	
 	inputstring = strcat(num2str(mtspeed), ',',num2str(wimang), ',', num2str(wf), ',', num2str(vf), ',', num2str(uf), ','); 
-	[esust osust etrans otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables 
 	
+	%NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING 
+	[esust osust etrans otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables 
+	newLine = '\n'; % new line, 
+	%NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING NOT WORKING 
 
 	%write line of data	
 	fwrite(dataFile, inputstring); % write the input variables to the first half of data line
@@ -70,7 +73,6 @@ ufNum = 53; % 1 to xsize
 	otransString = strcat(num2str(real(otrans)), '+', num2str(imag(otrans)), 'i'); %get string values for otrans
 	fwrite(dataFile, otransString); % write the otrans values to the data line. 
 	disp(otransString); % write the otrans values to console. 
-	newLine = '\n'; % new line, NOT WORKING
 	fwrite(dataFile, newLine); % new line
 	fwrite(dataFile, 'TEST COMPLETE'); % write Completion Line      
     fclose(dataFile); % close the file
