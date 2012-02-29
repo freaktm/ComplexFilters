@@ -35,8 +35,8 @@ ufNum = 53; % 1 to xsize
 
 
 	%set the filename string and open file for write
-    str5 = strcat(str1, str3, '.', str2); 	
-    dataFile = fopen(str5, 'w');
+    str5 = strcat(str1, str3, '.', str2); 	%build the filename string
+    dataFile = fopen(str5, 'w'); %open the file to overwrite
 	
 	% set the input variables
 	wf = wvals(wfNum);
@@ -51,12 +51,12 @@ ufNum = 53; % 1 to xsize
 	%%i think these values are staying null	
 	[esust, osust, etrans, otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables 
 	
-	
-	fwrite(dataFile, inputstring); % write the input variables to the first half of line
+	%write line of data
+	fwrite(dataFile, inputstring); % write the input variables to the first half of data line
 	esustString = strcat(num2str(real(esust)), ',', num2str(imag(esust))); %get string values for esust
-	fwrite(dataFile, esustString);
+	fwrite(dataFile, esustString); % write the esust values to the data line. 
 	fwrite(dataFile, 'TEST COMPLETE'); % write a line break      
-    fclose(dataFile); 
+    fclose(dataFile); % close the file
 
 disp('Test completed');
 
