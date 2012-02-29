@@ -47,7 +47,7 @@ ufNum = 53; % 1 to xsize
 
     % turn input variables into strings and concatenate	
 	inputstring = strcat(num2str(mtspeed), ',',num2str(wimang), ',', num2str(wf), ',', num2str(vf), ',', num2str(uf), ','); 
-	[esust osust etrans otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables 
+	[esust, osust, etrans, otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables 
 	
 	%write line of data	
 	fwrite(dataFile, inputstring); % write the input variables to the first half of data line
