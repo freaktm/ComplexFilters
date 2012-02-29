@@ -46,25 +46,30 @@ ufNum = 53; % 1 to xsize
     ang = wimang * con;
 	
 	%initialise outputs
-	esust = 1;
-	osust = 1;
-	etrans = 1;
-	otrans = 1;
+	esust = 1 * i;
+	osust = 1 * i;
+	etrans = 1 * i;
+	otrans = 1 * i;
 
     % turn input variables into strings and concatenate	
 	inputstring = strcat(num2str(mtspeed), ',',num2str(wimang), ',', num2str(wf), ',', num2str(vf), ',', num2str(uf), ','); 
-	[esust, osust, etrans, otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables 
+	[esust osust etrans otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables 
 	
+
 	%write line of data	
 	fwrite(dataFile, inputstring); % write the input variables to the first half of data line
 	esustString = strcat(num2str(real(esust)), '+', num2str(imag(esust)), 'i,'); %get string values for esust
 	fwrite(dataFile, esustString); % write the esust values to the data line. 
+	disp(esustString); % write the esust values to console. 
 	osustString = strcat(num2str(real(osust)), '+', num2str(imag(osust)), 'i,'); %get string values for osust
 	fwrite(dataFile, osustString); % write the osust values to the data line. 
+	disp(osustString); % write the osust values to console. 
 	etransString = strcat(num2str(real(etrans)), '+', num2str(imag(etrans)), 'i,'); %get string values for etrans
 	fwrite(dataFile, etransString); % write the etrans values to the data line. 
+	disp(etransString); % write the etrans values to console. 
 	otransString = strcat(num2str(real(otrans)), '+', num2str(imag(otrans)), 'i'); %get string values for otrans
 	fwrite(dataFile, otransString); % write the otrans values to the data line. 
+	disp(otransString); % write the otrans values to console. 
 	newLine = '\n'; % new line, NOT WORKING
 	fwrite(dataFile, newLine); % new line
 	fwrite(dataFile, 'TEST COMPLETE'); % write Completion Line      
