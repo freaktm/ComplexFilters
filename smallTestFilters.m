@@ -51,8 +51,14 @@ ufNum = 53; % 1 to xsize
 	
 	%write line of data	
 	fwrite(dataFile, inputstring); % write the input variables to the first half of data line
-	esustString = strcat(num2str(real(esust)), ',', num2str(imag(esust))); %get string values for esust
+	esustString = strcat(num2str(real(esust)), '+', imag(esust), 'i,'); %get string values for esust
 	fwrite(dataFile, esustString); % write the esust values to the data line. 
+	osustString = strcat(num2str(real(osust)), '+', num2str(imag(osust)), 'i,'); %get string values for osust
+	fwrite(dataFile, osustString); % write the osust values to the data line. 
+	etransString = strcat(num2str(real(etrans)), '+', num2str(imag(etrans)), 'i,'); %get string values for etrans
+	fwrite(dataFile, etransString); % write the etrans values to the data line. 
+	otransString = strcat(num2str(real(otrans)), '+', num2str(imag(otrans)), 'i'); %get string values for otrans
+	fwrite(dataFile, otransString); % write the otrans values to the data line. 
 	newLine = '\n'; % new line, NOT WORKING
 	fwrite(dataFile, newLine); % new line
 	fwrite(dataFile, 'TEST COMPLETE'); % write Completion Line      
