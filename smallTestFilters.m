@@ -47,12 +47,14 @@ ufNum = 53; % 1 to xsize
 
     % turn input variables into strings and concatenate	
 	inputstring = strcat(num2str(mtspeed), ',',num2str(wimang), ',', num2str(wf), ',', num2str(vf), ',', num2str(uf), ','); 
-	[esust, osust, etrans, otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables
+	
+	%%i think these values are staying null	
+	[esust, osust, etrans, otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables 
+	
+	
 	fwrite(dataFile, inputstring); % write the input variables to the first half of line
-	fwrite(dataFile, real(esust)); 
-	%fwrite(dataFile, num2str(real(esust))); - need to find out how to convert complex number into string, these methods dont work
-	%fwrite(dataFile, osust);
-	%fwrite(dataFile, num2str(etrans)); 
+	esustString = strcat(num2str(real(esust)), ',', num2str(imag(esust))); %get string values for esust
+	fwrite(dataFile, esustString);
 	fwrite(dataFile, 'TEST COMPLETE'); % write a line break      
     fclose(dataFile); 
 
