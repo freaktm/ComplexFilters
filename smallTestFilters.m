@@ -51,7 +51,7 @@ ufNum = 53; % 1 to xsize
 	
 	%write line of data	
 	fwrite(dataFile, inputstring); % write the input variables to the first half of data line
-	esustString = strcat(num2str(real(esust)), '+', imag(esust), 'i,'); %get string values for esust
+	esustString = strcat(num2str(real(esust)), '+', num2str(imag(esust)), 'i,'); %get string values for esust
 	fwrite(dataFile, esustString); % write the esust values to the data line. 
 	osustString = strcat(num2str(real(osust)), '+', num2str(imag(osust)), 'i,'); %get string values for osust
 	fwrite(dataFile, osustString); % write the osust values to the data line. 
