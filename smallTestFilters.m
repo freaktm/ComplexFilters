@@ -46,10 +46,10 @@ ufNum = 53; % 1 to xsize
     ang = wimang * con;
 	
 	%initialise outputs
-	esust = 1 * i;
-	osust = 1 * i;
-	etrans = 1 * i;
-	otrans = 1 * i;
+	esust = 0 * i;
+	osust = 0 * i;
+	etrans = 0 * i;
+	otrans = 0 * i;
 
     % turn input variables into strings and concatenate	
 	inputstring = strcat(num2str(mtspeed), ',',num2str(wimang), ',', num2str(wf), ',', num2str(vf), ',', num2str(uf), ','); 
@@ -70,7 +70,7 @@ ufNum = 53; % 1 to xsize
 	etransString = strcat(num2str(real(etrans)), '+', num2str(imag(etrans)), 'i,'); %get string values for etrans
 	fwrite(dataFile, etransString); % write the etrans values to the data line. 
 	disp(etransString); % write the etrans values to console. 
-	otransString = strcat(num2str(real(otrans)), '+', num2str(imag(otrans)), 'i'); %get string values for otrans
+	otransString = strcat(num2str(real(otrans)), '+', num2str(imag(otrans)), 'i \n'); %get string values for otrans
 	fwrite(dataFile, otransString); % write the otrans values to the data line. 
 	disp(otransString); % write the otrans values to console. 
 	fwrite(dataFile, newLine); % new line
