@@ -47,15 +47,15 @@ ufNum = 53; % 1 to xsize
 
     % turn input variables into strings and concatenate	
 	inputstring = strcat(num2str(mtspeed), ',',num2str(wimang), ',', num2str(wf), ',', num2str(vf), ',', num2str(uf), ','); 
+	[esust osust etrans otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables 
 	
-	%%i think these values are staying null	
-	[esust, osust, etrans, otrans] = createComplexFiltervals(uf, vf, wf, ang, 0, 0, mtspeed, 40);% calculate output variables 
-	
-	%write line of data
+	%write line of data	
 	fwrite(dataFile, inputstring); % write the input variables to the first half of data line
 	esustString = strcat(num2str(real(esust)), ',', num2str(imag(esust))); %get string values for esust
 	fwrite(dataFile, esustString); % write the esust values to the data line. 
-	fwrite(dataFile, 'TEST COMPLETE'); % write a line break      
+	newLine = '\n'; % new line, NOT WORKING
+	fwrite(dataFile, newLine); % new line
+	fwrite(dataFile, 'TEST COMPLETE'); % write Completion Line      
     fclose(dataFile); % close the file
 
 disp('Test completed');
